@@ -106,8 +106,8 @@
                   $sqldata="Select * from members where mem_id=$mem_id";
                   $rese2=mysqli_query($conn,$sqldata);
                   $row2=mysqli_fetch_assoc($rese2);
-                  $admin;
-                  $user;
+                  $admin="";
+                  $user="";
                   if($row2['mem_status']=="admin"){
                     $admin="selected";
                   }else{

@@ -62,16 +62,7 @@
                 <textarea name="mem_address" rows="3" class="form-control"></textarea>
               </div>
 
-
-              <div class="form-group mb-2 mr-sm-2">
-                  <center>  
-                    <!-- localhost-》6LeaDNoUAAAAAED1fOQQkl9VrcwT2ZxB_sKgs7X4 -->
-                    <!-- worawin。tk -》6LezDdoUAAAAAKzer766-7kq-7rCZ1A2V18TkPRC -->
-                      <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LezDdoUAAAAAKzer766-7kq-7rCZ1A2V18TkPRC"></div>
-                  </center>
-              </div>
-
-              <button type="submit" name="submit" disabled id="submit" class="btn btn-success btn-block mb-2"><?php echo $signup?></button>
+              <button type="submit" name="submit" id="submit" class="btn btn-success btn-block mb-2"><?php echo $signup?></button>
               <span class="float-right"><?php echo $signin?><a href="login.php" data-toggle="modal" data-target="#mySignin" data-dismiss="modal"><?php echo $click?></span></a>
               </form>
 

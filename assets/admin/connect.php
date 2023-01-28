@@ -1,5 +1,5 @@
 <?php
-    $conn = new mysqli('localhost','root','','smartwatch');
+    $conn = new mysqli('localhost','root','','clothing_store');
     //echo $conn->connect_error;//แสดงerror แบบตัวหนังสือ
    // echo $conn->connect_errno; //แสดงerror แบบตัวเลข
     $conn->set_charset("utf8");//รองรับ utf8 ภาษาไทย

@@ -17,18 +17,21 @@ if(isset($mem_id)){
     $product_price=$rowse['product_price'];
   
     if($carttotal==4){
-        echo '<script>alert("เลือกสินค้าได้มากสุด4ชิ้น") </script>';
-        header('Refresh:0; url=../stores.php');//สำเร็จ
-       
+        echo '<script>';
+        echo "window.location='../stores.php?do=max';";
+        echo '</script>';
     }else{
         if(isset($_POST['addcart'])){
             $sql="INSERT INTO `cart` VALUES ('','$product_id','$mem_id','$product_price','$datetime')";
              $res= $conn->query($sql) or die($conn->error);
                 if($res){
-                    echo '<script>alert("เพิ่มลงตระกร้าแล้ว") </script>';
-                  header('Refresh:0; url=../stores.php');//สำเร็จ
+                    echo '<script>';
+                    echo "window.location='../stores.php?do=success';";
+                    echo '</script>';
                 }else{
-                    echo $sql;
+                    echo '<script>';
+                    echo "window.location='../stores.php?do=failed';";
+                    echo '</script>';
                 }
         }else{
             
