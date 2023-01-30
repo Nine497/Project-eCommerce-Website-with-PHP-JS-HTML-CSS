@@ -135,7 +135,7 @@ if ($_REQUEST['data'] == 'payment') {
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary btn-grad">ยืนยันชำระเงิน</button>
+          <button type="submit" class="btn btn-primary btn-grad"  onclick="confirmPayment()">ยืนยันชำระเงิน</button>
           <a href="orderhistory.php" class="btn btn-danger btn-grad" data-dismiss="modal">ยกเลิก</a>
         </div>
       </div>
@@ -221,4 +221,17 @@ if ($_REQUEST['data'] == 'payment') {
     var num = parseFloat(ele.value);
     ele.value = addCommas(num.toFixed(2));
   }
+</script>
+
+<script>
+function confirmPayment() {
+  Swal.fire({
+    title: 'ยืนยันการชำระเงิน',
+    text: 'กรุณารอการยืนยันจากระบบ',
+    icon: 'info',
+    timer: 30000,
+    showCancelButton: false,
+    confirmButtonText: 'ตกลง'
+  });
+}
 </script>

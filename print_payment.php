@@ -68,7 +68,7 @@ include('config.php');
         <div>
             <br>
             <h3>
-                <center>SmartWatch
+                <center> WanThetDee Shop
             </h3>
             </center>
             <h4>
@@ -95,10 +95,10 @@ include('config.php');
                     </div>
                     <div class="col-sm">
                         <div style="text-align: left;font-weight:bold;">ข้อมูลติดต่อร้าน</div>
-                        <div style="text-align: left;"> ชื่อร้าน : SmartWatch</div>
+                        <div style="text-align: left;">ชื่อร้าน : WanThetDee Shop</div>
                         <div style="text-align: left;">เบอร์ : 0123456788</div>
-                        <div style="text-align: left;">อีเมลล์ : info@example.com</div>
-                        <div style="text-align: left;">ที่อยู่ : บ้านบึง ชลบุรี 20220</div>
+                        <div style="text-align: left;">อีเมลล์ : WanThetDeeShop@gmail.com</div>
+                        <div style="text-align: left;">ที่อยู่ : BigC Extra หาดใหญ่ 112</div>
 
                     </div>
                     <div class="col-sm">

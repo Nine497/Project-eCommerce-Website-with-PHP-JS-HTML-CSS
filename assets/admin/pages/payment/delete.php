@@ -7,16 +7,12 @@ $payment_id = $_GET['payment_id'];
 $sql = "DELETE FROM `payment` WHERE payment_id = $payment_id";
 
 if (mysqli_query($conn, $sql)) {
-        echo '<script> alert("ลบข้อมูลเสร็จสิ้น!")</script>';
-        header('Refresh:0; url=index.php');
         echo '<script>';
-        echo "window.location='index.php?do=success';";
+        echo "window.location='index.php?do=delete_success';";
         echo '</script>';
 } else {
-        echo "Error deleting record: " . mysqli_error($connect);
-        header('Refresh:0; url=index.php');
         echo '<script>';
-        echo "window.location='index.php?do=failed';";
+        echo "window.location='index.php?do=delete_failed';";
         echo '</script>';
 }
 mysqli_close($conn);

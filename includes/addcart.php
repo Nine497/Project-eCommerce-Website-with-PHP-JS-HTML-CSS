@@ -42,10 +42,9 @@ if(isset($mem_id)){
     }
     
 }else{//เช็คเมื่อไม่ได้loginแล้วกดเพิม่สินค้า
-    echo ("<script LANGUAGE='JavaScript'>
-        window.alert(' เข้าสู่ระบบก่อน');
-        window.location.href='../index.php';
-        </script>"); 
+        echo '<script>';
+        echo "window.location='../index.php?do=login';";
+        echo '</script>';
 
 }
 ?>

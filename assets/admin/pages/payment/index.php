@@ -72,9 +72,35 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/responsive/responsive.bootstrap4.min.css"><!-- responsive-->
+
+  <script src="../../../../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="../../../../node_modules/sweetalert2/dist/sweetalert2.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
+  <?php
+  if (isset($_GET['do'])) {
+    if ($_GET['do'] == 'updated_success') {
+      echo '<script type="text/javascript">
+        Swal.fire({
+            title: "แก้ไขข้อมูลผู้ใช้เสร็จสิ้น",
+            icon: "success",
+            text: "การแก้ไขข้อมูลผู้ใช้สำเร็จ",
+            type: "success"
+        })        
+        </script>';
+    } else if ($_GET['do'] == 'updated_failed') {
+      echo '<script type="text/javascript">
+        Swal.fire({
+            title: "แก้ไขข้อมูลผู้ใช้ไม่สำเร็จ",
+            icon: "error",
+            text: "การแก้ไขข้อมูลผู้ใช้ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
+            type: "error"
+        })        
+        </script>';
+    }
+  }
+  ?>
   <!-- Site wrapper -->
   <div class="wrapper">
     <!-- Navbar & Main Sidebar Container -->
@@ -163,8 +189,8 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                         <button name="" type="button" class="btn btn-sm btn-warning text-white"><i class='fas fa-edit'>
                           </i>Checking</button>
                       </a>
-                      <a href="delete.php?payment_id=<?php echo $row['payment_id'] ?>"
-                        onClick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่');" class="btn btn-sm btn-danger">
+                      <a class="btn btn-sm btn-danger text-white"
+                        onclick="deletePayment(<?php echo $row['payment_id'] ?>)">
                         <i class="fas fa-trash-alt"></i> Delete</a>
                     </td>
                   </tr>
@@ -182,7 +208,8 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                           </button>
                         </div>
                         <div class="modal-body">
-                          <form id="myform1" method="post" action="?admin=update&id=<?php echo $row['payment_id']; ?>">
+                          <form id="payment-form" method="post"
+                            action="?admin=update&id=<?php echo $row['payment_id']; ?>">
                             <div class="form-group">
                               <?php
                               $sql3 = $conn->query("select * from payment where payment_id = '$row[payment_id]'");
@@ -198,11 +225,13 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                             <div class="form-group">
                               <lable>สถานะ:<lable>
                                   <select name="status" class="form-control">
-                                    <option value="ตรวจสอบ" <?php if ($show3['pay_status'] == 0) {
+                                    <option value="ตรวจสอบ" <?php if ($show3['payment_status'] == "ตรวจสอบ") {
                                       echo 'selected';
-                                    } ?>>ตรวจสอบ
+                                    } ?>   <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
+                                          echo 'disabled';
+                                        } ?>>ตรวจสอบ
                                     </option>
-                                    <option value="ชำระเรียบร้อย" <?php if ($show3['pay_status'] == 1) {
+                                    <option value="ชำระเรียบร้อย" <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
                                       echo 'selected';
                                     } ?>>
                                       ชำระเรียบร้อย</option>
@@ -211,18 +240,13 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Save changes</button>
-
+                          <button type="submit" class="btn btn-primary" onclick="submitFormWithSelectedStatus()">Save
+                            changes</button>
                         </div>
                         </form>
                       </div>
                     </div>
                   </div>
-
-
-
-
-
                   <?php $i++;
                 } ?>
               </tbody>
@@ -273,16 +297,42 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
       });
     });
 
-    function deleteItem(mem_id) {
-      if (confirm('คุณต้องการลบข้อมูลนี้หรือไม่') == true) {
-        window.location = `delete.php?mem_id=${mem_id}`;
-        // window.location='delete.php?id='+id;
-      } else {
-
-      }
-    };
-
   </script>
+  <script>
+    function deletePayment(payment_id) {
+      Swal.fire({
+        title: 'Delete Payment',
+        text: "Are you sure you want to delete this Payment?",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, I am sure!',
+        cancelButtonText: 'No, I am not sure'
+      }).then((result) => {
+        if (result.value) {
+          window.location.href = "delete.php?payment_id=" + payment_id;
+        }
+      })
+    }
+  </script>
+
+  <script>
+    function submitFormWithSelectedStatus() {
+      // Get the select element by name
+      var select = document.querySelector('select[name="status"]');
+
+      // Get the selected value
+      var selectedStatus = select.value;
+
+      // Update the form action with the selected status
+      document.getElementById("payment-form").action += '&status=' + selectedStatus;
+
+      // Submit the form
+      document.getElementById("payment-form").submit();
+    }
+  </script>
+
 
 </body>
 

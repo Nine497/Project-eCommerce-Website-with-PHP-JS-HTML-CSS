@@ -40,6 +40,7 @@
         echo '<script type="text/javascript">
           Swal.fire({
               title: "เพิ่มไปยังรถเข็นเรียบร้อย",
+              icon:"success",
               text: "เพิ่มไปยังรถเข็นเรียบร้อย",
               type: "success"
           });
@@ -48,6 +49,7 @@
         echo '<script type="text/javascript">
           Swal.fire({
               title: "เกิดข้อผิดพลาด",
+              icon:"error", 
               text: "ไม่สามารถเพิ่มไปยังรถเข็นได้",
               type: "error"
           });
@@ -56,6 +58,7 @@
         echo '<script type="text/javascript">
         Swal.fire({
             title: "เกิดข้อผิดพลาด",
+            icon:"error", 
             text: "ไม่สามารถเพิ่มสินค้าไปยังรถเข็นได้เกิน 4 ชิ้น",
             type: "error"
         });

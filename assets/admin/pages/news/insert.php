@@ -15,10 +15,13 @@
         $res= $conn->query($sql) or die($conn->error);
             if($res){
                 $_SESSION['news_img'] = $new_namenews;
-                echo '<script>alert("เพิ่มข่าวสำเร็จแล้ว") </script>';
-                header('Refresh:0; url=index.php');//สำเร็จ
+                echo '<script>';
+                echo "window.location='index.php?do=insert_success';";
+                echo '</script>';
             }else{
-                echo $sql;
+                echo '<script>';
+                echo "window.location='index.php?do=insert_failed';";
+                echo '</script>';
             }
         }
 

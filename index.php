@@ -57,6 +57,14 @@
                   type: "error"
               })        
               </script>';
+          }else if ($_GET['do'] == 'login') {
+            echo '<script type="text/javascript">
+              Swal.fire({
+                  title: "กรุณาเข้าสู่ระบบ",
+                  text: "กรุณาเข้าสู่ระบบหรือสมัครสมาชิกก่อนใช้งาน",
+                  type: "error"
+              })        
+              </script>';
           }
     }
 

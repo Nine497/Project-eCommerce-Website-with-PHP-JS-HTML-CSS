@@ -55,8 +55,71 @@ include_once('../../connect.php');
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/responsive/responsive.bootstrap4.min.css"><!-- responsive-->
+
+  <script src="../../../../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="../../../../node_modules/sweetalert2/dist/sweetalert2.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
+
+<?php
+  if (isset($_GET['do'])) {
+    if ($_GET['do'] == 'success') {
+      echo '<script type="text/javascript">
+        Swal.fire({
+            title: "แก้ไขข้อมูลสินค้าเสร็จสิ้น",
+            icon: "success",
+            text: "การแก้ไขข้อมูลสินค้าสำเร็จ",
+            type: "success"
+        })        
+        </script>';
+    }else if ($_GET['do'] == 'failed') {
+      echo '<script type="text/javascript">
+        Swal.fire({
+            title: "แก้ไขข้อมูลสินค้าไม่สำเร็จ",
+            icon: "error",
+            text: "การแก้ไขข้อมูลสินค้าไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
+            type: "error"
+        })        
+        </script>';
+    } else if ($_GET['do'] == 'delete_success') {
+      echo '<script type="text/javascript">
+        Swal.fire({
+            title: "ลบข้อมูลสินค้าสำเร็จ",
+            icon: "success",
+            text: "การลบข้อมูลสินค้าสำเร็จ",
+            type: "success"
+        })        
+        </script>';
+    } else if ($_GET['do'] == 'delete_failed') {
+      echo '<script type="text/javascript">
+        Swal.fire({
+            title: "ลบข้อมูลสินค้าไม่สำเร็จ",
+            icon: "error",
+            text: "การลบข้อมูลสินค้าไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
+            type: "error"
+        })        
+        </script>';
+    } else if ($_GET['do'] == 'insert_success') {
+      echo '<script type="text/javascript">
+        Swal.fire({
+            title: "เพิ่มข้อมูลสินค้าสำเร็จ",
+            icon: "success",
+            text: "การเพิ่มข้อมูลสินค้าสำเร็จ",
+            type: "success"
+        })        
+        </script>';
+    } else if ($_GET['do'] == 'insert_failed') {
+      echo '<script type="text/javascript">
+        Swal.fire({
+          title: "เพิ่มข้อมูลสินค้าไม่สำเร็จ",
+          icon: "error",
+          text: "การเพิ่มข้อมูลสินค้าไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
+          type: "error"
+        })        
+        </script>';
+    }
+  }
+  ?>
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar & Main Sidebar Container -->
@@ -119,7 +182,7 @@ include_once('../../connect.php');
                   <a href="form-edit.php?product_id=<?php echo $row['product_id']; ?>" class="btn btn-sm btn-warning text-white">
                     <i class="fas fa-edit"></i> edit
                   </a> 
-                  <a href="delete.php?product_id=<?php echo $row['product_id']?>" onClick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่');" class="btn btn-sm btn-danger">
+                  <a class="btn btn-sm btn-danger text-white" onclick="deleteProducts(<?php echo $row['product_id'] ?>)">
                     <i class="fas fa-trash-alt"></i> Delete
                   </a>
                 </td>
@@ -173,15 +236,25 @@ include_once('../../connect.php');
       "responsive": true
     });
   });
-
-  function deleteItem (id) { 
-    if( confirm('คุณต้องการลบข้อมูลนี้หรือไม่') == true){
-      window.location=`delete.php?id=${id}`;
-      // window.location='delete.php?id='+id;
-    }
-  };
-
 </script>
 
+<script>
+    function deleteProducts(product_id) {
+      Swal.fire({
+        title: 'Delete Product',
+        text: "Are you sure you want to delete this product?",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, I am sure!',
+        cancelButtonText: 'No, I am not sure'
+      }).then((result) => {
+        if (result.value) {
+          window.location.href = "delete.php?product_id=" + product_id;
+        }
+      })
+    }
+  </script>
 </body>
 </html>

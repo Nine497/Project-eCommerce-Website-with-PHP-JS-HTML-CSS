@@ -66,31 +66,35 @@ $res = mysqli_query($conn, $sql);
     if ($_GET['do'] == 'success') {
       echo '<script type="text/javascript">
         Swal.fire({
-            title: "แก้ไขข้อมูลเสร็จสิ้น",
-            text: "การแก้ไขข้อมูลสำเร็จ",
-            type: "error"
+            title: "แก้ไขข้อมูลผู้ใช้เสร็จสิ้น",
+            icon: "success",
+            text: "การแก้ไขข้อมูลผู้ใช้สำเร็จ",
+            type: "success"
         })        
         </script>';
     } else if ($_GET['do'] == 'failed') {
       echo '<script type="text/javascript">
         Swal.fire({
-            title: "แก้ไขข้อมูลไม่สำเร็จ",
-            text: "การแก้ไขข้อมูลไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
+            title: "แก้ไขข้อมูลผู้ใช้ไม่สำเร็จ",
+            icon: "error",
+            text: "การแก้ไขข้อมูลผู้ใช้ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
             type: "error"
         })        
         </script>';
-    }else if ($_GET['do'] == 'delete_success') {
+    } else if ($_GET['do'] == 'delete_success') {
       echo '<script type="text/javascript">
         Swal.fire({
             title: "ลบข้อมูลผู้ใช้สำเร็จ",
+            icon: "success",
             text: "การลบข้อมูลผู้ใช้สำเร็จ",
-            type: "error"
+            type: "success"
         })        
         </script>';
-    }else if ($_GET['do'] == 'delete_failed') {
+    } else if ($_GET['do'] == 'delete_failed') {
       echo '<script type="text/javascript">
         Swal.fire({
-            title: "ลบข้อมูลผู้ไม่ใช้สำเร็จ",
+            title: "ลบข้อมูลผู้ใช้ไม่สำเร็จ",
+            icon: "error",
             text: "การลบข้อมูลผู้ใช้ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
             type: "error"
         })        
