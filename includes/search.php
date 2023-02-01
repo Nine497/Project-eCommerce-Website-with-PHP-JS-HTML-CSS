@@ -95,7 +95,7 @@ html, body{
  
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a><label style="padding:3px"> <b>SMARTWATCH</b></label></a>
+  <a><label style="padding:3px"> <b>WanThetDee</b></label></a>
   <a><label>ค้นหา</label><input type="text" class="form-control searching"id="search"></a>
   <a><label>แบรนด์สินค้า</label></a>
   <div class="nav-left form-check form-check-inline setting">

@@ -33,7 +33,7 @@ $rowcount = mysqli_fetch_array($ressultcount);
 $_SESSION['carttotal'] = $rowcount['carttotal'];
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
-  <a class="navbar-brand " href="index.php"> SmartWatch </a>
+  <a class="navbar-brand " href="index.php"> WanThetDee Shop </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
     aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

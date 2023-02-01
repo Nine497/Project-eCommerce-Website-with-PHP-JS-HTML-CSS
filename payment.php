@@ -39,7 +39,7 @@ if ($_REQUEST['data'] == 'payment') {
   <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
   <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
   <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
-  <title>SmartWatch Shop</title>
+  <title>WanThetDee Shop</title>
 </head>
 <style>
   body {
