@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="node_modules/css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/css/flag-icon.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
-    <script src="../node_modules/sweetalert2/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
     <title>WanThetDee Shop</title>
 </head>
 <style>
@@ -29,6 +29,29 @@
 </style>
 
 <body>
+    <?php
+    if (isset($_GET['do'])) {
+        if ($_GET['do'] == 'success') {
+            echo '<script type="text/javascript">
+                Swal.fire({
+                    title: "สำเร็จ !",
+                    icon: "success",
+                    text: "อัพเดทข้อมูลผู้ใช้เรียบร้อยแล้ว !",
+                    type: "success"
+                })        
+                </script>';
+        } else if ($_GET['do'] == 'failed') {
+            echo '<script type="text/javascript">
+                Swal.fire({
+                    title: "ไม่สำเร็จ !",
+                    text: "อัพเดทข้อมูลผู้ใช้ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
+                    type: "error"
+                })        
+                </script>';
+        }
+        ;
+    }
+    ?>
     <?php
     require_once 'config.php';
     include('includes/navbar.php') ?>

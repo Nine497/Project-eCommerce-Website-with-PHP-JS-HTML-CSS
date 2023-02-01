@@ -54,7 +54,7 @@
               type: "error"
           });
       </script>';
-      } else if ($_GET['do'] == 'max'){
+      } else if ($_GET['do'] == 'max') {
         echo '<script type="text/javascript">
         Swal.fire({
             title: "เกิดข้อผิดพลาด",

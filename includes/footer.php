@@ -65,7 +65,7 @@
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3 bg-light text-dark font-weight-bold">© 2020 Copyright:
-    <a class="text-dark"> Worawin</a>
+    <a class="text-dark"> Sumat & Ratapumin</a>
   </div>
   <!-- Copyright -->
 

@@ -73,35 +73,38 @@
     max-width: 100%;
     width: 95px;
   }
-    .display-5{
-    font-size:25px;
-}
-   
-    .card-5 {
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-}
+
+  .display-5 {
+    font-size: 25px;
+  }
+
+  .card-5 {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+  }
 </style>
 
-<?php 
+<?php
 include_once('./php/connect.php');
-$sql="SELECT * FROM product ORDER BY product_id DESC LIMIT 3";
-$res=mysqli_query($conn,$sql);
+$sql = "SELECT * FROM product ORDER BY product_id DESC LIMIT 3";
+$res = mysqli_query($conn, $sql);
 ?>
 <!-- Show Shop -->
 <div class="container"><br>
-    <h3><center>New Collection</center></h3><br>
+  <h3>
+    <center>New Collection</center>
+  </h3><br>
   <div id="result">
     <div class="row">
       <?php while ($row = mysqli_fetch_array($res)) { ?>
         <div class="col-sm-4 mt-3">
-          <div class="card shadow-sm">
+          <div class="card shadow-sm" style="width: 330px; height: 520px;">
             <img src="assets/image/store/<?php echo $row["product_image"] ?>" class="card-img-top" alt="Product image">
             <div class="card-body">
               <h5 class="card-title text-primary">
                 <?php echo $row["product_name"]; ?>
               </h5>
               <p class="card-text text-secondary">
-                <?php echo (strlen($row["product_detail"]) > 200) ? substr($row["product_detail"], 0, 197) . '...' : $row["product_detail"]; ?>
+                <?php echo (strlen($row["product_detail"]) > 100) ? substr($row["product_detail"], 0, 97) . '...' : $row["product_detail"]; ?>
               </p>
 
               <p class="card-text text-success">
@@ -126,9 +129,9 @@ $res=mysqli_query($conn,$sql);
         <!-- The Modal -->
         <div class="modal fade" style="" id="myModal<?php echo $row["product_id"]; ?>">
           <div class="modal-dialog" style="max-width: 50%;  position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);">
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);">
             <div class="modal-content"> <!-- Modal Header -->
               <div class="modal-header">
                 <h5 class="modal-title">

@@ -13,7 +13,19 @@ if ($_REQUEST['data'] == 'confirm') {
     $mem_address = $_REQUEST['mem_address'];
     $sql = $conn->query("UPDATE `members` SET `mem_fname`='$mem_fname',`mem_lname`='$mem_lname',`mem_email`='$mem_email',`mem_tel`='$mem_tel',`mem_address`='$mem_address' WHERE mem_id = '$_SESSION[mem_id]'");
     //function check แก้ไขข้อมูล จะมี alert ขึ้นมา ตามเงื่อนไข
-    Chk_Update($sql, 'อัพเดทข้อมูลเรียบร้อย');
+    if ($sql > 0) {
+
+        echo '<script>';
+        echo "window.location='profile.php?do=success';";
+        echo '</script>';
+
+    } else {
+
+        echo '<script>';
+        echo "window.location='profile.php?do=failed';";
+        echo '</script>';
+
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -23,8 +35,10 @@ if ($_REQUEST['data'] == 'confirm') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> <!--เรียกbootstrap -->
-    <link rel="stylesheet" href="node_modules/font-awesome5/css/fontawesome-all.css"> <!--เรียกfontawesome -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!--เรียกbootstrap -->
+    <link rel="stylesheet" href="node_modules/font-awesome5/css/fontawesome-all.css">
+    <!--เรียกfontawesome -->
     <link rel="stylesheet" href="node_modules/css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/css/flag-icon.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
@@ -129,10 +143,14 @@ if ($_REQUEST['data'] == 'confirm') {
     </div>
     </div>
     <?php include('includes/footer.php'); ?>
-    <script src="node_modules/jquery/dist/jquery.min.js"></script><!--เรียกjquery -->
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script><!--เรียกpopper -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script><!--เรียกbootstrap.min.js -->
-    <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script><!--เรียกjquery.validate -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <!--เรียกjquery -->
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <!--เรียกpopper -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!--เรียกbootstrap.min.js -->
+    <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <!--เรียกjquery.validate -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
@@ -157,7 +175,6 @@ if ($_REQUEST['data'] == 'confirm') {
                 // Do nothing
             }
         });
-
     </script>
 </body>
 
