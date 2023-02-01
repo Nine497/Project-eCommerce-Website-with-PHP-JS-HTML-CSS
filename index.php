@@ -78,6 +78,7 @@
     <?php
     include('includes/slidephoto.php');
     ?>
+    <br>
     <?php include('news.php'); ?>
     <?php include('includes/storemini.php'); ?>
 

@@ -2,8 +2,13 @@
 <style>
     div{
         font-family: 'Prompt', sans-serif;
+        
 
     }
+    
+    .view {
+    height: 500px; /* set desired height */
+}
 </style>
 <!--Carousel Wrapper-->
 <div id="carousel-example-2" class="w-100 carousel slide carousel-fade" data-ride="carousel">
@@ -15,7 +20,8 @@
     </ol>
     <!--/.Indicators-->
     <!--Slides-->
-    <div class="carousel-inner" role="listbox">
+    
+    <div class="carousel-inner" role="listbox" >
         <div class="carousel-item active">
             <div class="view">
                 <img class="d-block w-100" src="assets/image/storesbar/s1.jpg" alt="First slide">
@@ -28,7 +34,7 @@
         <div class="carousel-item">
             <!--Mask color-->
             <div class="view">
-                <img class="d-block w-100" src="assets/image/storesbar/s2.jpg" alt="adidas" >
+                <img class="d-block w-100" src="assets/image/storesbar/s2.jpg"  alt="adidas" >
                 <div class="mask rgba-black-strong"></div>
             </div>
             <div class="carousel-caption">
@@ -39,7 +45,7 @@
         <div class="carousel-item">
             <!--Mask color-->
             <div class="view">
-                <img class="d-block w-100" src="assets/image/storesbar/s3.jpg" alt="Converse">
+                <img class="d-block w-100" src="assets/image/storesbar/s3.jpg"  alt="Converse">
                 <div class="mask rgba-black-slight"></div>
             </div>
             <div class="carousel-caption">

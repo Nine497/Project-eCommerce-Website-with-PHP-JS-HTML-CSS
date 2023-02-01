@@ -15,5 +15,6 @@ while($show=$sql->fetch_assoc()){
 ?>
 <center>
 <img src="assets/image/news/<?php echo $show['new_image']?>" class="border-bottom border-primary card-4 imgsxs"></center>
+<br>
 <?php }?>
 </div>
