@@ -3,58 +3,59 @@
 <?php require_once('php/connect.php');
 include('includes/function.php') ?>
 <?php
-
-$mem_id = $_SESSION['mem_id'];
-$datetime = date("Y-m-d H:i:s");
 if ($_REQUEST['data'] == 'confirm') {
-    $order = date('dmyHis');
-    $mem_address = $_REQUEST['mem_address'];
-    $shipping = $_REQUEST['shipping'];
-    $summy = $_SESSION['summy'];
-    $sql = "SELECT SUM(cart.order_count) AS order_count FROM `cart` WHERE cart.mem_id = $mem_id;";
-    $count = mysqli_query($conn, $sql);
-    $order_count1 = mysqli_fetch_array($count);
-    $order_count = $order_count1['order_count'];
-
+    $mem_id = $_SESSION['mem_id'];
+    $shipping = $_POST['shipping'];
     if (!isset($shipping) || $shipping == "") {
         echo '<script>';
         echo "window.location='order.php?do=emptyshipping';";
         echo '</script>';
     } else {
-        // Start a transaction
-        mysqli_begin_transaction($conn);
+        $sql = "SELECT * FROM cart WHERE mem_id='$mem_id'";
+        $result = $conn->query($sql);
 
-        // Delete from cart
-        $conn->query("DELETE FROM cart WHERE mem_id = '$mem_id'");
+        if ($result->num_rows > 0) {
+            $order_number = date("dmyHis");
+            $address = $_POST['mem_address'];
+            $order_shipping = $shipping;
+            $order_status = 0;
+            $order_date = date("Y-m-d H:i:s");
+            $order_count = 0;
+            $price_total = 0;
 
-        // Insert into orders
-        $sql = "INSERT INTO `orders`(`order_id`, `order_number`, `mem_id`, `address`, `order_shipping`, `price_total`, `order_status`, `order_date`, `order_count`) VALUES ('', '$order', '$mem_id', '$mem_address', '$shipping', '$summy', '0', '$datetime', '$order_count')";
-        $res = mysqli_query($conn, $sql);
-        if (!$res) {
-            mysqli_rollback($conn);
-            echo "Error: " . mysqli_error($conn);
-            echo "<br>";
-            echo "SQL: " . $sql;
-        } else {
-            // Insert into order_detail
-            $sql2 = "INSERT INTO `order_detail`(`order_detail_id`, `order_number`, `product_id`, `product_price`, `order_count`) VALUES ('','$order','$_SESSION[product_id]','$_SESSION[product_price]', '$order_count')";
-            $resins = mysqli_query($conn, $sql2);
-            if (!$resins) {
-                mysqli_rollback($conn);
-                mysqli_commit($conn);
-                echo '<script>';
-                echo "window.location='order.php?do=failed';";
-                echo '</script>';
-            } else {
-                mysqli_commit($conn);
-                echo '<script>';
-                echo "window.location='orderhistory.php?do=success';";
-                echo '</script>';
+            while ($row = $result->fetch_assoc()) {
+                $product_id = $row['product_id'];
+                $product_price = $row['product_price'];
+                $cart_order_count = $row['order_count'];
+                $order_count += $cart_order_count;
+
+                $price_total += $product_price * $cart_order_count;
+
+                $order_detail_sql = "INSERT INTO order_detail (order_number, product_id, product_price, order_count_detail)
+                                VALUES ('$order_number', '$product_id', '$product_price', '$cart_order_count')";
+                $conn->query($order_detail_sql);
             }
+
+            $order_sql = "INSERT INTO orders (order_number, mem_id, address, order_shipping, price_total, order_status, order_date, order_count)
+            VALUES ('$order_number', '$mem_id', '$address', '$order_shipping', '$price_total', '$order_status', '$order_date', '$order_count')";
+            $conn->query($order_sql);
+
+            $delete_sql = "DELETE FROM cart WHERE mem_id='$mem_id'";
+            $conn->query($delete_sql);
+            mysqli_commit($conn);
+            echo '<script>';
+            echo "window.location='orderhistory.php?do=success';";
+            echo '</script>';
+        } else {
+            echo '<script>';
+            echo "window.location='orderhistory.php?do=failed';";
+            echo '</script>';
         }
+
+        $conn->close();
+
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,32 +100,37 @@ if ($_REQUEST['data'] == 'confirm') {
         echo 'title: "ยกเลิกรายการทั้งหมดสำเร็จ",';
         echo 'icon: "success",';
         echo '});';
-        echo 'setTimeout(function(){ window.location.href="index.php"; }, 2000);';
         echo '</script>';
     }
     ?>
     <?php
-    if (isset($_SESSION['mem_id']) == "") {
-        echo '<script type="text/javascript">
+    if (isset($_GET['do'])) {
+        if ($_GET['do'] == 'failed') {
+            echo '<script type="text/javascript">
         Swal.fire({
-            title: "กรุณาเข้าสู่ระบบก่อน",
-            text: "คุณต้องเข้าสู่ระบบก่อน",
+            title: "คำสั่งซื้อล้มเหลว",
+            text: "เกิดปัญหาในการประมวลผลคำสั่งซื้อของคุณ กรุณาลองอีกครั้ง",
             type: "error"
         })        
         </script>';
+        } else if ($_GET['do'] == 'emptyshipping') {
+            echo '<script type="text/javascript">
+        Swal.fire({
+            title: "คำสั่งซื้อล้มเหลว",
+            text: "คุณต้องเลือกวิธีการจัดส่งก่อนส่งคำสั่งซื้อของคุณ",
+            type: "error"
+        })        
+        </script>';
+        }
     }
     ?>
     <?php
-
-    $sql1 = "SELECT * FROM `cart`,`product`,`members`  WHERE cart.product_id=product.product_id AND cart.mem_id=$mem_id AND members.mem_id =$mem_id";
-    $result1 = mysqli_query($conn, $sql1);
-    $sqlsum = "SELECT *, SUM(cart.product_price * cart.order_count) AS summy FROM `cart`,`product` WHERE cart.product_id=product.product_id AND cart.mem_id=$mem_id";
-
-
-    $resultsum = mysqli_query($conn, $sqlsum);
-    $rowsum = mysqli_fetch_array($resultsum);
-
-    $_SESSION['summy'] = $rowsum['summy'];
+    if (isset($_SESSION['mem_id']) == "") {
+        echo '<script> alert("กรุณาเข้าสู่ระบบก่อน")</script>';
+        header('Refresh:0; url=../index.php');
+    }
+    ?>
+    <?php
     require_once 'config.php';
     include('includes/navbar.php');
     ?>
@@ -141,7 +147,7 @@ if ($_REQUEST['data'] == 'confirm') {
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <tr>
-                        <th>#</th>
+                        <th>ลำดับ</th>
                         <th>
                             <?php echo $image; ?>
                         </th>
@@ -156,12 +162,13 @@ if ($_REQUEST['data'] == 'confirm') {
                         </th>
 
                     </tr>
-                    <?php $i = 1;
+                    <?php
+                    $i = 1;
+                    $total_price = 0;
+                    $sql1 = "SELECT * FROM `cart`,`product`,`members`  WHERE cart.product_id=product.product_id AND cart.mem_id=$mem_id AND members.mem_id =$mem_id";
+                    $result1 = mysqli_query($conn, $sql1);
                     while ($rows = mysqli_fetch_array($result1)) { ?>
                         <tr>
-                            <?php
-                            //$products_prices=$_SESSION['product_price'];
-                            // $productsx_prices = array($_SESSION['product_price']);?>
                             <td>
                                 <?php echo $i; ?>
                             </td>
@@ -172,16 +179,13 @@ if ($_REQUEST['data'] == 'confirm') {
                                 $mem_address = $rows['mem_address']; ?>
                             </td>
                             <td>
-                                <?php echo number_format($rowsum['summy'], 2) ?>
+                                <?php echo number_format($rows['product_price'] * $rows['order_count'], 2) ?>
                             </td>
                             <td>
                                 <?php echo $rows['cart_date'] ?>
                             </td>
-                            <?php
-                            $_SESSION['product_id'] = $rows['product_id'];
-                            $_SESSION['product_price'] = $rows['product_price']; ?>
+                            <?php $total_price += $rows['product_price'] * $rows['order_count']; ?>
                         </tr>
-
                         <?php $i++;
                     } ?>
                 </table>
@@ -189,8 +193,8 @@ if ($_REQUEST['data'] == 'confirm') {
                     <tr>
                         <td colspan="5" style="padding-bottom: 4px;padding-top: 4px;">
                             <div style="font-size:18px; margin-left:610px">
-                                <?php echo $totalprice ?>：
-                                <?php echo number_format($rowsum['summy'], 2);
+                                <?php echo $totalprice ?>:
+                                <?php echo number_format($total_price, 2);
                                 echo " " . $baht ?>
                             </div>
                         </td>
@@ -198,7 +202,7 @@ if ($_REQUEST['data'] == 'confirm') {
                     <tr>
                         <td colspan="5" style="padding-bottom: 4px;padding-top: 4px;">
                             <div style="font-size:18px;margin-left:590px">
-                                <?php echo $discountall ?> ：0.00
+                                <?php echo $discountall ?> : 0.00
                                 <?php echo $baht ?>
                             </div>
                         </td>
@@ -209,12 +213,13 @@ if ($_REQUEST['data'] == 'confirm') {
                                 <?php echo $allprice ?>: <a style="color:red">
                                     <?php echo $notshipping ?>
                                 </a>
-                                <?php echo number_format($rowsum['summy'], 2);
+                                <?php echo number_format($total_price, 2);
                                 echo " " . $baht ?>
                             </div>
                         </td>
                     </tr>
                 </table>
+
                 <br>
 
                 <label class="mem_address">
@@ -276,14 +281,12 @@ if ($_REQUEST['data'] == 'confirm') {
             });
             if (result.isConfirmed) {
                 // The user clicked the "Confirm" button
-                orderConfirmed = true;
                 document.getElementById("myform1").submit();
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 // The user clicked the "Cancel" button
                 // Do nothing
             }
         });
-
     </script>
 
 

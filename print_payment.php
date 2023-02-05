@@ -129,8 +129,6 @@ include('config.php');
                     $sql = $conn->query("select * from order_detail,orders,product WHERE product.product_id = order_detail.product_id and order_detail.order_number=orders.order_number  AND orders.order_number='$_REQUEST[order_number]'");
                     $i = 1;
                     while ($show = $sql->fetch_assoc()) {
-
-
                         ?>
                         <tr>
                             <td>
@@ -150,7 +148,7 @@ include('config.php');
                             </td>
                             <td>
                                 <div align="center">
-                                    <?php echo $show['order_count']; ?>
+                                    <?php echo $show['order_count_detail']; ?>
                                 </div>
                             </td>
                             <td>
@@ -160,7 +158,7 @@ include('config.php');
                             </td>
                             <td>
                                 <div align="center">
-                                    <?php echo number_format($show['product_price'] * $show['order_count'], 2); ?>
+                                    <?php echo number_format($show['product_price'] * $show['order_count_detail'], 2); ?>
                                 </div>
                             </td>
                         </tr>
