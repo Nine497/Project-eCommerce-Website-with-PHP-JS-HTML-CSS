@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2023 at 07:27 PM
+-- Generation Time: Feb 05, 2023 at 01:32 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -32,7 +32,8 @@ CREATE TABLE `cart` (
   `product_id` int(11) NOT NULL,
   `mem_id` int(11) NOT NULL,
   `product_price` double NOT NULL,
-  `cart_date` datetime NOT NULL DEFAULT current_timestamp()
+  `cart_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `order_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -59,8 +60,9 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`mem_id`, `mem_fname`, `mem_lname`, `mem_email`, `mem_tel`, `mem_address`, `mem_username`, `mem_password`, `mem_create_at`, `mem_status`) VALUES
-(1, 'Sumat', 'thongin', 'demo@demo.com', '0814567899', '  1001/32 Thailand ', 'demo', '$2y$10$OsBJKA6tkMFg4LZ7hUy89.B.pi1jVcJAApi5UoXPWfqWPe8JQ9xdy', '2020-04-08', 'user'),
-(2, 'admin', 'admin', 'admin@admin.com', '0894969999', '      -', 'admin', '$2y$10$1Psji12WhAwbKQ8YYgIXL.CW8kRXKRt9fG6ORTWTU2hPZdeLBWQem', '2020-04-08', 'admin');
+(1, 'Sumat', 'Thongin', 'sumat@demo.com', '0932132612', '  1001/32 Thailand  Ratatatata             ', 'demo', '$2y$10$OsBJKA6tkMFg4LZ7hUy89.B.pi1jVcJAApi5UoXPWfqWPe8JQ9xdy', '2020-04-08', 'user'),
+(2, 'admin', 'admin', 'admin@admin.com', '0894969999', '      -', 'admin', '$2y$10$1Psji12WhAwbKQ8YYgIXL.CW8kRXKRt9fG6ORTWTU2hPZdeLBWQem', '2020-04-08', 'admin'),
+(5, 'รฐภูมินทร์', 'นาอุดม', 'ratapumin@gmail.com', '0621646560', 'หาดใหญ่', 'ratapumin', '$2y$10$c6dmJgby28wUAmtPjLdlKeNqPVbiqhiah34inOc98cgvp7p0/bLQO', '2023-02-01', 'user');
 
 -- --------------------------------------------------------
 
@@ -80,8 +82,7 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`new_id`, `new_title`, `new_image`, `new_date`) VALUES
-(1, 'new 出来', '15818806584306.png', '2020-02-18'),
-(2, 'xs', '15818815805616.png', '2020-02-18');
+(4, 'สไตล์การแต่งตัว', '16750969417189.jpg', '2023-02-01');
 
 -- --------------------------------------------------------
 
@@ -97,16 +98,30 @@ CREATE TABLE `orders` (
   `order_shipping` varchar(2) NOT NULL,
   `price_total` int(8) NOT NULL,
   `order_status` int(1) NOT NULL,
-  `order_date` datetime NOT NULL
+  `order_date` datetime NOT NULL,
+  `order_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `order_number`, `mem_id`, `address`, `order_shipping`, `price_total`, `order_status`, `order_date`) VALUES
-(56, '280123170138', 1, '1001/32 Thailand ', '50', 15800, 1, '2023-01-28 17:01:38'),
-(57, '280123170909', 1, '1001/32 Thailand ', '50', 15800, 0, '2023-01-28 17:09:09');
+INSERT INTO `orders` (`order_id`, `order_number`, `mem_id`, `address`, `order_shipping`, `price_total`, `order_status`, `order_date`, `order_count`) VALUES
+(56, '280123170138', 1, '1001/32 Thailand ', '50', 15800, 1, '2023-01-28 17:01:38', 0),
+(57, '280123170909', 1, '1001/32 Thailand ', '50', 15800, 0, '2023-01-28 17:09:09', 0),
+(58, '010223160429', 2, '      -', '50', 100, 2, '2023-02-01 16:04:29', 0),
+(59, '010223160536', 2, '      -', '50', 100, 2, '2023-02-01 16:05:36', 0),
+(60, '010223192724', 1, '  1001/32 Thailand ', '50', 1530, 2, '2023-02-01 19:27:24', 0),
+(61, '040223091401', 2, '      -', '50', 800, 1, '2023-02-04 09:14:01', 0),
+(62, '040223092549', 2, '      -', '80', 1800, 1, '2023-02-04 09:25:49', 9),
+(63, '040223100458', 2, '      -', '50', 1200, 1, '2023-02-04 10:04:58', 6),
+(64, '040223102655', 2, '      -', '50', 1600, 1, '2023-02-04 10:26:55', 8),
+(65, '040223105037', 2, '      -', '80', 3000, 1, '2023-02-04 10:50:37', 15),
+(66, '040223105654', 2, '      -', '80', 3200, 1, '2023-02-04 10:56:54', 16),
+(67, '040223105935', 2, '      -', '50', 1200, 1, '2023-02-04 10:59:35', 6),
+(68, '040223110518', 2, '      -', '80', 1200, 1, '2023-02-04 11:05:18', 6),
+(69, '040223110723', 2, '      -', '50', 1200, 1, '2023-02-04 11:07:23', 6),
+(70, '050223114402', 1, '', '50', 0, 0, '2023-02-05 11:44:02', 0);
 
 -- --------------------------------------------------------
 
@@ -118,16 +133,30 @@ CREATE TABLE `order_detail` (
   `order_detail_id` int(11) NOT NULL,
   `order_number` varchar(20) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `product_price` int(11) NOT NULL
+  `product_price` int(11) NOT NULL,
+  `order_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_detail`
 --
 
-INSERT INTO `order_detail` (`order_detail_id`, `order_number`, `product_id`, `product_price`) VALUES
-(37, '280123170138', 9, 15800),
-(38, '280123170909', 7, 15800);
+INSERT INTO `order_detail` (`order_detail_id`, `order_number`, `product_id`, `product_price`, `order_count`) VALUES
+(37, '280123170138', 9, 15800, 0),
+(38, '280123170909', 7, 15800, 0),
+(39, '010223160429', 16, 100, 0),
+(40, '010223160536', 16, 100, 0),
+(41, '010223192724', 29, 390, 0),
+(42, '040223091401', 16, 200, 0),
+(43, '040223092549', 16, 200, 9),
+(44, '040223100458', 16, 200, 6),
+(45, '040223102655', 16, 200, 8),
+(46, '040223105037', 16, 200, 15),
+(47, '040223105654', 16, 200, 16),
+(48, '040223105935', 16, 200, 6),
+(49, '040223110518', 16, 200, 6),
+(50, '040223110723', 16, 200, 6),
+(51, '050223114402', 22, 400, 0);
 
 -- --------------------------------------------------------
 
@@ -140,7 +169,7 @@ CREATE TABLE `payment` (
   `order_id` int(11) NOT NULL,
   `mem_id` int(11) NOT NULL,
   `payment_file` varchar(100) NOT NULL,
-  `payment_price` varchar(10) NOT NULL,
+  `payment_price` decimal(10,2) NOT NULL,
   `payment_bank` varchar(50) NOT NULL,
   `payment_Detail` text NOT NULL,
   `payment_date` date NOT NULL,
@@ -153,7 +182,23 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`payment_id`, `order_id`, `mem_id`, `payment_file`, `payment_price`, `payment_bank`, `payment_Detail`, `payment_date`, `payment_time`, `payment_status`) VALUES
-(1, 26, 1, '280123_135103.png', '15,850.00', 'ไทยพาณิชย์', '', '2023-01-28', '19:50:00', 'ตรวจสอบ');
+(1, 26, 1, '280123_135103.png', '15880.00', 'ไทยพาณิชย์', '', '2023-01-28', '19:50:00', 'ชำระเรียบร้อย'),
+(3, 58, 2, '010223_160615.png', '150.00', 'ไทยพาณิชย์', 'aas', '2023-02-02', '22:06:00', 'ชำระเรียบร้อย'),
+(4, 59, 2, '010223_160722.png', '150.00', 'ไทยพาณิชย์', 'gw', '2023-02-01', '22:07:00', 'ชำระเรียบร้อย'),
+(5, 60, 1, '010223_192812.png', '1.00', 'กรุงเทพ', 'Sumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thongin', '2023-02-02', '01:28:00', 'ชำระเรียบร้อย'),
+(6, 63, 2, '040223_100534.jpg', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:05:00', 'ชำระเรียบร้อย'),
+(7, 62, 2, '040223_101649.png', '1.00', 'กรุงเทพ', '', '2023-02-05', '16:17:00', 'ตรวจสอบ'),
+(8, 61, 2, '040223_102015.jpg', '1.00', 'กสิกร', '', '2023-02-05', '17:21:00', 'ตรวจสอบ'),
+(9, 64, 2, '040223_102734.jpg', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:27:00', 'ตรวจสอบ'),
+(10, 64, 2, '040223_103016.jpg', '0.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:30:00', 'ตรวจสอบ'),
+(11, 64, 2, '040223_103324.jpg', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:30:00', 'ตรวจสอบ'),
+(12, 64, 2, '040223_103350.png', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:33:00', 'ตรวจสอบ'),
+(13, 64, 2, '040223_103544.png', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:35:00', 'ตรวจสอบ'),
+(14, 65, 2, '040223_105106.jpg', '3000.00', 'ไทยพาณิชย์', 'asdasfasdfasdfasdasdgasdg', '2023-02-04', '16:51:00', 'ตรวจสอบ'),
+(15, 66, 2, '040223_105718.png', '3.00', 'ไทยพาณิชย์', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww', '2023-02-04', '16:57:00', 'ตรวจสอบ'),
+(16, 67, 2, '040223_110001.png', '1.00', 'กรุงไทย', '', '2023-02-04', '16:59:00', 'ตรวจสอบ'),
+(17, 68, 2, '040223_110537.jpg', '1250.00', 'ไทยพาณิชย์', '', '2023-02-04', '17:05:00', 'ตรวจสอบ'),
+(18, 69, 2, '040223_110746.jpg', '1250.00', 'กรุงเทพ', 'qqqqqqqq', '2023-02-19', '18:08:00', 'ตรวจสอบ');
 
 -- --------------------------------------------------------
 
@@ -169,26 +214,28 @@ CREATE TABLE `product` (
   `product_code` varchar(10) NOT NULL,
   `product_price` double(10,2) NOT NULL,
   `product_tag` varchar(30) NOT NULL,
-  `product_date` date NOT NULL
+  `product_date` date NOT NULL,
+  `product_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `product_detail`, `product_image`, `product_code`, `product_price`, `product_tag`, `product_date`) VALUES
-(1, 'Galaxy Watch 42mm eSim GOLD', 'สะท้อนตัวตน\r\nเลือกเปลี่ยนสาย Galaxy Watch ได้ตามต้องการ เพื่อให้เข้ากับการแต่งกายหรืออารมณ์ของคุณก่อนออกจากบ้าน นอกจากนี้ ยังสามารถเลือกสายนาฬิกาแบบซิลิโคนน้ำหนักเบาที่มีมาให้ หรือจะจับคู่กับสายนาฬิกาที่คุณชื่นชอบก็ทำได้ ด้วยขนาดมาตรฐาน 20 มม. สำหรับนาฬิการุ่นหน้าปัด 42 มม. หรือ เลือกสายนาฬิการขนาด 22 มม. สำหรับนาฬิการุ่นหน้าปัด 46 มม', '15806692336213.webp', 'SM-R815FZD', 11900.00, 'Sumsung', '2020-02-04'),
-(2, 'Galaxy Watch 42mm eSim BLACK', 'สะท้อนตัวตน เลือกเปลี่ยนสาย Galaxy Watch ได้ตามต้องการ เพื่อให้เข้ากับการแต่งกายหรืออารมณ์ของคุณก่อนออกจากบ้าน นอกจากนี้ ยังสามารถเลือกสายนาฬิกาแบบซิลิโคนน้ำหนักเบาที่มีมาให้ หรือจะจับคู่กับสายนาฬิกาที่คุณชื่นชอบก็ทำได้ ด้วยขนาดมาตรฐาน 20 มม. สำหรับนาฬิการุ่นหน้าปัด 42 มม. หรือ เลือกสายนาฬิการขนาด 22 มม. สำหรับนาฬิการุ่นหน้าปัด 46 มม\r\n\r\n', '15806743187180.webp', 'SM-R815FZK', 12000.00, 'Sumsung', '2020-02-04'),
-(3, 'Galaxy Watch Active 2 Stainles', 'มีการขยายพื้นที่บนหน้าจอ Galaxy Watch Active 2 ให้ใหญ่ขึ้นและออกแบบตัวเรือนให้เข้ากับหน้าจอ อีกทั้งหน้าจอเป็นระบบสัมผัส\r\nและเป็นสีดำสนิท ช่วยให้สั่งการควบคุมได้อย่างเร็ว (Quick Control) และให้คุณมองเห็นข้อมูลได้ชัดเจน', '15818448311797.webp', 'SM-R830NSD', 11900.00, 'Sumsung', '2020-02-18'),
-(4, 'Galaxy Watch Active 2 Stainles', 'มีการขยายพื้นที่บนหน้าจอ Galaxy Watch Active 2 ให้ใหญ่ขึ้นและออกแบบตัวเรือนให้เข้ากับหน้าจอ อีกทั้งหน้าจอเป็นระบบสัมผัส\r\nและเป็นสีดำสนิท ช่วยให้สั่งการควบคุมได้อย่างเร็ว (Quick Control) และให้คุณมองเห็นข้อมูลได้ชัดเจน', '15818449412302.webp', 'SM-R835FSK', 12900.00, 'Sumsung', '2020-02-18'),
-(5, 'Samsung galaxy fit  black', 'ผลักดันตัวเองให้มากขึ้นไปอีกยามที่คุณตั้งเป้าหมายการออกกำลังกาย Galaxy Fit สามารถกันน้ำได้ถึง 5ATM* คุณสามารถใส่มันออกกำลังกายในที่แจ้งได้โดยไม่ต้องกลัวว่าฝนอีกต่อไป', '15818450148687.webp', 'SM-R370NZK', 3290.00, 'Sumsung', '2020-02-18'),
-(6, 'Galaxy Watch 46mm eSim', 'หน้าปัดนาฬิกาทำงานตลอดเวลาแม้ไม่ต้องกดปุ่มหรือหมุนขอบหน้าปัดของ Galaxy Watch โดยตั้งค่าจอ AMOLED ให้หน้าปัดทำงานตลอดเวลา เพื่อให้คุณดูเวลาได้เสมอทั้งกลางวันและกลางคืน', '15818451381012.webp', 'SM-R805FZS', 12900.00, 'Sumsung', '2020-02-18'),
-(7, 'Apple Watch Series 4 Gold', 'จอภาพ Retina แบบติดตลอด\r\nคุณไม่จำเป็นต้องยกข้อมือหรือแตะหน้าจอเพื่อดูเวลาหรือข้อมูลอื่นๆ บนหน้าปัดนาฬิกาอีกต่อไป เพราะวันนี้จอภาพจะ\r\nไม่มีวันหลับ สิ่งที่คุณต้องทำก็เพียงเหลือบมองเพื่อดูเวลาหรือตัววัดการออกกำลังกายของคุณแค่นั้นเอง', '15819736431388.png', 'AP-WS4GP44', 15800.00, 'Apple', '2020-02-19'),
-(9, 'Galaxy Watch 42mm eSim BLACK', 'xxx', '15829577658024.webp', 'SM-R815FZK', 15800.00, 'Sumsung', '2020-03-02'),
-(12, 'test Tag Xiaomi', 'test Tag', '15862074294323.jpg', '000', 0.00, 'Xiaomi', '2020-04-09'),
-(13, 'test Tag2 Huawei', 'test Tag2', '15862074668136.jpg', '00', 0.00, 'Huawei', '2020-04-09'),
-(14, 'test Tag3 Moov', 'test Tag3', '15862074941442.jpg', '00', 0.00, 'Moov', '2020-04-09'),
-(15, 'test Tag4 Amazfit', 'test Tag4', '15862075277245.jpg', '00', 0.00, 'Amazfit', '2020-04-09');
+INSERT INTO `product` (`product_id`, `product_name`, `product_detail`, `product_image`, `product_code`, `product_price`, `product_tag`, `product_date`, `product_count`) VALUES
+(16, 'เสื้อเชิ้ตแขนสามส่วน', 'เสื้อผู้ชายเสื้อฮาวายเสื้อผ้าแฟชั่นผู้ชายเสื้อผ้าผู้ชายเกาหลี', '16750993669812.jpg', '1', 200.00, 'HandM', '2023-02-01', 20),
+(21, 'กางเกง ผ้าคอตตอน ขา 5 ส่วน ทรง', 'ผ้าฟอกดูลำลอง กางเกงที่สวมใส่อยู่บ้านและออกไปข้างนอกก็ดูดีไม่แพ้กัน', '16751011769010.webp', '2', 400.00, 'Uniqlo', '2023-02-01', 30),
+(22, 'กางเกง Jogger Ultra Stretch DR', 'คล่องตัวดีเยี่ยมผสานผิวสัมผัสเรียบลื่นดุจแพรไหม กางเกงจ็อกเกอร์สำหรับทุกโอกาส', '16751014753335.webp', '1', 400.00, 'Uniqlo', '2023-02-01', 30),
+(23, 'ยีนส์ Ultra Stretch ทรงสกินนี่', 'ยืดหยุ่นอย่างน่าทึ่งเพื่อความกระชับสบายและดูเนี้ยบอย่างมีสไตล์', '16751016162111.webp', '2', 650.00, 'Uniqlo', '2023-01-31', 0),
+(24, 'ยืดหยุ่นอย่างน่าทึ่งเพื่อความก', 'ยืดหยุ่นอย่างน่าทึ่งเพื่อความกระชับสบายและดูเนี้ยบอย่างมีสไตล์', '16751016801730.webp', '2', 590.00, 'Uniqlo', '2023-02-01', 0),
+(25, 'กางเกง Smart ผ้าคอตตอน ขา 5 ส่', 'ยืดหยุ่นดูทะมัดทะแมง กางเกงจากผ้าคอตตอนที่ให้สัมผัสสบาย สวมใส่ได้หลายโอกาส', '16751019176509.webp', '2', 690.00, 'Uniqlo', '2023-02-01', 0),
+(28, 'Hoodie รุ่น TORA', 'กลับมาอีกครั้งตามคำเรียกร้อง\r\nเสื้อกันหนาว Hoodie รุ่น TORA\r\nเนื้อผ้าหนานุ่ม สวมใส่สบาย', '16751036675636.jfif', '3', 690.00, 'URTHE', '2023-02-02', 0),
+(29, 'URTHE // WORSTBOY', 'เสื้อยืดแขนสั้น OVERSIZED\r\nรุ่น WORSTBOY\r\nสกรีนลายหน้าหลัง เนื้อผ้านุ่ม ใส่สบายมากกก', '16751039064462.jpg', '3', 390.00, 'URTHE', '2023-02-02', 0),
+(34, 'asdasdadasd', 'asdasdadada', '16753205584100.png', '3', 12234.00, 'Uniqlo', '2023-02-25', 0),
+(35, 'aaaaaaaaaaaawdarfar', 'awafasdfasfasf', '16753206826062.png', '3', 22434.00, 'Uniqlo', '2023-02-04', 0),
+(36, 'awfawrarag', 'sdgasdgasdgasdgasdgasdgasdgasdgascbvzdfbsdfbaergasdfgasdfgasdgasdga', '16753207061587.jpg', '3', 22441.00, 'URTHE', '2023-02-04', 0),
+(37, '', '', '16753322079100.jpg', '', 0.00, 'HandM', '0000-00-00', 0),
+(38, 'asdasdadasdaaaaaaaaaa', 'asdasdadasdaaaaaaaaaaasdasdadasdaaaaaaaaaaasdasdadasdaaaaaaaaaaasdasdadasdaaaaaaaaaa', '16753322379243.png', '3', 2231.00, 'Uniqlo', '2023-02-04', 12);
 
 -- --------------------------------------------------------
 
@@ -207,14 +254,10 @@ CREATE TABLE `product_tag` (
 --
 
 INSERT INTO `product_tag` (`product_tag_id`, `product_tag_name`, `product_tag_date`) VALUES
-(1, 'Sumsung', '2020-04-08'),
-(2, 'Apple', '2020-04-08'),
-(3, 'TicWatch', '2020-04-09'),
-(4, 'Xiaomi', '2020-04-09'),
-(5, 'Amazfit', '2020-04-09'),
-(6, 'Huawei', '2020-04-09'),
-(7, 'Moov', '2020-04-09'),
-(8, 'Fitbit', '2020-04-09');
+(1, 'HandM', '2023-02-01'),
+(2, 'Uniqlo', '2023-02-01'),
+(3, 'URTHE', '2023-02-02'),
+(4, 'ฟาร์มไก่อภิชาติ', '2023-02-02');
 
 --
 -- Indexes for dumped tables
@@ -276,43 +319,43 @@ ALTER TABLE `product_tag`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `mem_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสพนักงาน', AUTO_INCREMENT=5;
+  MODIFY `mem_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสพนักงาน', AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `new_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสข่าว', AUTO_INCREMENT=3;
+  MODIFY `new_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสข่าว', AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `product_tag`

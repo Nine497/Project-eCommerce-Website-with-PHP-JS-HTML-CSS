@@ -1,32 +1,33 @@
 <?php include_once('../authen.php') ?>
-<?php 
+<?php
 include_once('../../connect.php');
-  $sql="SELECT * FROM product";
-  $res=mysqli_query($conn,$sql);
+$sql = "SELECT * FROM product";
+$res = mysqli_query($conn, $sql);
 ?>
 <style>
-.successa {
- 
- color: #fff;
+  .successa {
 
- background-color: #28a745;
- border-radius: 35px;
+    color: #fff;
 
- padding:5px;
-}
-.infos {
- 
- color: #fff;
- background-color: #17a2b8;
- border-radius: 35px;
- border: 1px solid rgba(23, 162, 184, 0.75); 
- padding:5px;
+    background-color: #28a745;
+    border-radius: 35px;
 
-}
+    padding: 5px;
+  }
 
+  .infos {
+
+    color: #fff;
+    background-color: #17a2b8;
+    border-radius: 35px;
+    border: 1px solid rgba(23, 162, 184, 0.75);
+    padding: 5px;
+
+  }
 </style>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,9 +60,10 @@ include_once('../../connect.php');
   <script src="../../../../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
   <link rel="stylesheet" href="../../../../node_modules/sweetalert2/dist/sweetalert2.min.css">
 </head>
+
 <body class="hold-transition sidebar-mini">
 
-<?php
+  <?php
   if (isset($_GET['do'])) {
     if ($_GET['do'] == 'success') {
       echo '<script type="text/javascript">
@@ -72,7 +74,7 @@ include_once('../../connect.php');
             type: "success"
         })        
         </script>';
-    }else if ($_GET['do'] == 'failed') {
+    } else if ($_GET['do'] == 'failed') {
       echo '<script type="text/javascript">
         Swal.fire({
             title: "แก้ไขข้อมูลสินค้าไม่สำเร็จ",
@@ -120,125 +122,145 @@ include_once('../../connect.php');
     }
   }
   ?>
-<!-- Site wrapper -->
-<div class="wrapper">
-  <!-- Navbar & Main Sidebar Container -->
-  <?php include_once('../includes/sidebar.php') ?>
+  <!-- Site wrapper -->
+  <div class="wrapper">
+    <!-- Navbar & Main Sidebar Container -->
+    <?php include_once('../includes/sidebar.php') ?>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Stores Management</h1>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Stores Management</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item active">Stores Management</li>
+              </ol>
+            </div>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-              <li class="breadcrumb-item active">Stores Management</li>
-            </ol>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title d-inline-block">Stores List</h3>
           </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table id="dataTable" class="table table-bordered table-striped w-100 ">
+              <thead>
+                <tr>
+                  <th>ID.</th>
+                  <th>Images</th>
+                  <th>ProductTag</th>
+                  <th>ProductNames</th>
+                  <th>Product Code</th>
+                  <th>Product Count</th>
+                  <th>Prices</th>
+                  <th>Date</th>
+                  <th><a href="form_insert.php" class="btn btn-info"><i class="fas fa-plus-square"></i> Add Product</a>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php while ($row = mysqli_fetch_array($res)) { ?>
+                  <tr>
+                    <td>
+                      <?php echo $row['product_id']; ?>
+                    </td>
 
-    <!-- Main content -->
-    <section class="content">
-
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title d-inline-block">Stores List</h3>
+                    <td><img src="../../../image/store/<?php echo $row['product_image'] ?>"
+                        class="img-fluid d-block mx-auto " width="80"></td>
+                    <td>
+                      <?php echo $row['product_tag']; ?>
+                    </td>
+                    <td>
+                      <?php echo $row['product_name']; ?>
+                    </td>
+                    <td>
+                      <?php echo $row['product_code']; ?>
+                    </td>
+                    <td>
+                      <?php echo $row['product_count']; ?>
+                    </td>
+                    <td>
+                      <?php echo $row['product_price']; ?>
+                    </td>
+                    <td>
+                      <?php echo $row['product_date']; ?>
+                    </td>
+                    <td>
+                      <a href="form-edit.php?product_id=<?php echo $row['product_id']; ?>"
+                        class="btn btn-sm btn-warning text-white">
+                        <i class="fas fa-edit"></i> edit
+                      </a>
+                      <a class="btn btn-sm btn-danger text-white"
+                        onclick="deleteProducts(<?php echo $row['product_id'] ?>)">
+                        <i class="fas fa-trash-alt"></i> Delete
+                      </a>
+                    </td>
+                  </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
         </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table id="dataTable" class="table table-bordered table-striped w-100 ">
-            <thead>
-            <tr>
-              <th>ID.</th>
-              <th>Images</th>
-              <th>ProductTag</th>
-              <th>ProductNames</th>
-              <th>ProductCode</th>
-              <th>Prices</th>
-              <th>Date</th>
-              <th><a href="form_insert.php" class="btn btn-info"><i class="fas fa-plus-square"></i> Add Product</a></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php while($row=mysqli_fetch_array($res)) { ?>
-              <tr>
-                <td><?php echo $row['product_id'];?></td>
-                
-                <td><img src="../../../image/store/<?php echo $row['product_image']?>" class="img-fluid d-block mx-auto "  width="80"></td>
-                <td><?php echo $row['product_tag']; ?></td>
-                <td><?php echo $row['product_name']; ?></td>
-                <td><?php echo $row['product_code']; ?></td>
-                <td><?php echo $row['product_price']; ?></td>
-                <td><?php echo $row['product_date']; ?></td>
-                <td>
-                  <a href="form-edit.php?product_id=<?php echo $row['product_id']; ?>" class="btn btn-sm btn-warning text-white">
-                    <i class="fas fa-edit"></i> edit
-                  </a> 
-                  <a class="btn btn-sm btn-danger text-white" onclick="deleteProducts(<?php echo $row['product_id'] ?>)">
-                    <i class="fas fa-trash-alt"></i> Delete
-                  </a>
-                </td>
-              </tr>
-            <?php } ?>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
+        <!-- /.card -->
 
-    </section>
-    <!-- /.content -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- footer -->
+    <?php include_once('../includes/footer.php') ?>
+
   </div>
-  <!-- /.content-wrapper -->
+  <!-- ./wrapper -->
 
-  <!-- footer -->
-  <?php include_once('../includes/footer.php') ?>
-  
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- SlimScroll -->
-<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../../plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
-<!-- DataTables -->
-<script src="../../../../node_modules/jquery-datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="../../plugins/responsive/dataTables.responsive.min.js"></script> <!-- responsive-->
+  <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- SlimScroll -->
+  <script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+  <!-- FastClick -->
+  <script src="../../plugins/fastclick/fastclick.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="../../dist/js/demo.js"></script>
+  <!-- DataTables -->
+  <script src="../../../../node_modules/jquery-datatables/jquery.dataTables.min.js"></script>
+  <script src="../../plugins/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="../../plugins/responsive/dataTables.responsive.min.js"></script> <!-- responsive-->
 
 
-<script>
-  $(function () {
-    $('#dataTable').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-      "responsive": true
+  <script>
+    $(function () {
+      $('#dataTable').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true
+      });
     });
-  });
-</script>
+  </script>
 
-<script>
+  <script>
     function deleteProducts(product_id) {
       Swal.fire({
         title: 'Delete Product',
@@ -257,4 +279,5 @@ include_once('../../connect.php');
     }
   </script>
 </body>
+
 </html>

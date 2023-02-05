@@ -86,7 +86,7 @@
                             <?php echo $rows['product_name'] ?>
                         </td>
                         <td>
-                            <?php echo number_format($rows['product_price'], 2) ?>
+                            <?php echo number_format($rows['product_price'] * intval($rows['order_count']), 2); ?>
                         </td>
                         <td>
                             <?php echo $rows['cart_date'] ?>

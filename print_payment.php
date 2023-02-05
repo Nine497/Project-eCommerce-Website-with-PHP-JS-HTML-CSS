@@ -149,7 +149,9 @@ include('config.php');
                                 </div>
                             </td>
                             <td>
-                                <div align="center">1</div>
+                                <div align="center">
+                                    <?php echo $show['order_count']; ?>
+                                </div>
                             </td>
                             <td>
                                 <div align="center">
@@ -158,7 +160,7 @@ include('config.php');
                             </td>
                             <td>
                                 <div align="center">
-                                    <?php echo $show['product_price']; ?>
+                                    <?php echo number_format($show['product_price'] * $show['order_count'], 2); ?>
                                 </div>
                             </td>
                         </tr>

@@ -7,7 +7,7 @@ $sql = $conn->query('SELECT DISTINCT product_tag FROM product WHERE product_tag 
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="width:1080px;">
     <ul class="navbar-nav mr-auto">
       <?php while ($show = $sql->fetch_array()) { ?>
         <li class="nav-item ">

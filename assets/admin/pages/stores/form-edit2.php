@@ -148,6 +148,12 @@ include('../../../../includes/function.php');
                       value="<?php echo $rows['product_date'] ?>">
                   </div>
 
+                  <div class="form-group col-md-2">
+                    <label for="product_count">Count</label>
+                    <input type="text" class="form-control" id="product_count" name="product_count"
+                      value="<?php echo $rows['product_count'] ?>">
+                  </div>
+
                   <div class="card-footer col-md-12">
                     <a href="form-edit.php?product_id=<?php echo $rows['product_id'] ?>"
                       class="btn btn-warning float-left">ย้อนกลับ</a>

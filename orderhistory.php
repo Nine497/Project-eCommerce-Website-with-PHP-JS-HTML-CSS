@@ -59,7 +59,7 @@ if ($_REQUEST['data'] == 'delete') {
                 if (result.value) {
                     setTimeout(function(){
                         window.location.href = "orderhistory.php";
-                    }, 1000);
+                    }, 3000);
                 }
             });
         </script>';

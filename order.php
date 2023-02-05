@@ -11,7 +11,10 @@ if ($_REQUEST['data'] == 'confirm') {
     $mem_address = $_REQUEST['mem_address'];
     $shipping = $_REQUEST['shipping'];
     $summy = $_SESSION['summy'];
-
+    $sql = "SELECT SUM(cart.order_count) AS order_count FROM `cart` WHERE cart.mem_id = $mem_id;";
+    $count = mysqli_query($conn, $sql);
+    $order_count1 = mysqli_fetch_array($count);
+    $order_count = $order_count1['order_count'];
 
     if (!isset($shipping) || $shipping == "") {
         echo '<script>';
@@ -25,7 +28,7 @@ if ($_REQUEST['data'] == 'confirm') {
         $conn->query("DELETE FROM cart WHERE mem_id = '$mem_id'");
 
         // Insert into orders
-        $sql = "INSERT INTO `orders`(`order_id`, `order_number`, `mem_id`, `address`, `order_shipping`, `price_total`, `order_status`, `order_date`) VALUES ('', '$order', '$mem_id', '$mem_address', '$shipping', '$summy', '0', '$datetime')";
+        $sql = "INSERT INTO `orders`(`order_id`, `order_number`, `mem_id`, `address`, `order_shipping`, `price_total`, `order_status`, `order_date`, `order_count`) VALUES ('', '$order', '$mem_id', '$mem_address', '$shipping', '$summy', '0', '$datetime', '$order_count')";
         $res = mysqli_query($conn, $sql);
         if (!$res) {
             mysqli_rollback($conn);
@@ -34,7 +37,7 @@ if ($_REQUEST['data'] == 'confirm') {
             echo "SQL: " . $sql;
         } else {
             // Insert into order_detail
-            $sql2 = "INSERT INTO `order_detail`(`order_detail_id`, `order_number`, `product_id`, `product_price`) VALUES ('','$order','$_SESSION[product_id]','$_SESSION[product_price]')";
+            $sql2 = "INSERT INTO `order_detail`(`order_detail_id`, `order_number`, `product_id`, `product_price`, `order_count`) VALUES ('','$order','$_SESSION[product_id]','$_SESSION[product_price]', '$order_count')";
             $resins = mysqli_query($conn, $sql2);
             if (!$resins) {
                 mysqli_rollback($conn);
@@ -96,41 +99,26 @@ if ($_REQUEST['data'] == 'confirm') {
         echo 'title: "ยกเลิกรายการทั้งหมดสำเร็จ",';
         echo 'icon: "success",';
         echo '});';
+        echo 'setTimeout(function(){ window.location.href="index.php"; }, 2000);';
         echo '</script>';
     }
     ?>
     <?php
-    if (isset($_GET['do'])) {
-        if ($_GET['do'] == 'failed') {
-            echo '<script type="text/javascript">
-        Swal.fire({
-            title: "คำสั่งซื้อล้มเหลว",
-            text: "เกิดปัญหาในการประมวลผลคำสั่งซื้อของคุณ กรุณาลองอีกครั้ง",
-            type: "error"
-        })        
-        </script>';
-        } else if ($_GET['do'] == 'emptyshipping') {
-            echo '<script type="text/javascript">
-        Swal.fire({
-            title: "คำสั่งซื้อล้มเหลว",
-            text: "คุณต้องเลือกวิธีการจัดส่งก่อนส่งคำสั่งซื้อของคุณ",
-            type: "error"
-        })        
-        </script>';
-        }
-    }
-    ?>
-    <?php
     if (isset($_SESSION['mem_id']) == "") {
-        echo '<script> alert("กรุณาเข้าสู่ระบบก่อน")</script>';
-        header('Refresh:0; url=../index.php');
+        echo '<script type="text/javascript">
+        Swal.fire({
+            title: "กรุณาเข้าสู่ระบบก่อน",
+            text: "คุณต้องเข้าสู่ระบบก่อน",
+            type: "error"
+        })        
+        </script>';
     }
     ?>
     <?php
 
     $sql1 = "SELECT * FROM `cart`,`product`,`members`  WHERE cart.product_id=product.product_id AND cart.mem_id=$mem_id AND members.mem_id =$mem_id";
     $result1 = mysqli_query($conn, $sql1);
-    $sqlsum = "SELECT *, SUM(cart.product_price) AS summy FROM `cart`,`product` WHERE cart.product_id=product.product_id AND cart.mem_id=$mem_id";
+    $sqlsum = "SELECT *, SUM(cart.product_price * cart.order_count) AS summy FROM `cart`,`product` WHERE cart.product_id=product.product_id AND cart.mem_id=$mem_id";
 
 
     $resultsum = mysqli_query($conn, $sqlsum);
@@ -184,7 +172,7 @@ if ($_REQUEST['data'] == 'confirm') {
                                 $mem_address = $rows['mem_address']; ?>
                             </td>
                             <td>
-                                <?php echo number_format($rows['product_price'], 2) ?>
+                                <?php echo number_format($rowsum['summy'], 2) ?>
                             </td>
                             <td>
                                 <?php echo $rows['cart_date'] ?>

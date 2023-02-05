@@ -24,74 +24,7 @@
 
 <body>
     <?php
-    if (isset($_GET['do'])) {
-        if ($_GET['do'] == 'success') {
-            echo '<script type="text/javascript">
-            Swal.fire({
-                title: "ลบข้อมูลเสร็จสิ้น!",
-                text: "ลบข้อมูลเสร็จสิ้น!",
-                type: "success"
-            });
-        </script>';
-        } else if ($_GET['do'] == 'failed') {
-            echo '<script type="text/javascript">
-          Swal.fire({
-              title: "เกิดข้อผิดพลาด!",
-              text: "ลบข้อมูลไม่สำเร็จ!",
-              type: "error"
-          });
-      </script>';
-        } else if ($_GET['do'] == 'regis_failed') {
-            echo '<script type="text/javascript">
-              Swal.fire({
-                  title: "สมัครสมาชิกไม่สำเร็จ",
-                  text: "ชื่อผู้ใช้ถูกใช้แล้ว โปรดลองใหม่อีกครั้ง",
-                  type: "error"
-              })        
-              </script>';
-        } else if ($_GET['do'] == 'regis_success') {
-            echo '<script type="text/javascript">
-              Swal.fire({
-                  title: "สมัครสมาชิกสำเร็จ",
-                  text: "การสมัครสมาชิกสำเร็จ",
-                  type: "error"
-              })        
-              </script>';
-        } else if ($_GET['do'] == 'login') {
-            echo '<script type="text/javascript">
-              Swal.fire({
-                  title: "กรุณาเข้าสู่ระบบ",
-                  text: "กรุณาเข้าสู่ระบบหรือสมัครสมาชิกก่อนใช้งาน",
-                  type: "error"
-              })        
-              </script>';
-        } else if ($_GET['do'] == 'changed') {
-            echo '<script type="text/javascript">
-              Swal.fire({
-                  title: "สำเร็จ",
-                  text: "การแก้ไขข้อมูลสำเร็จ",
-                  type: "success"
-              })        
-              </script>';
-        } else if ($_GET['do'] == 'OldPass') {
-            echo '<script type="text/javascript">
-              Swal.fire({
-                  title: "ไม่สำเร็จ",
-                  text: "รหัสผ่านเดิมไม่ถูกต้อง โปรดลองใหม่อีกครั้ง",
-                  type: "error"
-              })        
-              </script>';
-        } else if ($_GET['do'] == 'NewPass') {
-            echo '<script type="text/javascript">
-              Swal.fire({
-                  title: "ไม่สำเร็จ",
-                  text: "รหัสผ่านใหม่ไม่ตรงกัน โปรดลองใหม่อีกครั้ง",
-                  type: "error"
-              })        
-              </script>';
-        }
-    }
-
+    include 'sweetalert.php';
     ?>
     <?php
     require_once 'config.php';

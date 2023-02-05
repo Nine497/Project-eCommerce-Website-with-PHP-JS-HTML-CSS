@@ -25,6 +25,9 @@
 
 <body>
   <?php
+  include 'sweetalert.php';
+  ?>
+  <?php
   require_once 'config.php';
   include('includes/navbar.php') ?>
   <!-- The Modal -->
@@ -32,40 +35,6 @@
   <center>
     <?php
     include('includes/product.php');
-    //include('includes/search.php');
-    ?>
-    <?php
-    if (isset($_GET['do'])) {
-      if ($_GET['do'] == 'success') {
-        echo '<script type="text/javascript">
-          Swal.fire({
-              title: "เพิ่มไปยังรถเข็นเรียบร้อย",
-              icon:"success",
-              text: "เพิ่มไปยังรถเข็นเรียบร้อย",
-              type: "success"
-          });
-      </script>';
-      } else if ($_GET['do'] == 'failed') {
-        echo '<script type="text/javascript">
-          Swal.fire({
-              title: "เกิดข้อผิดพลาด",
-              icon:"error", 
-              text: "ไม่สามารถเพิ่มไปยังรถเข็นได้",
-              type: "error"
-          });
-      </script>';
-      } else if ($_GET['do'] == 'max') {
-        echo '<script type="text/javascript">
-        Swal.fire({
-            title: "เกิดข้อผิดพลาด",
-            icon:"error", 
-            text: "ไม่สามารถเพิ่มสินค้าไปยังรถเข็นได้เกิน 4 ชิ้น",
-            type: "error"
-        });
-    </script>';
-      }
-    }
-
     ?>
 
     <?php include('includes/footer.php'); ?>

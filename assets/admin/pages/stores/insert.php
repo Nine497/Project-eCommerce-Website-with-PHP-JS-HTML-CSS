@@ -10,11 +10,12 @@ if (isset($_POST['submit'])) {
     $product_code = $_POST['product_code'];
     $product_tag = $_POST['product_tag'];
     $product_date = $_POST['product_date'];
+    $product_count = $_POST['product_count'];
     $temp = explode('.', $_FILES['file']['name']);
     $new_namestore = round(microtime(true) * 9999) . '.' . end($temp);
     $url = '../../../../assets/image/store/' . $new_namestore;
     if (move_uploaded_file($_FILES['file']['tmp_name'], $url)) {
-        $sql = "INSERT INTO `product` VALUES ('','$product_name','$product_detail','$new_namestore','$product_code','$product_price','$product_tag','$product_date')";
+        $sql = "INSERT INTO `product` VALUES ('','$product_name','$product_detail','$new_namestore','$product_code','$product_price','$product_tag','$product_date','$product_count')";
         $res = $conn->query($sql) or die($conn->error);
         if ($res) {
             $_SESSION['product_image'] = $new_namestore;

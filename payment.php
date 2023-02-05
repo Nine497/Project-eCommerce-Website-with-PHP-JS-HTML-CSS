@@ -7,13 +7,14 @@ include('includes/function.php') ?>
 <?php
 
 if ($_REQUEST['data'] == 'payment') {
+  $payment_price = $_SESSION['price_totals'];
   $file = strrchr($_FILES['file']['name'], "."); //ตัดนามสกุลไฟล์เก็บไว้
   $filename = (Date("dmy_His") . $file); //ตั้งเป็น วันที่_เวลา.นามสกุล
   $folder = "assets/image/payments/"; // path folder
   $width = 0; // ความกว้างของภาพ
   $height = 0; // ความยาวของภาพ
   Upload_File($filename, $folder, $width, $height);
-  $sql1 = $conn->query("INSERT INTO `payment` set `payment_id`= '', `order_id`='$_REQUEST[order_id]', `mem_id`= '$_SESSION[mem_id]', `payment_file`='$filename', `payment_price`='$_REQUEST[payment_price]', `payment_bank`='$_REQUEST[payment_bank]', `payment_Detail`='$_REQUEST[payment_Detail]', `payment_date`='$_REQUEST[payment_date]', `payment_time`='$_REQUEST[payment_time]'");
+  $sql1 = $conn->query("INSERT INTO `payment` set `payment_id`= '', `order_id`='$_REQUEST[order_id]', `mem_id`= '$_SESSION[mem_id]', `payment_file`='$filename', `payment_price`='$payment_price', `payment_bank`='$_REQUEST[payment_bank]', `payment_Detail`='$_REQUEST[payment_Detail]', `payment_date`='$_REQUEST[payment_date]', `payment_time`='$_REQUEST[payment_time]'");
   Chk_Insert($sql1, 'รอตรวจสอบชำระเงิน', 'orderhistory.php');
 
   $sql = $conn->query("update orders set order_status = '1' where order_id = '$_REQUEST[order_id]'");
@@ -67,6 +68,7 @@ if ($_REQUEST['data'] == 'payment') {
 
   $sql = $conn->query("SELECT * FROM orders WHERE order_id = '$_REQUEST[order_id]'");
   $show = $sql->fetch_assoc();
+  $payment_price = $show['price_total'];
   ?>
   <?php
 
@@ -135,7 +137,7 @@ if ($_REQUEST['data'] == 'payment') {
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary btn-grad"  onclick="confirmPayment()">ยืนยันชำระเงิน</button>
+          <button type="submit" class="btn btn-primary btn-grad" onclick="confirmPayment()">ยืนยันชำระเงิน</button>
           <a href="orderhistory.php" class="btn btn-danger btn-grad" data-dismiss="modal">ยกเลิก</a>
         </div>
       </div>
@@ -189,9 +191,22 @@ if ($_REQUEST['data'] == 'payment') {
   // }  
 
   function chk_error() {
-
-    if (document.form1.pricetotal.value != document.form1.payment_price.value) {
-
+    var payment_price = parseFloat(document.form1.payment_price.value.replace(/,/g, ''));
+    var pricetotal = parseFloat(document.form1.pricetotal.value.replace(/,/g, ''));
+    if (payment_price <= 1) {
+      alert("จำนวนเงินที่โอนต้องมากกว่า 1 บาท");
+      document.form1.payment_price.focus();
+      return false;
+    }
+    if (isNaN(payment_price) || payment_price <= 0) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'จำนวนเงินชำระไม่ถูกต้อง!',
+        type: 'error',
+        confirmButtonText: 'OK'
+      });
+      return true;
+    } else if (pricetotal !== payment_price) {
       Swal.fire({
         title: 'Error!',
         text: 'ยอดเงินชำระไม่ถูกต้อง!',
@@ -199,7 +214,6 @@ if ($_REQUEST['data'] == 'payment') {
         confirmButtonText: 'OK'
       });
       return true;
-
     } else {
       chk_pic();
     }
@@ -224,14 +238,13 @@ if ($_REQUEST['data'] == 'payment') {
 </script>
 
 <script>
-function confirmPayment() {
-  Swal.fire({
-    title: 'ยืนยันการชำระเงิน',
-    text: 'กรุณารอการยืนยันจากระบบ',
-    icon: 'info',
-    timer: 30000,
-    showCancelButton: false,
-    confirmButtonText: 'ตกลง'
-  });
-}
+  function confirmPayment() {
+    Swal.fire({
+      title: 'ยืนยันการชำระเงิน',
+      text: 'กรุณารอการยืนยันจากระบบ',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'ตกลง'
+    });
+  }
 </script>

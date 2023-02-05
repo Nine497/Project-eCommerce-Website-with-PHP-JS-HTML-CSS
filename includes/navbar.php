@@ -102,42 +102,45 @@ $_SESSION['carttotal'] = $rowcount['carttotal'];
                   <h5>
                     <?php echo $cartforme ?>
                   </h5>
-              </td><br><br>
-              <?php
-              $i = 1;
-              while ($row = mysqli_fetch_array($result)) {
-                ?>
+                </center>
+                <div style="max-height:400px; overflow-y:scroll; overflow-x:hidden;">
+                  <?php
+                  $i = 1;
+                  while ($row = mysqli_fetch_array($result)) {
+                    ?>
+                    <table width="270">
+                      <tr>
+                        <td colspan="3" style="font-size:13px;color:black">
+                          <?php echo $i . ". " . $row['product_name']; ?>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="width:1%">
+                          <img src="assets/image/store/<?php echo $row['product_image'] ?>" name="imgcart"
+                            style="width:100px;">
+                        </td>
+                        <td style="font-size:14px;width:30px;color:black">
+                          <?php echo intval($row['order_count']) . " " . "ชิ้น"; ?>
+                        </td>
+                        <td style="font-size:14px;width:40px;color:black">
+                          <?php echo number_format($row['product_price'], 2) * intval($row['order_count']) . " " . $baht; ?>
+                        </td>
+                        <td align=center width="20px">
+                          <a href="includes/delcart.php?cart_id=<?php echo $row['cart_id'] ?>" class="delcart"
+                            style="font-size:23px"><i class="fas fa-times" style="color:red"></i></a>
+                        </td>
+                      </tr>
+                    </table>
+                    <?php $i++;
+                  } ?>
+                </div>
+                <center>
+                  <a href="cartview.php">
+                    <?php echo $cartmore; ?>
+                  </a>
+                </center>
+              </td>
 
-                <table width="270">
-                  <tr>
-
-                    <td colspan="3" style="font-size:13px;color:black">
-                      <?php echo $i . ". " . $row['product_name'];
-                      ; ?>
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td style="width:1%">
-                      <img src="assets/image/store/<?php echo $row['product_image'] ?>" name="imgcart" style="width:100px;">
-                    </td>
-
-                    <td style="font-size:14px;width:70px;color:black">
-                      <?php echo number_format($row['product_price'], 2) . " " . "$baht"; ?>
-                    </td>
-                    <td align=center width="20px">
-                      <a href="includes/delcart.php?cart_id=<?php echo $row['cart_id'] ?>" class="delcart"
-                        style="font-size:23px"><i class="fas fa-times" style="color:red"></i></a>
-                    </td>
-                  </tr>
-
-                </table>
-                <?php $i++ ?>
-              <?php } ?>
-              <a href="cartview.php">
-                <?php echo $cartmore; ?>
-              </a>
 
 
           </li>
