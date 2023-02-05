@@ -97,14 +97,14 @@ $res = mysqli_query($conn, $sql);
     <div class="row">
       <?php while ($row = mysqli_fetch_array($res)) { ?>
         <div class="col-sm-4 mt-3">
-          <div class="card shadow-sm" style="width: 330px;">
+          <div class="card shadow-sm" style="width: 330px; height:auto;">
             <img src="assets/image/store/<?php echo $row["product_image"] ?>" class="card-img-top" alt="Product image">
             <div class="card-body">
               <h5 class="card-title text-primary">
                 <?php echo $row["product_name"]; ?>
               </h5>
               <p class="card-text text-secondary">
-                <?php echo (strlen($row["product_detail"]) > 30) ? substr($row["product_detail"], 0, 27) . '...' : $row["product_detail"]; ?>
+                <?php echo (strlen($row["product_detail"]) > 40) ? substr($row["product_detail"], 0, 37) . '...' : $row["product_detail"]; ?>
               </p>
 
               <p class="card-text text-success">
