@@ -155,6 +155,9 @@ if ($_REQUEST['data'] == 'confirm') {
                             <?php echo $nameproduct; ?>
                         </th>
                         <th>
+                            จำนวน
+                        </th>
+                        <th>
                             <?php echo $price; ?>
                         </th>
                         <th>
@@ -179,7 +182,10 @@ if ($_REQUEST['data'] == 'confirm') {
                                 $mem_address = $rows['mem_address']; ?>
                             </td>
                             <td>
-                                <?php echo number_format($rows['product_price'] * $rows['order_count'], 2) ?>
+                                <?php echo $rows['order_count']; ?> ชิ้น
+                            </td>
+                            <td>
+                                <?php echo number_format($rows['product_price'] * $rows['order_count'], 2) ?> บาท
                             </td>
                             <td>
                                 <?php echo $rows['cart_date'] ?>
