@@ -97,9 +97,10 @@ $res = mysqli_query($conn, $sql);
     <div class="row">
       <?php while ($row = mysqli_fetch_array($res)) { ?>
         <div class="col-sm-4 mt-3">
-          <div class="card shadow-sm" style="width: 330px; height:auto;">
-            <img src="assets/image/store/<?php echo $row["product_image"] ?>" class="card-img-top" alt="Product image">
-            <div class="card-body">
+          <div class="card shadow-sm" style="width: 330px; height:480px;">
+            <img src="assets/image/store/<?php echo $row["product_image"] ?>" class="card-img-top" alt="Product image"
+              style="height:280px; width:330px">
+            <div class="card-body" style="  position: relative;">
               <h5 class="card-title text-primary">
                 <?php echo $row["product_name"]; ?>
               </h5>
@@ -111,11 +112,11 @@ $res = mysqli_query($conn, $sql);
                 <?php echo number_format($row['product_price'], 2) ?>บาท
               </p>
               <div class="d-flex justify-content-between align-items-center">
-                <form action="details_product.php" method="post">
+                <form action="details_product.php" method="post" style="  position: absolute;bottom: 10px;left: 10px;">
                   <input type="hidden" name="product_id" value="<?php echo $row["product_id"]; ?>">
                   <input type="submit" value="Show Details" class="btn btn-primary btn-sm" style="font-size: 0.8em;">
                 </form>
-                <form action="includes/addcart.php" method="post">
+                <form action="includes/addcart.php" method="post" style=" position: absolute;bottom: 10px;right: 10px;">
                   <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
                   <input type="hidden" name="count" value="1">
                   <?php if ($row['product_count'] != 0) {
