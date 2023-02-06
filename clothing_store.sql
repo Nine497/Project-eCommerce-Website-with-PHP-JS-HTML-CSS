@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2023 at 01:32 PM
+-- Generation Time: Feb 06, 2023 at 01:49 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -35,6 +35,14 @@ CREATE TABLE `cart` (
   `cart_date` datetime NOT NULL DEFAULT current_timestamp(),
   `order_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `product_id`, `mem_id`, `product_price`, `cart_date`, `order_count`) VALUES
+(199, 16, 2, 200, '2023-02-06 01:25:00', 6),
+(200, 22, 2, 400, '2023-02-06 01:25:04', 7);
 
 -- --------------------------------------------------------
 
@@ -107,21 +115,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_number`, `mem_id`, `address`, `order_shipping`, `price_total`, `order_status`, `order_date`, `order_count`) VALUES
-(56, '280123170138', 1, '1001/32 Thailand ', '50', 15800, 1, '2023-01-28 17:01:38', 0),
-(57, '280123170909', 1, '1001/32 Thailand ', '50', 15800, 0, '2023-01-28 17:09:09', 0),
-(58, '010223160429', 2, '      -', '50', 100, 2, '2023-02-01 16:04:29', 0),
-(59, '010223160536', 2, '      -', '50', 100, 2, '2023-02-01 16:05:36', 0),
-(60, '010223192724', 1, '  1001/32 Thailand ', '50', 1530, 2, '2023-02-01 19:27:24', 0),
-(61, '040223091401', 2, '      -', '50', 800, 1, '2023-02-04 09:14:01', 0),
-(62, '040223092549', 2, '      -', '80', 1800, 1, '2023-02-04 09:25:49', 9),
-(63, '040223100458', 2, '      -', '50', 1200, 1, '2023-02-04 10:04:58', 6),
-(64, '040223102655', 2, '      -', '50', 1600, 1, '2023-02-04 10:26:55', 8),
-(65, '040223105037', 2, '      -', '80', 3000, 1, '2023-02-04 10:50:37', 15),
-(66, '040223105654', 2, '      -', '80', 3200, 1, '2023-02-04 10:56:54', 16),
-(67, '040223105935', 2, '      -', '50', 1200, 1, '2023-02-04 10:59:35', 6),
-(68, '040223110518', 2, '      -', '80', 1200, 1, '2023-02-04 11:05:18', 6),
-(69, '040223110723', 2, '      -', '50', 1200, 1, '2023-02-04 11:07:23', 6),
-(70, '050223114402', 1, '', '50', 0, 0, '2023-02-05 11:44:02', 0);
+(88, '050223172521', 2, '      -', '50', 4400, 0, '2023-02-05 17:25:21', 11);
 
 -- --------------------------------------------------------
 
@@ -134,29 +128,16 @@ CREATE TABLE `order_detail` (
   `order_number` varchar(20) NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_price` int(11) NOT NULL,
-  `order_count` int(11) NOT NULL
+  `order_count_detail` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_detail`
 --
 
-INSERT INTO `order_detail` (`order_detail_id`, `order_number`, `product_id`, `product_price`, `order_count`) VALUES
-(37, '280123170138', 9, 15800, 0),
-(38, '280123170909', 7, 15800, 0),
-(39, '010223160429', 16, 100, 0),
-(40, '010223160536', 16, 100, 0),
-(41, '010223192724', 29, 390, 0),
-(42, '040223091401', 16, 200, 0),
-(43, '040223092549', 16, 200, 9),
-(44, '040223100458', 16, 200, 6),
-(45, '040223102655', 16, 200, 8),
-(46, '040223105037', 16, 200, 15),
-(47, '040223105654', 16, 200, 16),
-(48, '040223105935', 16, 200, 6),
-(49, '040223110518', 16, 200, 6),
-(50, '040223110723', 16, 200, 6),
-(51, '050223114402', 22, 400, 0);
+INSERT INTO `order_detail` (`order_detail_id`, `order_number`, `product_id`, `product_price`, `order_count_detail`) VALUES
+(70, '050223172521', 21, 400, 8),
+(71, '050223172521', 22, 400, 3);
 
 -- --------------------------------------------------------
 
@@ -319,7 +300,7 @@ ALTER TABLE `product_tag`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 
 --
 -- AUTO_INCREMENT for table `members`
@@ -337,13 +318,13 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `payment`
