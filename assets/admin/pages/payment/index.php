@@ -200,30 +200,28 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-
-                          <h5 class="modal-title" id="exampleModalLabel">Update Payment </h5>
-
+                          <h5 class="modal-title" id="exampleModalLabel">Update Payment</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <div class="modal-body">
-                          <form id="payment-form" method="post"
-                            action="?admin=update&id=<?php echo $row['payment_id']; ?>">
+                          <form id="payment-form" method="post" action="update.php">
                             <div class="form-group">
                               <?php
                               $sql3 = $conn->query("select * from payment where payment_id = '$row[payment_id]'");
                               $show3 = $sql3->fetch_assoc();
                               ?>
+                              <input type="hidden" name="payment_id" value="<?php echo $row['payment_id']; ?>">
                               <input type="hidden" name="order_id" value="<?php echo $show3['order_id']; ?>">
-                              <lable>หลักฐานการโอนเงิน:<lable>
-                                  <a href="../../../image/payments/<?php echo $show3['payment_file']; ?>"
-                                    target="_blank"><img
-                                      src="../../../image/payments/<?php echo $show3['payment_file']; ?>" width="460"></a>
+                              <label>หลักฐานการโอนเงิน:<label>
+                                  <a href="../../../image/payments/<?php echo $show3['payment_file']; ?>" target="_blank">
+                                    <img src="../../../image/payments/<?php echo $show3['payment_file']; ?>" width="460">
+                                  </a>
                             </div>
 
                             <div class="form-group">
-                              <lable>สถานะ:<lable>
+                              <label>สถานะ:<label>
                                   <select name="status" class="form-control">
                                     <option value="ตรวจสอบ" <?php if ($show3['payment_status'] == "ตรวจสอบ") {
                                       echo 'selected';
@@ -233,14 +231,13 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                                     </option>
                                     <option value="ชำระเรียบร้อย" <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
                                       echo 'selected';
-                                    } ?>>
-                                      ชำระเรียบร้อย</option>
+                                    } ?>>ชำระเรียบร้อย</option>
                                   </select>
                             </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary" onclick="submitFormWithSelectedStatus()">Save
+                          <button type="submit" class="btn btn-primary">Save
                             changes</button>
                         </div>
                         </form>
