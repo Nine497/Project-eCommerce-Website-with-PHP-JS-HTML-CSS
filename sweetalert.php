@@ -134,6 +134,29 @@ if (isset($_GET['do'])) {
                 window.location.href = window.location.href.split("?")[0];
               }, 2000);
               </script>';
+    } else if ($_GET['do'] == 'Loginincorrect') {
+        echo '<script type="text/javascript">
+              Swal.fire({
+                  title: "เข้าสู่ระบบไม่สำเร็จ",
+                  icon:"error",
+                  text: "รหัสผ่านหรือชื่อผู้ใช่ไม่ถูกต้อง โปรดลองใหม่อีกครั้ง",
+                  type: "error"
+              })        
+              setTimeout(function(){
+                window.location.href = window.location.href.split("?")[0];
+              }, 2000);
+              </script>';
+    } else if ($_GET['do'] == 'Logincorrect') {
+        echo '<script type="text/javascript">
+              Swal.fire({
+                  title: "เข้าสู่ระบบสำเร็จ",
+                  icon:"success",
+                  type: "success"
+              })        
+              setTimeout(function(){
+                window.location.href = window.location.href.split("?")[0];
+              }, 2000);
+              </script>';
     }
 }
 ?>
