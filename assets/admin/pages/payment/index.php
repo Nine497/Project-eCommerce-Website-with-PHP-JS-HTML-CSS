@@ -83,18 +83,18 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
     if ($_GET['do'] == 'updated_success') {
       echo '<script type="text/javascript">
         Swal.fire({
-            title: "แก้ไขข้อมูลผู้ใช้เสร็จสิ้น",
+            title: "อัพเดทสำเร็จ",
             icon: "success",
-            text: "การแก้ไขข้อมูลผู้ใช้สำเร็จ",
+            text: "การอัพเดทข้อมูล Payment สำเร็จ",
             type: "success"
         })        
         </script>';
     } else if ($_GET['do'] == 'updated_failed') {
       echo '<script type="text/javascript">
         Swal.fire({
-            title: "แก้ไขข้อมูลผู้ใช้ไม่สำเร็จ",
+            title: "อัพเดทwไม่สำเร็จ",
             icon: "error",
-            text: "การแก้ไขข้อมูลผู้ใช้ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
+            text: "การอัพเดทข้อมูล Payment ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
             type: "error"
         })        
         </script>';
@@ -221,14 +221,13 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                             </div>
 
                             <div class="form-group">
-                              <label>สถานะ:<label>
-                                  <select name="status" class="form-control">
+                              <label>สถานะ : <label>
+                                  <select name="status" class="form-control" <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
+                                    echo 'aria-label="Disabled select" disabled';
+                                  } ?>>
                                     <option value="ตรวจสอบ" <?php if ($show3['payment_status'] == "ตรวจสอบ") {
                                       echo 'selected';
-                                    } ?>   <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
-                                          echo 'disabled';
-                                        } ?>>ตรวจสอบ
-                                    </option>
+                                    } ?>>ตรวจสอบ</option>
                                     <option value="ชำระเรียบร้อย" <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
                                       echo 'selected';
                                     } ?>>ชำระเรียบร้อย</option>
@@ -237,8 +236,9 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Save
-                            changes</button>
+                          <?php if ($show3['payment_status'] != "ชำระเรียบร้อย"): ?>
+                            <button id="confirm-payment" class="btn btn-primary">Save changes</button>
+                          <?php endif; ?>
                         </div>
                         </form>
                       </div>
@@ -313,21 +313,26 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
       })
     }
   </script>
-
   <script>
-    function submitFormWithSelectedStatus() {
-      // Get the select element by name
-      var select = document.querySelector('select[name="status"]');
-
-      // Get the selected value
-      var selectedStatus = select.value;
-
-      // Update the form action with the selected status
-      document.getElementById("payment-form").action += '&status=' + selectedStatus;
-
-      // Submit the form
-      document.getElementById("payment-form").submit();
-    }
+    document.getElementById("confirm-payment").addEventListener("click", async function (event) {
+      event.preventDefault();
+      // Open the Sweet Alert
+      const result = await Swal.fire({
+        title: "ยืนยันการ Payment นี้?",
+        text: "คุณแน่ใจหรือไม่ว่าต้องการยืนยัน Payment นี้",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "ใช่, ฉันแน่ใจ!",
+        cancelButtonText: "ไม่, ยกเลิก!"
+      });
+      if (result.isConfirmed) {
+        // The user clicked the "Confirm" button
+        document.getElementById("payment-form").submit();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        // The user clicked the "Cancel" button
+        // Do nothing
+      }
+    });
   </script>
 
 
