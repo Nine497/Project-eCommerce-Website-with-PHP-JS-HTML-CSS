@@ -221,17 +221,25 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                             </div>
 
                             <div class="form-group">
-                              <label>สถานะ : <label>
-                                  <select name="status" class="form-control" <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
-                                    echo 'aria-label="Disabled select" disabled';
-                                  } ?>>
-                                    <option value="ตรวจสอบ" <?php if ($show3['payment_status'] == "ตรวจสอบ") {
-                                      echo 'selected';
-                                    } ?>>ตรวจสอบ</option>
-                                    <option value="ชำระเรียบร้อย" <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
-                                      echo 'selected';
-                                    } ?>>ชำระเรียบร้อย</option>
-                                  </select>
+                              <label>สถานะ : </label>
+                              <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="payment-status-checked" name="status" value="ตรวจสอบ"
+                                  class="custom-control-input" <?php if ($show3['payment_status'] == "ตรวจสอบ") {
+                                    echo 'checked';
+                                  } ?>   <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
+                                        echo 'disabled';
+                                      } ?>>
+                                <label class="custom-control-label" for="payment-status-checked">ตรวจสอบ</label>
+                              </div>
+                              <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="payment-status-paid" name="status" value="ชำระเรียบร้อย"
+                                  class="custom-control-input" <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
+                                    echo 'checked';
+                                  } ?>   <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
+                                        echo 'disabled';
+                                      } ?>>
+                                <label class="custom-control-label" for="payment-status-paid">ชำระเรียบร้อย</label>
+                              </div>
                             </div>
                         </div>
                         <div class="modal-footer">

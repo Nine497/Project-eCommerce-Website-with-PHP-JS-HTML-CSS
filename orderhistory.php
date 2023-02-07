@@ -85,7 +85,6 @@ if ($_REQUEST['data'] == 'delete') {
                     <th>ยกเลิก</th>
                 </tr>
                 <?php
-
                 $sql = $conn->query("select * from orders where Mem_ID = '$_SESSION[mem_id]'");
                 $i = 1;
                 while ($show = $sql->fetch_assoc()) {
@@ -100,6 +99,8 @@ if ($_REQUEST['data'] == 'delete') {
                         $status = '<span class=text-primary>จัดส่งเรียบร้อย</span>';
                     } else if ($show['order_status'] == 4) {
                         $status = '<span class=text-danger>ยกเลิกรายการ</span>';
+                    } else if ($row['order_status'] == 5) {
+                        $status = 'อยู่ระหว่างการส่งสินค้า';
                     }
                     ?>
                     <tr>

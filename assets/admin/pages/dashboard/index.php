@@ -181,9 +181,7 @@ include_once('../../connect.php'); ?>
                       </select>
                     </div>
                   </form>
-                  <h3 id="totalPrice">
-                    Select a month to display the total payment
-                  </h3>
+                  <h4 id="totalPrice">Select a month to display the total payment</h4>
                   <p>Payment in month</p>
                 </div>
                 <div class="icon">

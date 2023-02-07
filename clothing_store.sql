@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2023 at 01:49 PM
+-- Generation Time: Feb 07, 2023 at 04:15 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -35,14 +35,6 @@ CREATE TABLE `cart` (
   `cart_date` datetime NOT NULL DEFAULT current_timestamp(),
   `order_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`cart_id`, `product_id`, `mem_id`, `product_price`, `cart_date`, `order_count`) VALUES
-(199, 16, 2, 200, '2023-02-06 01:25:00', 6),
-(200, 22, 2, 400, '2023-02-06 01:25:04', 7);
 
 -- --------------------------------------------------------
 
@@ -115,7 +107,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_number`, `mem_id`, `address`, `order_shipping`, `price_total`, `order_status`, `order_date`, `order_count`) VALUES
-(88, '050223172521', 2, '      -', '50', 4400, 0, '2023-02-05 17:25:21', 11);
+(91, '060223163641', 2, '      -', '80', 4000, 2, '2023-02-06 16:36:41', 10),
+(92, '060223183129', 2, 'Hatyai Thailand 112/331', '50', 6000, 1, '2023-02-06 18:31:29', 18);
 
 -- --------------------------------------------------------
 
@@ -136,8 +129,11 @@ CREATE TABLE `order_detail` (
 --
 
 INSERT INTO `order_detail` (`order_detail_id`, `order_number`, `product_id`, `product_price`, `order_count_detail`) VALUES
-(70, '050223172521', 21, 400, 8),
-(71, '050223172521', 22, 400, 3);
+(76, '060223163641', 21, 400, 5),
+(77, '060223163641', 22, 400, 5),
+(78, '060223183129', 16, 200, 6),
+(79, '060223183129', 22, 400, 4),
+(80, '060223183129', 21, 400, 8);
 
 -- --------------------------------------------------------
 
@@ -163,23 +159,9 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`payment_id`, `order_id`, `mem_id`, `payment_file`, `payment_price`, `payment_bank`, `payment_Detail`, `payment_date`, `payment_time`, `payment_status`) VALUES
-(1, 26, 1, '280123_135103.png', '15880.00', 'ไทยพาณิชย์', '', '2023-01-28', '19:50:00', 'ชำระเรียบร้อย'),
-(3, 58, 2, '010223_160615.png', '150.00', 'ไทยพาณิชย์', 'aas', '2023-02-02', '22:06:00', 'ชำระเรียบร้อย'),
-(4, 59, 2, '010223_160722.png', '150.00', 'ไทยพาณิชย์', 'gw', '2023-02-01', '22:07:00', 'ชำระเรียบร้อย'),
-(5, 60, 1, '010223_192812.png', '1.00', 'กรุงเทพ', 'Sumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thonginSumat thongin', '2023-02-02', '01:28:00', 'ชำระเรียบร้อย'),
-(6, 63, 2, '040223_100534.jpg', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:05:00', 'ชำระเรียบร้อย'),
-(7, 62, 2, '040223_101649.png', '1.00', 'กรุงเทพ', '', '2023-02-05', '16:17:00', 'ตรวจสอบ'),
-(8, 61, 2, '040223_102015.jpg', '1.00', 'กสิกร', '', '2023-02-05', '17:21:00', 'ตรวจสอบ'),
-(9, 64, 2, '040223_102734.jpg', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:27:00', 'ตรวจสอบ'),
-(10, 64, 2, '040223_103016.jpg', '0.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:30:00', 'ตรวจสอบ'),
-(11, 64, 2, '040223_103324.jpg', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:30:00', 'ตรวจสอบ'),
-(12, 64, 2, '040223_103350.png', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:33:00', 'ตรวจสอบ'),
-(13, 64, 2, '040223_103544.png', '1.00', 'ไทยพาณิชย์', '', '2023-02-04', '16:35:00', 'ตรวจสอบ'),
-(14, 65, 2, '040223_105106.jpg', '3000.00', 'ไทยพาณิชย์', 'asdasfasdfasdfasdasdgasdg', '2023-02-04', '16:51:00', 'ตรวจสอบ'),
-(15, 66, 2, '040223_105718.png', '3.00', 'ไทยพาณิชย์', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww', '2023-02-04', '16:57:00', 'ตรวจสอบ'),
-(16, 67, 2, '040223_110001.png', '1.00', 'กรุงไทย', '', '2023-02-04', '16:59:00', 'ตรวจสอบ'),
-(17, 68, 2, '040223_110537.jpg', '1250.00', 'ไทยพาณิชย์', '', '2023-02-04', '17:05:00', 'ตรวจสอบ'),
-(18, 69, 2, '040223_110746.jpg', '1250.00', 'กรุงเทพ', 'qqqqqqqq', '2023-02-19', '18:08:00', 'ตรวจสอบ');
+(20, 90, 2, '060223_161812.png', '2280.00', 'ไทยพาณิชย์', 'admin adminadmin adminadmin adminadmin adminadmin adminadmin adminadmin adminadmin adminadmin admin', '2023-02-06', '22:18:00', 'ชำระเรียบร้อย'),
+(21, 91, 2, '060223_163700.png', '4080.00', 'ไทยพาณิชย์', '', '2023-02-06', '22:36:00', 'ชำระเรียบร้อย'),
+(22, 92, 2, '060223_183210.png', '6050.00', 'กสิกร', 'payment-formpayment-formpayment-formpayment-formpayment-form', '2023-02-07', '01:33:00', 'ตรวจสอบ');
 
 -- --------------------------------------------------------
 
@@ -205,8 +187,8 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_detail`, `product_image`, `product_code`, `product_price`, `product_tag`, `product_date`, `product_count`) VALUES
 (16, 'เสื้อเชิ้ตแขนสามส่วน', 'เสื้อผู้ชายเสื้อฮาวายเสื้อผ้าแฟชั่นผู้ชายเสื้อผ้าผู้ชายเกาหลี', '16750993669812.jpg', '1', 200.00, 'HandM', '2023-02-01', 20),
-(21, 'กางเกง ผ้าคอตตอน ขา 5 ส่วน ทรง', 'ผ้าฟอกดูลำลอง กางเกงที่สวมใส่อยู่บ้านและออกไปข้างนอกก็ดูดีไม่แพ้กัน', '16751011769010.webp', '2', 400.00, 'Uniqlo', '2023-02-01', 30),
-(22, 'กางเกง Jogger Ultra Stretch DR', 'คล่องตัวดีเยี่ยมผสานผิวสัมผัสเรียบลื่นดุจแพรไหม กางเกงจ็อกเกอร์สำหรับทุกโอกาส', '16751014753335.webp', '1', 400.00, 'Uniqlo', '2023-02-01', 30),
+(21, 'กางเกง ผ้าคอตตอน ขา 5 ส่วน ทรง', 'ผ้าฟอกดูลำลอง กางเกงที่สวมใส่อยู่บ้านและออกไปข้างนอกก็ดูดีไม่แพ้กัน', '16751011769010.webp', '2', 400.00, 'Uniqlo', '2023-02-01', 15),
+(22, 'กางเกง Jogger Ultra Stretch DR', 'คล่องตัวดีเยี่ยมผสานผิวสัมผัสเรียบลื่นดุจแพรไหม กางเกงจ็อกเกอร์สำหรับทุกโอกาส', '16751014753335.webp', '1', 400.00, 'Uniqlo', '2023-02-01', 15),
 (23, 'ยีนส์ Ultra Stretch ทรงสกินนี่', 'ยืดหยุ่นอย่างน่าทึ่งเพื่อความกระชับสบายและดูเนี้ยบอย่างมีสไตล์', '16751016162111.webp', '2', 650.00, 'Uniqlo', '2023-01-31', 0),
 (24, 'ยืดหยุ่นอย่างน่าทึ่งเพื่อความก', 'ยืดหยุ่นอย่างน่าทึ่งเพื่อความกระชับสบายและดูเนี้ยบอย่างมีสไตล์', '16751016801730.webp', '2', 590.00, 'Uniqlo', '2023-02-01', 0),
 (25, 'กางเกง Smart ผ้าคอตตอน ขา 5 ส่', 'ยืดหยุ่นดูทะมัดทะแมง กางเกงจากผ้าคอตตอนที่ให้สัมผัสสบาย สวมใส่ได้หลายโอกาส', '16751019176509.webp', '2', 690.00, 'Uniqlo', '2023-02-01', 0),
@@ -300,7 +282,7 @@ ALTER TABLE `product_tag`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
 
 --
 -- AUTO_INCREMENT for table `members`
@@ -318,19 +300,19 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `product`

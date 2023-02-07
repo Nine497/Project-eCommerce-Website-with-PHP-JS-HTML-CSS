@@ -102,7 +102,7 @@ $row9=mysqli_fetch_array($res9);
             <a href="#" class="nav-link">
             <i class="fas fa-cog fa-lg"></i>
               <p>
-                More Tables
+                More
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
@@ -117,6 +117,12 @@ $row9=mysqli_fetch_array($res9);
                 <a href="../order_detail" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Order Detail</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../delivery" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Order delivery</p>
                 </a>
               </li>
               <li class="nav-item">

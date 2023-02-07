@@ -1,31 +1,33 @@
 <?php include_once('../authen.php') ?>
-<?php 
+<?php
 include_once('../../connect.php');
-  $sql="select * from order_detail,product WHERE order_detail.product_id = product.product_id";
-  $res=mysqli_query($conn,$sql);
+$sql = "select * from order_detail,product WHERE order_detail.product_id = product.product_id";
+$res = mysqli_query($conn, $sql);
 ?>
 <style>
-.successa {
- 
- color: #fff;
+  .successa {
 
- background-color: #28a745;
- border-radius: 35px;
+    color: #fff;
 
- padding:5px;
-}
-.infos {
- 
- color: #fff;
- background-color: #17a2b8;
- border-radius: 35px;
- border: 1px solid rgba(23, 162, 184, 0.75); 
- padding:5px;
+    background-color: #28a745;
+    border-radius: 35px;
 
-}
+    padding: 5px;
+  }
+
+  .infos {
+
+    color: #fff;
+    background-color: #17a2b8;
+    border-radius: 35px;
+    border: 1px solid rgba(23, 162, 184, 0.75);
+    padding: 5px;
+
+  }
 </style>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,122 +57,137 @@ include_once('../../connect.php');
   <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/responsive/responsive.bootstrap4.min.css"><!-- responsive-->
 </head>
+
 <body class="hold-transition sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
-  <!-- Navbar & Main Sidebar Container -->
-  <?php include_once('../includes/sidebar.php') ?>
+  <!-- Site wrapper -->
+  <div class="wrapper">
+    <!-- Navbar & Main Sidebar Container -->
+    <?php include_once('../includes/sidebar.php') ?>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Order Detail Management</h1>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Order Detail Management</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item active">Orders Detail Management</li>
+              </ol>
+            </div>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-              <li class="breadcrumb-item active">Orders Detail Management</li>
-            </ol>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title d-inline-block">Orders Detail List</h3>
           </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table id="dataTable" class="table table-bordered table-striped w-100 ">
+              <thead>
+                <tr>
+                  <th>ID.</th>
+                  <th>ORDER NUMBER</th>
+                  <th>PRODUCT ID</th>
+                  <th>NUMBER OF PRODUCT</th>
+                  <th>PRODUCT PRICE</th>
+                  <th>MORE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php while ($row = mysqli_fetch_array($res)) { ?>
+                  <tr>
+                    <td>
+                      <?php echo $row['order_detail_id']; ?>
+                    </td>
+                    <td>
+                      <?php echo $row['order_number']; ?>
+                    </td>
+                    <td>
+                      <?php echo $row['product_name']; ?>
+                    </td>
+                    <td>
+                      <?php echo $row['order_count_detail']; ?>
+                    </td>
+                    <td>
+                      <?php echo $row['product_price']; ?>
+                    </td>
+                    <td>
+                      <a href="delete.php?order_detail_id=<?php echo $row['order_detail_id'] ?>"
+                        onClick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่');" class="btn btn-sm btn-danger">
+                        <i class="fas fa-trash-alt"></i> Delete</a>
+                    </td>
+                  </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
+        <!-- /.card -->
 
-    <!-- Main content -->
-    <section class="content">
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title d-inline-block">Orders Detail List</h3>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table id="dataTable" class="table table-bordered table-striped w-100 ">
-            <thead>
-            <tr>
-              <th>ID.</th>
-              <th>ORDER NUMBER</th>
-              <th>PRODUCT ID</th>
-              <th>PRODUCT PRICE</th>
-              <th>MORE</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php while($row=mysqli_fetch_array($res)) { ?>
-              <tr>
-              <td><?php echo $row['order_detail_id']; ?></td>
-                <td><?php echo $row['order_number']; ?></td>
-                <td><?php echo $row['product_name']; ?></td>
-                <td><?php echo $row['product_price']; ?></td>
-                <td>
-                  <a href="delete.php?order_detail_id=<?php echo $row['order_detail_id']?>" onClick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่');" class="btn btn-sm btn-danger">
-                    <i class="fas fa-trash-alt"></i> Delete</a>
-                </td>
-              </tr>
-            <?php } ?>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
+    <!-- footer -->
+    <?php include_once('../includes/footer.php') ?>
 
-    </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
-  <!-- footer -->
-  <?php include_once('../includes/footer.php') ?>
-  
-</div>
-<!-- ./wrapper -->
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- SlimScroll -->
-<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../../plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
-<!-- DataTables -->
-<script src="../../../../node_modules/jquery-datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="../../plugins/responsive/dataTables.responsive.min.js"></script> <!-- responsive-->
+  <!-- ./wrapper -->
+  <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- SlimScroll -->
+  <script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+  <!-- FastClick -->
+  <script src="../../plugins/fastclick/fastclick.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="../../dist/js/demo.js"></script>
+  <!-- DataTables -->
+  <script src="../../../../node_modules/jquery-datatables/jquery.dataTables.min.js"></script>
+  <script src="../../plugins/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="../../plugins/responsive/dataTables.responsive.min.js"></script> <!-- responsive-->
 
 
-<script>
-  $(function () {
-    $('#dataTable').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-      "responsive": true
+  <script>
+    $(function () {
+      $('#dataTable').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true
+      });
     });
-  });
 
-  function deleteItem (mem_id) { 
-    if( confirm('คุณต้องการลบข้อมูลนี้หรือไม่') == true){
-      window.location=`delete.php?mem_id=${mem_id}`;
-      // window.location='delete.php?id='+id;
-    }else{
+    function deleteItem(mem_id) {
+      if (confirm('คุณต้องการลบข้อมูลนี้หรือไม่') == true) {
+        window.location = `delete.php?mem_id=${mem_id}`;
+        // window.location='delete.php?id='+id;
+      } else {
 
-    }
-  };
+      }
+    };
 
-</script>
+  </script>
 
 </body>
+
 </html>

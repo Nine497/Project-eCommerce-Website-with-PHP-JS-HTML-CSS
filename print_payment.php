@@ -50,15 +50,15 @@ include('config.php');
     } else if ($show2['order_status'] == 2) {
         $status = '<span class=text-info>ชำระเงินเรียบร้อย</span>';
     } else if ($show2['order_status'] == 3) {
-        $status = '<span class=text-primary>จัดส่งเรียบร้อย</span>';
+        $status = '<span class=text-success>จัดส่งเรียบร้อย</span>';
     } else if ($show2['order_status'] == 4) {
         $status = '<span class=text-danger>ยกเลิกรายการ</span>';
+    } else if ($show2['order_status'] == 5) {
+        $status = '<span class=text-primary>อยู่ระหว่างการส่งสินค้า</span>';
     }
     if ($show2['order_shipping'] == 50) {
-
         $shipping = 'ลงทะเบียน';
     } else {
-
         $shipping = 'EMS';
     }
 
