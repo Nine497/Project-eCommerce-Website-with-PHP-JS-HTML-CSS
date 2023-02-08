@@ -20,9 +20,10 @@ while ($order_detail = mysqli_fetch_assoc($order_details)) {
         die("Error updating product count: " . mysqli_error($conn));
     }
 }
-$sql = "UPDATE `payment` SET `payment_status` = '$payment_status' WHERE `payment_id` = $payment_id";
-
-if (mysqli_query($conn, $sql)) {
+$update_sql1 = "UPDATE `payment` SET `payment_status` = '$payment_status' WHERE `payment_id` = $payment_id";
+$update1 = mysqli_query($conn, $update_sql1);
+$update_sql2 = "UPDATE `orders` SET `order_status` = 2 WHERE `order_id` = $order_id";
+if (mysqli_query($conn, $update_sql2)) {
     echo '<script>';
     header("Refresh:0");
     echo "window.location='index.php?do=updated_success';";

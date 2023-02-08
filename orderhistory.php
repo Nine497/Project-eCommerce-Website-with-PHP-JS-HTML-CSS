@@ -224,7 +224,7 @@ if ($_REQUEST['data'] == 'delete') {
             cancelButtonText: 'ไม่ ฉันไม่แน่ใจ'
         }).then((result) => {
             if (result.value) {
-                window.location.href = "cancelOrder.php?order_id=" + order_id;
+                window.location.href = "includes/cancelOrder.php?order_id=" + order_id;
             }
         })
     }
