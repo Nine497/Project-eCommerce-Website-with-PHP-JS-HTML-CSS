@@ -66,31 +66,17 @@ include_once('../../connect.php'); ?>
           <div class="row">
             <!-- Left col -->
             <div class="col-md-12">
-              <!-- Widget: user widget style 1 -->
-              <div class="card card-widget widget-user">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="card-footer">
-                  <div class="row">
-                    <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <?php $sql = "SELECT COUNT(*) as summember FROM `members`";
-                        $res = mysqli_query($conn, $sql);
-                        $row = mysqli_fetch_array($res);
-                        ?>
-                      </div>
-                      <!-- /.row -->
-                    </div>
-                  </div>
-                  <!-- /.widget-user -->
-                </div>
-              </div>
+
 
               <div class="row">
                 <div class="col-lg-6 col-6">
                   <div class="small-box bg-info">
                     <div class="inner">
                       <h3>
+                        <?php $sql = "SELECT COUNT(*) as summember FROM `members`";
+                        $res = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_array($res);
+                        ?>
                         <?php echo $row['summember'] ?>
                       </h3>
                       <p>All Members</p>
@@ -148,18 +134,37 @@ include_once('../../connect.php'); ?>
                       }
                       ?>
                       <h3>
-                        <?php echo number_format($total_payment, 0, '', ','); ?> บาท
+                        <?php echo number_format($total_payment, 0, '', ','); ?> ฿
                       </h3>
                       <p>Total income</p>
                     </div>
                     <div class="icon">
-                      <i class="far fa-credit-card"></i>
+                      <i class="ion ion-cash"></i>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-lg-6 col-6">
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>
+                    <?php
+                    $result_Product_sold = 0;
+                    $query = "SELECT order_count FROM orders where order_status NOT IN (0, 1)";
+                    $result = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_array($result)) {
+                      $result_Product_sold += $row['order_count'];
+                    }
+                    echo $result_Product_sold;
+                    ?>
+                  </h3>
+                  <p>All Product sold</p>
+                </div>
+                <div class="icon">
+                  <i class="far fa-credit-card"></i>
+                </div>
+              </div>
               <div class="small-box bg-info">
                 <div class="inner">
                   <form>
@@ -185,11 +190,11 @@ include_once('../../connect.php'); ?>
                   <p>Payment in month</p>
                 </div>
                 <div class="icon">
-                  <i class="far fa-credit-card"></i>
+                  <i class="fa fa-calendar-check"></i>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 col-6">
+            <div class="col-lg-6 col-5">
               <div class="small-box bg-warning">
                 <div class="inner">
                   <?php $sql3 = "SELECT COUNT(*) as sumpayment FROM payment";
@@ -219,7 +224,7 @@ include_once('../../connect.php'); ?>
                   <p>Payment cases success</p>
                 </div>
                 <div class="icon">
-                  <i class="far fa-credit-card"></i>
+                  <i class="far fa-check-circle"></i>
                 </div>
               </div>
               <div class="small-box bg-danger">
@@ -236,7 +241,7 @@ include_once('../../connect.php'); ?>
                   <p>Payment cases waiting for confirmation</p>
                 </div>
                 <div class="icon">
-                  <i class="far fa-credit-card"></i>
+                  <i class="fa fa-hourglass-half"></i>
                 </div>
               </div>
             </div>

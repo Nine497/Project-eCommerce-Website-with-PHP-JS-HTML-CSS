@@ -9,7 +9,7 @@ if (isset($_GET['do'])) {
             });
             setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'del_failed') {
         echo '<script type="text/javascript">
@@ -20,7 +20,7 @@ if (isset($_GET['do'])) {
           });
           setTimeout(function(){
             window.history.pushState({}, "", window.location.href.split("?")[0]);
-        }, 2000);
+        }, 1000);
           </script>';
     } else if ($_GET['do'] == 'regis_failed') {
         echo '<script type="text/javascript">
@@ -31,7 +31,7 @@ if (isset($_GET['do'])) {
               })        
               setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'regis_success') {
         echo '<script type="text/javascript">
@@ -42,7 +42,7 @@ if (isset($_GET['do'])) {
               })        
               setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'login') {
         echo '<script type="text/javascript">
@@ -53,7 +53,7 @@ if (isset($_GET['do'])) {
               })        
               setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'changed') {
         echo '<script type="text/javascript">
@@ -64,7 +64,7 @@ if (isset($_GET['do'])) {
               })        
               setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'OldPass') {
         echo '<script type="text/javascript">
@@ -75,7 +75,7 @@ if (isset($_GET['do'])) {
               })        
               setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'NewPass') {
         echo '<script type="text/javascript">
@@ -86,7 +86,7 @@ if (isset($_GET['do'])) {
               })        
               setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'buy_failed') {
         echo '<script type="text/javascript">
@@ -97,7 +97,7 @@ if (isset($_GET['do'])) {
         })        
         setTimeout(function(){
             window.history.pushState({}, "", window.location.href.split("?")[0]);
-        }, 2000);
+        }, 1000);
           </script>';
     } else if ($_GET['do'] == 'emptyshipping') {
         echo '<script type="text/javascript">
@@ -108,7 +108,7 @@ if (isset($_GET['do'])) {
         })        
         setTimeout(function(){
             window.history.pushState({}, "", window.location.href.split("?")[0]);
-        }, 2000);
+        }, 1000);
           </script>';
     } else if ($_GET['do'] == 'cart_success') {
         echo '<script type="text/javascript">
@@ -120,7 +120,7 @@ if (isset($_GET['do'])) {
             });
             setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'cart_failed') {
         echo '<script type="text/javascript">
@@ -132,7 +132,7 @@ if (isset($_GET['do'])) {
             });
             setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'Loginincorrect') {
         echo '<script type="text/javascript">
@@ -144,7 +144,7 @@ if (isset($_GET['do'])) {
               })        
               setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     } else if ($_GET['do'] == 'Logincorrect') {
         echo '<script type="text/javascript">
@@ -155,7 +155,7 @@ if (isset($_GET['do'])) {
               })        
               setTimeout(function(){
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
-              }, 2000);
+              }, 1000);
               </script>';
     }
 }

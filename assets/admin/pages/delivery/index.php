@@ -80,6 +80,9 @@ $res = mysqli_query($conn, $sql);
             text: "การอัพเดทข้อมูลสถานะคำสั่งซื้อสำเร็จ",
             type: "success"
         })        
+        setTimeout(function(){
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+      }, 2000);
         </script>';
     } else if ($_GET['do'] == 'updated_failed') {
       echo '<script type="text/javascript">
@@ -89,6 +92,9 @@ $res = mysqli_query($conn, $sql);
             text: "การอัพเดทข้อมูลสถานะคำสั่งซื้อไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
             type: "error"
         })        
+        setTimeout(function(){
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+      }, 2000);
         </script>';
     }
   }

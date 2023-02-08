@@ -222,8 +222,6 @@ include('config.php');
 
         </div>
         </center>
-
-
         <br><br> <br><br>
         <script src="node_modules/jquery/dist/jquery.min.js"></script><!--เรียกjquery -->
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script><!--เรียกpopper -->

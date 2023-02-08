@@ -19,8 +19,15 @@ if ($_REQUEST['data'] == 'payment') {
 
   $sql = $conn->query("update orders set order_status = '1' where order_id = '$_REQUEST[order_id]'");
 
-  //function check แก้ไขข้อมูล จะมี alert ขึ้นมา ตามเงื่อนไข
-  Chk_Update($sql, 'อัพเดทข้อมูลเรียบร้อย');
+  if ($sql) {
+    echo '<script>';
+    echo "window.location='orderhistory.php?do=success';";
+    echo '</script>';
+  } else {
+    echo '<script>';
+    echo "window.location='orderhistory.php?do=failed';";
+    echo '</script>';
+  }
 }
 
 
@@ -85,8 +92,8 @@ if ($_REQUEST['data'] == 'payment') {
       </center>
     </h3><br>
 
-    <form name="form1" action="?data=payment" method="post" enctype="multipart/form-data" onsubmit="return chk_pic() ">
-
+    <form name="form1" id="form1" action="?data=payment" method="post" enctype="multipart/form-data"
+      onsubmit="return chk_pic() ">
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="order_number">เลขที่สั่งซื้อ</label>
@@ -137,7 +144,7 @@ if ($_REQUEST['data'] == 'payment') {
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary btn-grad" onclick="confirmPayment()">ยืนยันชำระเงิน</button>
+          <button id="confirm_payment" class="btn btn-primary btn-grad">ยืนยันชำระเงิน</button>
           <a href="orderhistory.php" class="btn btn-danger btn-grad" data-dismiss="modal">ยกเลิก</a>
         </div>
       </div>
@@ -238,13 +245,23 @@ if ($_REQUEST['data'] == 'payment') {
 </script>
 
 <script>
-  function confirmPayment() {
-    Swal.fire({
-      title: 'ยืนยันการชำระเงิน',
-      text: 'กรุณารอการยืนยันจากระบบ',
-      icon: 'info',
+  document.getElementById("confirm_payment").addEventListener("click", async function (event) {
+    event.preventDefault();
+    // Open the Sweet Alert
+    const result = await Swal.fire({
+      title: "ยืนยันการชำระเงิน?",
+      text: "คุณแน่ใจหรือไม่ว่าต้องการยืนยันยืนยันการชำระเงินนี้",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'ตกลง'
+      confirmButtonText: "ใช่, ฉันแน่ใจ!",
+      cancelButtonText: "ไม่, ยกเลิก!"
     });
-  }
+    if (result.isConfirmed) {
+      // The user clicked the "Confirm" button
+      document.getElementById("form1").submit();
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      // The user clicked the "Cancel" button
+      // Do nothing
+    }
+  });
 </script>

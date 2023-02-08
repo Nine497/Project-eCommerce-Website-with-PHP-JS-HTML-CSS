@@ -49,20 +49,20 @@ if ($_REQUEST['data'] == 'delete') {
 
 <body>
     <?php
-    if (isset($_GET['do']) && $_GET['do'] == 'success') {
-        echo '<script type="text/javascript">
+    if (isset($_GET['do'])) {
+        if ($_GET['do'] == 'success') {
+            echo '<script type="text/javascript">
             Swal.fire({
                 title: "ทำการสั่งซื้อเรียบร้อย",
-                text: "ทำการสั่งซื้อเรียบร้อย",
+                icon: "success",
+                text: "กรุณารอการตรวจสอบการชำระเงิน",
                 type: "success"
-            }).then((result) => {
-                if (result.value) {
-                    setTimeout(function(){
-                        window.location.href = "orderhistory.php";
-                    }, 3000);
-                }
             });
-        </script>';
+            setTimeout(function(){
+                window.history.pushState({}, "", window.location.href.split("?")[0]);
+              }, 1000);
+              </script>';
+        }
     }
     ?>
     <br><br><br><br>

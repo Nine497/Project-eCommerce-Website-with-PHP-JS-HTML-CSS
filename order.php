@@ -273,7 +273,7 @@ if ($_REQUEST['data'] == 'confirm') {
     <!--เรียกbootstrap.min.js -->
     <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
     <!--เรียกjquery.validate -->
-    <script>
+<script>
         document.getElementById("confirm-order-button").addEventListener("click", async function (event) {
             event.preventDefault();
             // Open the Sweet Alert
