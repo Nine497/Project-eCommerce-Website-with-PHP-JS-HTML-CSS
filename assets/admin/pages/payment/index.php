@@ -92,7 +92,7 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
     } else if ($_GET['do'] == 'updated_failed') {
       echo '<script type="text/javascript">
         Swal.fire({
-            title: "อัพเดทwไม่สำเร็จ",
+            title: "อัพเดทไม่สำเร็จ",
             icon: "error",
             text: "การอัพเดทข้อมูล Payment ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
             type: "error"
@@ -223,21 +223,10 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                             <div class="form-group">
                               <label>สถานะ : </label>
                               <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="payment-status-checked" name="status" value="ตรวจสอบ"
-                                  class="custom-control-input" <?php if ($show3['payment_status'] == "ตรวจสอบ") {
-                                    echo 'checked';
-                                  } ?>   <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
-                                        echo 'disabled';
-                                      } ?>>
-                                <label class="custom-control-label" for="payment-status-checked">ตรวจสอบ</label>
-                              </div>
-                              <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="payment-status-paid" name="status" value="ชำระเรียบร้อย"
                                   class="custom-control-input" <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
-                                    echo 'checked';
-                                  } ?>   <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
-                                        echo 'disabled';
-                                      } ?>>
+                                    echo 'disabled';
+                                  } ?>>
                                 <label class="custom-control-label" for="payment-status-paid">ชำระเรียบร้อย</label>
                               </div>
                             </div>
@@ -324,23 +313,31 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
   <script>
     document.getElementById("confirm-payment").addEventListener("click", async function (event) {
       event.preventDefault();
-      // Open the Sweet Alert
-      const result = await Swal.fire({
-        title: "ยืนยันการ Payment นี้?",
-        text: "คุณแน่ใจหรือไม่ว่าต้องการยืนยัน Payment นี้",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "ใช่, ฉันแน่ใจ!",
-        cancelButtonText: "ไม่, ยกเลิก!"
-      });
-      if (result.isConfirmed) {
-        // The user clicked the "Confirm" button
-        document.getElementById("payment-form").submit();
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // The user clicked the "Cancel" button
-        // Do nothing
+      const radioBox = document.getElementById("payment-status-paid");
+
+      if (!radioBox.checked) {
+        Swal.fire({
+          title: "เกิดข้อผิดพลาด",
+          icon: "error",
+          text: "กรุณาเลือกสถานะก่อนยืนยันการชำระเงิน",
+          icon: "error",
+          showCancelButton: true
+        });
+      } else {
+        const result = await Swal.fire({
+          title: "ยืนยันการชำระเงิน?",
+          text: "คุณแน่ใจหรือไม่ว่าต้องการยืนยันการชำระเงินนี้",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "ใช่ ฉันแน่ใจ!",
+          cancelButtonText: "ไม่ ยกเลิก!",
+        });
+        if (result.isConfirmed) {
+          document.getElementById("payment-form").submit();
+        }
       }
     });
+
   </script>
 
 
