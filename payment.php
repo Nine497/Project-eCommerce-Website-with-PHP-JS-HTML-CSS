@@ -211,6 +211,7 @@ if ($_REQUEST['data'] == 'payment') {
     if (isNaN(payment_price) || payment_price <= 0) {
       Swal.fire({
         title: 'Error!',
+        icon: 'error',
         text: 'จำนวนเงินชำระไม่ถูกต้อง!',
         type: 'error',
         confirmButtonText: 'OK'
@@ -219,6 +220,7 @@ if ($_REQUEST['data'] == 'payment') {
     } else if (pricetotal !== payment_price) {
       Swal.fire({
         title: 'Error!',
+        icon: 'error',
         text: 'ยอดเงินชำระไม่ถูกต้อง!',
         type: 'error',
         confirmButtonText: 'OK'
