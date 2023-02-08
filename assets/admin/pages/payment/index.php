@@ -297,14 +297,14 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
   <script>
     function deletePayment(payment_id) {
       Swal.fire({
-        title: 'Delete Payment',
-        text: "Are you sure you want to delete this Payment?",
+        title: 'ลบการชำระเงิน',
+        text: "คุณแน่ใจหรือไม่ว่าต้องการลบการชำระเงินนี้ ?",
         type: 'question',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, I am sure!',
-        cancelButtonText: 'No, I am not sure'
+        confirmButtonText: 'ใช่ ฉันแน่ใจ!',
+        cancelButtonText: 'ไม่ ฉันไม่แน่ใจ'
       }).then((result) => {
         if (result.value) {
           window.location.href = "delete.php?payment_id=" + payment_id;

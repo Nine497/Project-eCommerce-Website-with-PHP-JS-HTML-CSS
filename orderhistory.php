@@ -62,6 +62,30 @@ if ($_REQUEST['data'] == 'delete') {
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
               }, 1000);
               </script>';
+        } else if ($_GET['do'] == 'cancel_success') {
+            echo '<script type="text/javascript">
+            Swal.fire({
+                title: "ยกเลิกการสั่งซื้อเรียบร้อย",
+                icon: "success",
+                text: "ระบบได้ยกเลิกการสั่งซื้อของคุณเรียบร้อย",
+                type: "success"
+            });
+            setTimeout(function(){
+                window.history.pushState({}, "", window.location.href.split("?")[0]);
+              }, 1000);
+              </script>';
+        } else if ($_GET['do'] == 'cancel_failed') {
+            echo '<script type="text/javascript">
+            Swal.fire({
+                title: "ยกเลิกการสั่งซื้อไม่สำเร็จ",
+                icon: "error",
+                text: "ระบบไม่สามารถยกเลิกการสั่งซื้อของคุณได้ กรุณาลองใหม่อีกครั่ง",
+                type: "error"
+            });
+            setTimeout(function(){
+                window.history.pushState({}, "", window.location.href.split("?")[0]);
+              }, 1000);
+              </script>';
         }
     }
     ?>
@@ -149,13 +173,11 @@ if ($_REQUEST['data'] == 'delete') {
                         </td>
                         <td style="padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;">
                             <div align="center">
-                                <?php if ($show['order_status'] == 0 or $show['order_status'] == 1) { ?><a
-                                        href="?data=delete&order_id=<?php echo $show['order_id']; ?>"
-                                        onClick="return confirm('คุณแน่ใจที่จะยกเลิกรายการนี้!');"
-                                        class="btn btn-danger">ยกเลิกรายการ</a>
-                                <?php } else {
-                                    echo '-';
+                                <button type="button" <?php if ($show['order_status'] != 0) {
+                                    echo 'disabled';
                                 } ?>
+                                    onclick="deleteOrder(<?php echo $show['order_id']; ?>)"
+                                    class="btn btn-danger">ยกเลิกรายการ</button>
                             </div>
                         </td>
                     </tr>
@@ -187,3 +209,23 @@ if ($_REQUEST['data'] == 'delete') {
 </body>
 
 </html>
+
+<script>
+    function deleteOrder(order_id) {
+        Swal.fire({
+            title: 'ยกเลิกคำสั่งสั่งซื้อ',
+            icon: 'question',
+            text: "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกคำสั่งสั่งซื้อนี้ ?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'ใช่ ฉันแน่ใจ!',
+            cancelButtonText: 'ไม่ ฉันไม่แน่ใจ'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = "cancelOrder.php?order_id=" + order_id;
+            }
+        })
+    }
+</script>
