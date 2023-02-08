@@ -88,6 +88,9 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
             text: "การอัพเดทข้อมูล Payment สำเร็จ",
             type: "success"
         })        
+        setTimeout(function(){
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+        }, 1000);
         </script>';
     } else if ($_GET['do'] == 'updated_failed') {
       echo '<script type="text/javascript">
@@ -97,6 +100,9 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
             text: "การอัพเดทข้อมูล Payment ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
             type: "error"
         })        
+        setTimeout(function(){
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+        }, 1000);
         </script>';
     }
   }
@@ -221,14 +227,10 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                             </div>
 
                             <div class="form-group">
-                              <label>สถานะ : </label>
-                              <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="payment-status-paid" name="status" value="ชำระเรียบร้อย"
-                                  class="custom-control-input" <?php if ($show3['payment_status'] == "ชำระเรียบร้อย") {
-                                    echo 'disabled';
-                                  } ?>>
-                                <label class="custom-control-label" for="payment-status-paid">ชำระเรียบร้อย</label>
-                              </div>
+                              <label>สถานะ :
+                                <select class="form-control" name="status" id="status">
+                                  <option value="ชำระเรียบร้อย">ชำระเรียบร้อย</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -311,14 +313,12 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
     }
   </script>
   <script>
-    document.getElementById("confirm-payment").addEventListener("click", async function (event) {
-      event.preventDefault();
-      const radioBox = document.getElementById("payment-status-paid");
+    document.getElementById("status").addEventListener("change", async function (event) {
+      const status = event.target.value;
 
-      if (!radioBox.checked) {
+      if (status === "") {
         Swal.fire({
           title: "เกิดข้อผิดพลาด",
-          icon: "error",
           text: "กรุณาเลือกสถานะก่อนยืนยันการชำระเงิน",
           icon: "error",
           showCancelButton: true
@@ -337,8 +337,8 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
         }
       }
     });
-
   </script>
+
 
 
 </body>
