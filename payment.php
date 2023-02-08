@@ -109,8 +109,11 @@ if ($_REQUEST['data'] == 'payment') {
         </div>
         <div class="form-group col-md-6">
           <label for="pricetotal">จำนวนเงินที่ต้องชำระ</label>
-          <input type="text" class="form-control" id="pricetotal" name="pricetotal" placeholder="pricetotal"
-            value="<?php echo number_format($_SESSION['price_totals'], 2); ?>" readonly>
+          <input type="text" class="form-control" id="pricetotal" name="pricetotal" placeholder="pricetotal" <?php
+          $totalshipping = $show['order_shipping'];
+          $totalsum = $totalshipping + $show['price_total'];
+          ?>
+            value="<?php echo number_format($totalsum, 2); ?>" readonly>
         </div>
         <div class="form-group col-md-6">
           <label for="payment_price">จำนวนเงินที่โอน</label>

@@ -187,7 +187,6 @@ include('config.php');
                         //ราคารวมระหว่างค่าจัดส่งกับ จำนวนสินค้า
                         $totalshipping = $show2['order_shipping'];
                         $totalsum = $totalshipping + $show2['price_total'];
-                        $_SESSION['price_totals'] = $totalsum;
                         ?>
                         <td colspan="5"
                             style="text-align: right;padding-bottom: 10px;padding-top: 10px;padding-left: 10px;padding-right: 10px;">

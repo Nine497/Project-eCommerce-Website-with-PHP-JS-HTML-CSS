@@ -82,7 +82,7 @@ $res = mysqli_query($conn, $sql);
         })        
         setTimeout(function(){
           window.history.pushState({}, "", window.location.href.split("?")[0]);
-      }, 2000);
+      }, 1000);
         </script>';
     } else if ($_GET['do'] == 'updated_failed') {
       echo '<script type="text/javascript">
@@ -94,7 +94,7 @@ $res = mysqli_query($conn, $sql);
         })        
         setTimeout(function(){
           window.history.pushState({}, "", window.location.href.split("?")[0]);
-      }, 2000);
+      }, 1000);
         </script>';
     }
   }
@@ -311,28 +311,21 @@ $res = mysqli_query($conn, $sql);
                               <input type="hidden" name="order_id" value="<?php echo $show3['order_id']; ?>">
                             </div>
                             <div class="form-group">
-                              <label>อัพเดทสถานะ :</label><br>
-                              <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="status-checked" name="status" value="2"
-                                  class="custom-control-input" <?php if ($show3['order_status'] == "2") {
-                                    echo 'checked';
-                                  } ?>>
-                                <label class="custom-control-label" for="status-checked">ชำระเงินเรียบร้อย</label>
-                              </div><br>
-                              <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="status-checked-1" name="status" value="5"
-                                  class="custom-control-input" <?php if ($show3['order_status'] == "5") {
-                                    echo 'checked';
-                                  } ?>>
-                                <label class="custom-control-label" for="status-checked-1">อยู่ระหว่างการส่งสินค้า</label>
-                              </div><br>
-                              <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="status-checked-2" name="status" value="3"
-                                  class="custom-control-input" <?php if ($show3['order_status'] == "3") {
-                                    echo 'checked';
-                                  } ?>>
-                                <label class="custom-control-label" for="status-checked-2">จัดส่งเรียบร้อย</label>
-                              </div>
+                              <label>อัพเดทสถานะ :</label>
+                              <select name="status" class="form-control">
+                                <option value="2" <?php if ($show3['order_status'] == "2") {
+                                  echo 'selected';
+                                } ?>>
+                                  ชำระเงินเรียบร้อย</option>
+                                <option value="5" <?php if ($show3['order_status'] == "5") {
+                                  echo 'selected';
+                                } ?>>
+                                  อยู่ระหว่างการส่งสินค้า</option>
+                                <option value="3" <?php if ($show3['order_status'] == "3") {
+                                  echo 'selected';
+                                } ?>>
+                                  จัดส่งเรียบร้อย</option>
+                              </select>
                             </div>
                         </div>
                         <div class="modal-footer">
