@@ -157,6 +157,18 @@ if (isset($_GET['do'])) {
                 window.history.pushState({}, "", window.location.href.split("?")[0]);
               }, 1000);
               </script>';
+    } else if ($_GET['do'] == 'outofstock') {
+        echo '<script type="text/javascript">
+    Swal.fire({
+        title: "คำสั่งซื้อล้มเหลว",
+        icon: "error",
+        text: "สินค้าหมดแล้วหรือเหลือไม่เพียงพอต่อคำสั่งซื้อของคุณ",
+        type: "error"
+    })        
+    setTimeout(function(){
+        window.history.pushState({}, "", window.location.href.split("?")[0]);
+      }, 1000);
+      </script>';
     }
 }
 ?>

@@ -227,7 +227,7 @@ include_once('../../connect.php'); ?>
                   <i class="far fa-check-circle"></i>
                 </div>
               </div>
-              <div class="small-box bg-danger">
+              <div class="small-box bg-secondary">
                 <div class="inner">
                   <?php
                   $query = "SELECT COUNT(*) as count FROM payment where payment_status = 'ตรวจสอบ'";
@@ -242,6 +242,23 @@ include_once('../../connect.php'); ?>
                 </div>
                 <div class="icon">
                   <i class="fa fa-hourglass-half"></i>
+                </div>
+              </div>
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <?php
+                  $query = "SELECT COUNT(*) as count FROM payment where payment_status = 'หลักฐานการโอนเงินผิด'";
+                  $result = mysqli_query($conn, $query);
+                  $row = mysqli_fetch_array($result);
+                  $count = $row['count'];
+                  ?>
+                  <h3>
+                    <?php echo $count; ?>
+                  </h3>
+                  <p>Payment cases cancel</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-file-slash"></i>
                 </div>
               </div>
             </div>

@@ -1,5 +1,7 @@
 <?php error_reporting(~E_NOTICE); ?>
-<?php include("php/connect.php"); ?>
+<?php include("php/connect.php");
+session_start();
+?>
 <?php
 if (!isset($_POST['product_id'])) {
     die("Product id not provided.");
@@ -14,6 +16,15 @@ if (!$res) {
 
 if (mysqli_num_rows($res) == 0) {
     die("No data found.");
+}
+$cart_count = 0;
+if ($_SESSION["mem_id"] != "") {
+    $sql1 = "SELECT order_count FROM `cart` WHERE mem_id = '" . $_SESSION["mem_id"] . "' AND product_id = $product_id";
+    $res1 = mysqli_query($conn, $sql1);
+    $cartcount = mysqli_fetch_array($res1);
+    $cart_count = $cartcount['order_count'];
+} else {
+    $cart_count = 0;
 }
 
 $details = mysqli_fetch_array($res);
@@ -66,18 +77,19 @@ $details = mysqli_fetch_array($res);
                 <p>
                     <?php echo $details['product_detail']; ?>
                 </p><br><br>
-                <h4>Price: $
-                    <?php echo $details['product_price']; ?>
+                <h4>ราคา :
+                    <?php echo $details['product_price']; ?> บาท
                 </h4>
+                <?php $cart_countresult = $cart_count - $details['product_count']; ?>
                 <p>เหลือจำนวน
-                    <?php echo $details['product_count']; ?> ชิ้น
+                    <?php echo abs($cart_countresult); ?> ชิ้น
                 </p><br><br>
                 <form action="includes/addcart.php" method="post">
                     <input type="hidden" name="product_id" value="<?php echo $details['product_id']; ?>">
                     <div class="form-group">
                         <label for="count">จำนวน:</label>
                         <input type="number" name="count" id="count" value="1" class="form-control" style="width:100px"
-                            required max="<?php echo $details['product_count']; ?>" min="1">
+                            required max="<?php echo abs($cart_countresult); ?>" min="1">
                     </div>
                     <?php if ($details['product_count'] != 0) {
                         echo '<button type="submit" class="btn btn-primary">Add to Cart</button>';

@@ -125,7 +125,9 @@ if ($_REQUEST['data'] == 'delete') {
                         $status = '<span class=text-danger>ยกเลิกรายการ</span>';
                     } else if ($row['order_status'] == 5) {
                         $status = 'อยู่ระหว่างการส่งสินค้า';
-                    }
+                    } else if ($row['order_status'] == 6) {
+                        $status = 'หลักฐานการโอนเงินผิด';
+                      }
                     ?>
                     <tr>
                         <td style="padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;">

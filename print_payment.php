@@ -55,6 +55,8 @@ include('config.php');
         $status = '<span class=text-danger>ยกเลิกรายการ</span>';
     } else if ($show2['order_status'] == 5) {
         $status = '<span class=text-primary>อยู่ระหว่างการส่งสินค้า</span>';
+    } else if ($show2['order_status'] == 6) {
+        $status = '<span class=text-danger>หลักฐานการโอนเงินผิด</span>';
     }
     if ($show2['order_shipping'] == 50) {
         $shipping = 'ลงทะเบียน';

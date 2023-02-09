@@ -230,6 +230,7 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                               <label>สถานะ :
                                 <select class="form-control" name="status" id="status">
                                   <option value="ชำระเรียบร้อย">ชำระเรียบร้อย</option>
+                                  <option value="หลักฐานการโอนเงินผิด">หลักฐานการโอนเงินผิด</option>
                                 </select>
                             </div>
                         </div>

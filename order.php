@@ -40,6 +40,18 @@ if ($_REQUEST['data'] == 'confirm') {
             VALUES ('$order_number', '$mem_id', '$address', '$order_shipping', '$price_total', '$order_status', '$order_date', '$order_count')";
             $conn->query($order_sql);
 
+            $Checkcount_sql = "SELECT product_count FROM product WHERE product_id = $product_id";
+            $Checkcount = mysqli_query($conn, $Checkcount_sql);
+            $result = mysqli_fetch_assoc($Checkcount);
+            if ($result['product_count'] >= $cart_order_count) {
+                $minus_product = "UPDATE product SET product_count = product_count - $cart_order_count WHERE product_id = $product_id";
+                $conn->query($minus_product);
+            } else {
+                echo '<script>';
+                echo "window.location='stores.php?do=outofstock';";
+                echo '</script>';
+            }
+
             $delete_sql = "DELETE FROM cart WHERE mem_id='$mem_id'";
             $conn->query($delete_sql);
             mysqli_commit($conn);
@@ -100,7 +112,10 @@ if ($_REQUEST['data'] == 'confirm') {
         echo 'title: "ยกเลิกรายการทั้งหมดสำเร็จ",';
         echo 'icon: "success",';
         echo '});';
-        echo '</script>';
+        echo ' setTimeout(function(){
+            window.history.pushState({}, "", window.location.href.split("?")[0]);
+          }, 1000);
+          </script>';
     }
     ?>
     <?php
@@ -109,18 +124,26 @@ if ($_REQUEST['data'] == 'confirm') {
             echo '<script type="text/javascript">
         Swal.fire({
             title: "คำสั่งซื้อล้มเหลว",
+            icon: "error",
             text: "เกิดปัญหาในการประมวลผลคำสั่งซื้อของคุณ กรุณาลองอีกครั้ง",
             type: "error"
         })        
-        </script>';
+        setTimeout(function(){
+            window.history.pushState({}, "", window.location.href.split("?")[0]);
+          }, 1000);
+          </script>';
         } else if ($_GET['do'] == 'emptyshipping') {
             echo '<script type="text/javascript">
         Swal.fire({
             title: "คำสั่งซื้อล้มเหลว",
+            icon: "error",
             text: "คุณต้องเลือกวิธีการจัดส่งก่อนส่งคำสั่งซื้อของคุณ",
             type: "error"
         })        
-        </script>';
+        setTimeout(function(){
+            window.history.pushState({}, "", window.location.href.split("?")[0]);
+          }, 1000);
+          </script>';
         }
     }
     ?>
@@ -273,7 +296,7 @@ if ($_REQUEST['data'] == 'confirm') {
     <!--เรียกbootstrap.min.js -->
     <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
     <!--เรียกjquery.validate -->
-<script>
+    <script>
         document.getElementById("confirm-order-button").addEventListener("click", async function (event) {
             event.preventDefault();
             // Open the Sweet Alert

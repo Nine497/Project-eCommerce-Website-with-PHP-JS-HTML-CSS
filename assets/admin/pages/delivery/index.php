@@ -8,7 +8,7 @@ $sql = "SELECT orders.order_id, members.mem_id, CONCAT(members.mem_fname, ' ', m
         FROM orders
         INNER JOIN members ON orders.mem_id = members.mem_id
         INNER JOIN order_detail ON orders.order_number = order_detail.order_number
-        WHERE orders.order_status NOT IN (1, 4)";
+        WHERE orders.order_status NOT IN (1, 4, 6)";
 
 $res = mysqli_query($conn, $sql);
 ?>
@@ -168,6 +168,8 @@ $res = mysqli_query($conn, $sql);
                     $status = 'ยกเลิกรายการ';
                   } else if ($row['order_status'] == 5) {
                     $status = 'อยู่ระหว่างการส่งสินค้า';
+                  } else if ($row['order_status'] == 6) {
+                    $status = 'หลักฐานการโอนเงินผิด';
                   }
                   ?>
                   <tr>
@@ -201,7 +203,7 @@ $res = mysqli_query($conn, $sql);
                     <td>
                       <a data-toggle="modal" data-target="#status<?php echo $row['order_id']; ?>">
                         <button name="" type="button" class="btn btn-sm btn-warning text-white"><i class='fas fa-edit'>
-                          </i>Checking</button>
+                          </i>Update</button>
                       </a>
                       <a class="btn btn-sm btn-danger text-white" onclick="deletePayment(<?php echo $row['order_id'] ?>)">
                         <i class="fas fa-trash-alt"></i> Delete</a>

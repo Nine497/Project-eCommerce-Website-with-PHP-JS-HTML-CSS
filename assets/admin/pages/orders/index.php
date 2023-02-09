@@ -133,7 +133,7 @@ $res = mysqli_query($conn, $sql);
                       <?php echo $row['price_total']; ?>
                     </td>
                     <?php
-                     if ($row['order_status'] == 0) {
+                    if ($row['order_status'] == 0) {
                       $status = 'รอชำระเงิน';
                     } else if ($row['order_status'] == 1) {
                       $status = 'ตรวจสอบชำระเงิน';
@@ -145,6 +145,8 @@ $res = mysqli_query($conn, $sql);
                       $status = 'ยกเลิกรายการ';
                     } else if ($row['order_status'] == 5) {
                       $status = 'อยู่ระหว่างการส่งสินค้า';
+                    } else if ($row['order_status'] == 6) {
+                      $status = 'หลักฐานการโอนเงินผิด';
                     }
                     ?>
                     <td>

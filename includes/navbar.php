@@ -150,7 +150,6 @@ $_SESSION['carttotal'] = $rowcount['carttotal'];
             </a>
           </li>
           <li class="nav-item active">
-            <a href="?lang=en" class="flag-icon flag-icon-us nav-link"></a>
             <a href="?lang=th" class="flag-icon flag-icon-th nav-link"></a>
           </li>
         </ul>
@@ -190,7 +189,6 @@ $_SESSION['carttotal'] = $rowcount['carttotal'];
             </a>
           </li>
           <li class="nav-item active">
-            <a href="?lang=en" class="flag-icon flag-icon-us nav-link"></a>
             <a href="?lang=th" class="flag-icon flag-icon-th nav-link"></a>
           </li>
         </ul>
