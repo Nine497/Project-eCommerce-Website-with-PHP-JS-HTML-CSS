@@ -44,6 +44,7 @@ include('includes/navbar.php') ?>
   <div class="container card-5">
     <h3>
       <center>
+        <br>
         <?php echo $about ?>
       </center>
     </h3><br>
@@ -51,6 +52,7 @@ include('includes/navbar.php') ?>
       <div class="col-6 col-md-4 border border-secondary rounded card-3">
         <center>
           <h5>
+            <br>
             <?php echo $Contact ?>
           </h5>
           <?php echo $faddress . "<br>" . $femail . "<br>" . $ftel ?>
@@ -59,6 +61,7 @@ include('includes/navbar.php') ?>
       <div class="col-6 col-md-4 border border-secondary rounded card-3">
         <center>
           <h5>
+          <br>
             <?php echo $history ?>
           </h5>
         </center>
@@ -67,6 +70,7 @@ include('includes/navbar.php') ?>
       <div class="col-6 col-md-4 border border-secondary rounded card-3">
         <center>
           <h5>
+          <br>
             <?php echo $Service ?>
           </h5>
           <?php echo $Freeshipping . "<br>" . $Support24hr . "<br>" . $CashonDelivery ?>

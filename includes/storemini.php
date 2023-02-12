@@ -91,7 +91,7 @@ $res = mysqli_query($conn, $sql);
 <!-- Show Shop -->
 <div class="container"><br>
   <h3>
-    <center>New Collection</center>
+    <center>สินค้าเข้าใหม่</center>
   </h3><br>
   <div id="result">
     <div class="row">

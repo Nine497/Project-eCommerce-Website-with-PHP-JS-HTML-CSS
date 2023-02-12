@@ -35,7 +35,7 @@ $res = mysqli_query($conn, $sql);
                 <form action="details_product.php" method="post" style="  position: absolute;bottom: 10px;right: 10px;">
                   <input type="hidden" name="product_id" value="<?php echo $row["product_id"]; ?>">
                   <button type="submit" value="Show Details" class="btn btn-danger btn-sm" style="font-size: 0.8em;">
-                  Add To Cart <i class="fas fa-shopping-cart fa-1x"></i>
+                  เพิ่มไปยังรถเข็น <i class="fas fa-shopping-cart fa-1x"></i>
                   </button>
                 </form>
               </div>
