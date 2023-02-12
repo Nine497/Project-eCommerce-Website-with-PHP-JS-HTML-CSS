@@ -32,9 +32,53 @@ include_once('../../connect.php'); ?>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
+  <script src="../../../../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="../../../../node_modules/sweetalert2/dist/sweetalert2.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+    }
+
+    #printBtn:hover {
+      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+      transform: translateY(5px);
+    }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
+  <?php
+  if (isset($_GET['do'])) {
+    if ($_GET['do'] == 'startdate_failed') {
+      echo '<script type="text/javascript">
+        Swal.fire({
+          title: "เกิดข้อผิดพลาด ",
+          icon: "error",
+          text: "กรุณาเลือก วัน/เดือน/ปี เริ่มต้น !",
+          type: "error"
+        });
+        setTimeout(function () {
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+        }, 1000);
+  </script>';
+    } else if ($_GET['do'] == 'startdate-end-date_failed') {
+      echo '
+  <script type="text/javascript">
+        Swal.fire({
+          title: "เกิดข้อผิดพลาด!",
+          icon: "error",
+          text: "กรุณาเลือก วัน/เดือน/ปี ให้ถูกต้อง !",
+          type: "error"
+        });
+        setTimeout(function () {
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+        }, 1000);
+  </script>';
+    }
+  }
+  ?>
   <div class="wrapper">
 
     <!-- Navbar -->
@@ -73,7 +117,7 @@ include_once('../../connect.php'); ?>
                   <div class="small-box bg-info">
                     <div class="inner">
                       <h3>
-                        <?php $sql = "SELECT COUNT(*) as summember FROM `members`";
+                        <?php $sql = "SELECT COUNT(*) as summember FROM `members` WHERE mem_status = 'user' ";
                         $res = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_array($res);
                         ?>
@@ -167,27 +211,24 @@ include_once('../../connect.php'); ?>
               </div>
               <div class="small-box bg-info">
                 <div class="inner">
-                  <form>
-                    <div class="form-group" style="width: 200px;">
-                      <label for="monthSelect">Select Month:</label>
-                      <select class="form-control" id="monthSelect">
-                        <option value="1" selected>January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                      </select>
+                  <form action="print_report.php" method="post">
+                    <div class="form-group d-flex" style="width: 400px;">
+                      <div style="margin-right: 20px;">
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" class="form-control" id="startDate" name="startDate">
+                      </div>
+                      <div>
+                        <label for="endDate">End Date:</label>
+                        <input type="date" class="form-control" id="endDate" name="endDate">
+                      </div>
                     </div>
+                    <button id="printBtn" class="btn btn-warning"
+                      style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75); width: 150px; transition: all 0.3s;">
+                      Print Report <i class="fas fa-print"></i>
+                    </button>
                   </form>
-                  <h4 id="totalPrice">Select a month to display the total payment</h4>
-                  <p>Payment in month</p>
+                  <br>
+                  <h4 id="totalPrice">Select a date range to display Report</h4>
                 </div>
                 <div class="icon">
                   <i class="fa fa-calendar-check"></i>
@@ -208,57 +249,6 @@ include_once('../../connect.php'); ?>
                 </div>
                 <div class="icon">
                   <i class="far fa-credit-card"></i></i>
-                </div>
-              </div>
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <?php
-                  $query = "SELECT COUNT(*) as count FROM payment where payment_status = 'ชำระเรียบร้อย'";
-                  $result = mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array($result);
-                  $count = $row['count'];
-                  ?>
-                  <h3>
-                    <?php echo $count; ?>
-                  </h3>
-                  <p>Payment cases success</p>
-                </div>
-                <div class="icon">
-                  <i class="far fa-check-circle"></i>
-                </div>
-              </div>
-              <div class="small-box bg-secondary">
-                <div class="inner">
-                  <?php
-                  $query = "SELECT COUNT(*) as count FROM payment where payment_status = 'ตรวจสอบ'";
-                  $result = mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array($result);
-                  $count = $row['count'];
-                  ?>
-                  <h3>
-                    <?php echo $count; ?>
-                  </h3>
-                  <p>Payment cases waiting for confirmation</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-hourglass-half"></i>
-                </div>
-              </div>
-              <div class="small-box bg-danger">
-                <div class="inner">
-                  <?php
-                  $query = "SELECT COUNT(*) as count FROM payment where payment_status = 'หลักฐานการโอนเงินผิด'";
-                  $result = mysqli_query($conn, $query);
-                  $row = mysqli_fetch_array($result);
-                  $count = $row['count'];
-                  ?>
-                  <h3>
-                    <?php echo $count; ?>
-                  </h3>
-                  <p>Payment cases cancel</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-file-slash"></i>
                 </div>
               </div>
             </div>
@@ -282,26 +272,6 @@ include_once('../../connect.php'); ?>
   <script src="../../dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="../../dist/js/demo.js"></script>
-  <script>
-    const monthSelect = document.querySelector("#monthSelect");
-    const totalPrice = document.querySelector("#totalPrice");
-
-    monthSelect.addEventListener("change", function () {
-      // Replace this with your PHP code that retrieves the total price for the selected month
-      const selectedMonth = monthSelect.value;
-
-      // Make an AJAX call to retrieve the total price for the selected month
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "get_month_price.php", true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function () {
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-          totalPrice.innerHTML = this.responseText;
-        }
-      };
-      xhr.send("month=" + selectedMonth);
-    });
-  </script>
 
 
 </body>

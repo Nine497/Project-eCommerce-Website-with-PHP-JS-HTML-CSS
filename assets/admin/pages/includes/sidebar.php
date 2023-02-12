@@ -11,6 +11,15 @@
 </style>
 
 <?php
+session_start();
+if (!isset($_SESSION["mem_id"])) {
+  header("location: login.php");
+  exit;
+}
+if ($_SESSION["mem_status"] != "admin") {
+  header("location: login.php");
+  exit;
+}
 $link = $_SERVER['REQUEST_URI'];
 $link_array = explode('/', $link);
 $name = $link_array[count($link_array) - 2];

@@ -58,6 +58,12 @@ $res = mysqli_query($conn, $sql);
   <link rel="stylesheet" href="../../plugins/responsive/responsive.bootstrap4.min.css"><!-- responsive-->
   <script src="../../../../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
   <link rel="stylesheet" href="../../../../node_modules/sweetalert2/dist/sweetalert2.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+    }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -71,6 +77,9 @@ $res = mysqli_query($conn, $sql);
             text: "การแก้ไขข้อมูลผู้ใช้สำเร็จ",
             type: "success"
         })        
+        setTimeout(function(){
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+      }, 1000);
         </script>';
     } else if ($_GET['do'] == 'failed') {
       echo '<script type="text/javascript">
@@ -80,6 +89,9 @@ $res = mysqli_query($conn, $sql);
             text: "การแก้ไขข้อมูลผู้ใช้ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
             type: "error"
         })        
+        setTimeout(function(){
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+      }, 1000);
         </script>';
     } else if ($_GET['do'] == 'delete_success') {
       echo '<script type="text/javascript">
@@ -89,6 +101,9 @@ $res = mysqli_query($conn, $sql);
             text: "การลบข้อมูลผู้ใช้สำเร็จ",
             type: "success"
         })        
+        setTimeout(function(){
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+      }, 1000);
         </script>';
     } else if ($_GET['do'] == 'delete_failed') {
       echo '<script type="text/javascript">
@@ -98,6 +113,9 @@ $res = mysqli_query($conn, $sql);
             text: "การลบข้อมูลผู้ใช้ไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
             type: "error"
         })        
+        setTimeout(function(){
+          window.history.pushState({}, "", window.location.href.split("?")[0]);
+      }, 1000);
         </script>';
     }
   }
@@ -183,9 +201,11 @@ $res = mysqli_query($conn, $sql);
                         class="btn btn-sm btn-warning text-white">
                         <i class="fas fa-edit"></i> edit
                       </a>
-                      <a class="btn btn-sm btn-danger text-white" onclick="deleteMember(<?php echo $row['mem_id'] ?>)">
-                        <i class="fas fa-trash-alt"></i> Delete
-                      </a>
+                      <?php if ($_SESSION['mem_id'] != $row['mem_id']) { ?>
+                        <a class="btn btn-sm btn-danger text-white" onclick="deleteMember(<?php echo $row['mem_id'] ?>)">
+                          <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                      <?php } ?>
                     </td>
                   </tr>
                 <?php } ?>

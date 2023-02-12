@@ -35,6 +35,12 @@ $row=mysqli_fetch_array($res);
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/responsive/responsive.bootstrap4.min.css"><!-- responsive-->
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+    }
+  </style>
 </head>
 <style>
 </style>

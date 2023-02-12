@@ -75,6 +75,12 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
 
   <script src="../../../../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
   <link rel="stylesheet" href="../../../../node_modules/sweetalert2/dist/sweetalert2.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+    }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
