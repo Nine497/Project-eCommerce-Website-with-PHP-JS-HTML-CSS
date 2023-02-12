@@ -39,7 +39,7 @@ $res = mysqli_query($conn, $sql);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Payment Management</title>
+  <title>การจัดการสถานะการจัดส่ง</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -117,12 +117,12 @@ $res = mysqli_query($conn, $sql);
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Delivery Management</h1>
+              <h1>การจัดการสถานะการจัดส่ง</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">Delivery Management</li>
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item active">การจัดการสถานะการจัดส่ง</li>
               </ol>
             </div>
           </div>
@@ -135,23 +135,23 @@ $res = mysqli_query($conn, $sql);
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title d-inline-block">Delivery List</h3>
+            <h3 class="card-title d-inline-block">รายการจัดการสถานะการจัดส่ง</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <table id="dataTable" class="table table-bordered table-striped w-100 ">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>order_id</th>
-                  <th>mem_id</th>
-                  <th>mem_name</th>
-                  <th>order_number</th>
-                  <th>Address</th>
-                  <th>order_count</th>
-                  <th>order_status</th>
-                  <th>order_date</th>
-                  <th>MORE</th>
+                  <th>ลำดับ</th>
+                  <th>รหัสคำสั่งซื้อ</th>
+                  <th>รหัสสมาชิก</th>
+                  <th>ชื่อสมาชิก</th>
+                  <th>หมายเลขคำสั่งซื้อ</th>
+                  <th>ที่อยู่</th>
+                  <th>จำนวนสินค้าที่สั่งซื้อ</th>
+                  <th>สถานะคำสั่งซื้อ</th>
+                  <th>วันที่สั่งซื้อ</th>
+                  <th>จัดการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -209,10 +209,10 @@ $res = mysqli_query($conn, $sql);
                     <td>
                       <a data-toggle="modal" data-target="#status<?php echo $row['order_id']; ?>">
                         <button name="" type="button" class="btn btn-sm btn-warning text-white"><i class='fas fa-edit'>
-                          </i>Update</button>
+                          </i>อัพเดทการจัดส่ง</button>
                       </a>
                       <a class="btn btn-sm btn-danger text-white" onclick="deletePayment(<?php echo $row['order_id'] ?>)">
-                        <i class="fas fa-trash-alt"></i> Delete</a>
+                        <i class="fas fa-trash-alt"></i> ลบ</a>
                     </td>
                   </tr>
 
@@ -221,7 +221,7 @@ $res = mysqli_query($conn, $sql);
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Update Delivery Status</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">อัพเดทสถานะการจัดส่ง</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -237,7 +237,7 @@ $res = mysqli_query($conn, $sql);
                               ?>
                               <div class="row">
                                 <div class="col-4">
-                                  <label class="form-label text-muted font-weight-bold">Order ID:</label>
+                                  <label class="form-label text-muted font-weight-bold">รหัสคำสั่งซื้อ :</label>
                                 </div>
                                 <div class="col-7">
                                   <p class="bg-secondary p-2">
@@ -247,7 +247,7 @@ $res = mysqli_query($conn, $sql);
                               </div>
                               <div class="row">
                                 <div class="col-4">
-                                  <label class="form-label text-muted font-weight-bold">Member ID:</label>
+                                  <label class="form-label text-muted font-weight-bold">รหัสสมาชิก :</label>
                                 </div>
                                 <div class="col-7">
                                   <p class="bg-secondary p-2">
@@ -257,7 +257,7 @@ $res = mysqli_query($conn, $sql);
                               </div>
                               <div class="row">
                                 <div class="col-4">
-                                  <label class="form-label text-muted font-weight-bold"> Mem Full Name:</label>
+                                  <label class="form-label text-muted font-weight-bold">ชื่อสมาชิก :</label>
                                 </div>
                                 <div class="col-7">
                                   <p class="bg-secondary p-2">
@@ -267,7 +267,7 @@ $res = mysqli_query($conn, $sql);
                               </div>
                               <div class="row">
                                 <div class="col-4">
-                                  <label class="form-label text-muted font-weight-bold">Order Number:</label>
+                                  <label class="form-label text-muted font-weight-bold">หมายเลขคำสั่งซื้อ :</label>
                                 </div>
                                 <div class="col-7">
                                   <p class="bg-secondary p-2">
@@ -277,7 +277,7 @@ $res = mysqli_query($conn, $sql);
                               </div>
                               <div class="row">
                                 <div class="col-4">
-                                  <label class="form-label text-muted font-weight-bold">Address:</label>
+                                  <label class="form-label text-muted font-weight-bold">ที่อยู่ :</label>
                                 </div>
                                 <div class="col-7">
                                   <p class="bg-secondary p-2">
@@ -287,7 +287,7 @@ $res = mysqli_query($conn, $sql);
                               </div>
                               <div class="row">
                                 <div class="col-4">
-                                  <label class="form-label text-muted font-weight-bold">Order Count:</label>
+                                  <label class="form-label text-muted font-weight-bold">จำนวนสินค้าที่สั่งซื้อ :</label>
                                 </div>
                                 <div class="col-7">
                                   <p class="bg-secondary p-2">
@@ -297,7 +297,7 @@ $res = mysqli_query($conn, $sql);
                               </div>
                               <div class="row">
                                 <div class="col-4">
-                                  <label class="form-label text-muted font-weight-bold">Order Status:</label>
+                                  <label class="form-label text-muted font-weight-bold">สถานะคำสั่งซื้อ :</label>
                                 </div>
                                 <div class="col-7">
                                   <p class="bg-secondary p-2">
@@ -307,7 +307,7 @@ $res = mysqli_query($conn, $sql);
                               </div>
                               <div class="row">
                                 <div class="col-4">
-                                  <label class="form-label text-muted font-weight-bold">Order Date:</label>
+                                  <label class="form-label text-muted font-weight-bold">วันที่สั่งซื้อ :</label>
                                 </div>
                                 <div class="col-7">
                                   <p class="bg-secondary p-2">
@@ -337,8 +337,8 @@ $res = mysqli_query($conn, $sql);
                             </div>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button id="confirm-status" class="btn btn-primary">Save changes</button>
+                          <button id="confirm-status" class="btn btn-primary">บันทึก</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                         </div>
                         </form>
                       </div>

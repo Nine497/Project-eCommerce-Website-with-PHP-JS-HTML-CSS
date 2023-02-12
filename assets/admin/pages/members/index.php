@@ -31,7 +31,7 @@ $res = mysqli_query($conn, $sql);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Members Management</title>
+  <title>การจัดการสมาชิก</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -132,12 +132,12 @@ $res = mysqli_query($conn, $sql);
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Members Management</h1>
+              <h1>การจัดการสมาชิก</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">Members Management</li>
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item active">การจัดการสมาชิก</li>
               </ol>
             </div>
           </div>
@@ -150,21 +150,21 @@ $res = mysqli_query($conn, $sql);
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title d-inline-block">Members List</h3>
+            <h3 class="card-title d-inline-block">รายชื่อสมาชิก</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <table id="dataTable" class="table table-bordered table-striped w-100 ">
               <thead>
                 <tr>
-                  <th>ID.</th>
-                  <th>Username</th>
-                  <th>FirstName</th>
-                  <th>LastName</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Permission</th>
-                  <th>More</th>
+                  <th>รหัสสมาชิก</th>
+                  <th>ชื่อผู้ใช้</th>
+                  <th>ชื่อจริง</th>
+                  <th>นามสกุล</th>
+                  <th>อีเมล์</th>
+                  <th>เบอร์</th>
+                  <th>ตำแหน่ง</th>
+                  <th>การจัดการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -199,11 +199,11 @@ $res = mysqli_query($conn, $sql);
                     <td>
                       <a href="form-edit.php?mem_id=<?php echo $row['mem_id']; ?>"
                         class="btn btn-sm btn-warning text-white">
-                        <i class="fas fa-edit"></i> edit
+                        <i class="fas fa-edit"></i> แก้ไข
                       </a>
                       <?php if ($_SESSION['mem_id'] != $row['mem_id']) { ?>
                         <a class="btn btn-sm btn-danger text-white" onclick="deleteMember(<?php echo $row['mem_id'] ?>)">
-                          <i class="fas fa-trash-alt"></i> Delete
+                          <i class="fas fa-trash-alt"></i> ลบ
                         </a>
                       <?php } ?>
                     </td>
@@ -261,14 +261,14 @@ $res = mysqli_query($conn, $sql);
   <script>
     function deleteMember(mem_id) {
       Swal.fire({
-        title: 'Delete member',
-        text: "Are you sure you want to delete this member?",
+        title: 'ลบสมาชิก !',
+        text: "คุณแน่ใจหรือไม่ว่าต้องการลบสมาชิกนี้ ?",
         type: 'question',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, I am sure!',
-        cancelButtonText: 'No, I am not sure'
+        confirmButtonText: 'ใช่ ฉันแน่ใจ!',
+        cancelButtonText: 'ยกเลิก'
       }).then((result) => {
         if (result.value) {
           window.location.href = "delete.php?mem_id=" + mem_id;

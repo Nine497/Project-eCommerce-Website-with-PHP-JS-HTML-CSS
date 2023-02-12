@@ -3,10 +3,11 @@ include('../../../../includes/function.php');
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Stores Management</title>
+  <title>แก้ไขข้อมูลข่าวสาร</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -40,137 +41,138 @@ include('../../../../includes/function.php');
 </head>
 
 <body class="hold-transition sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
-  <!-- Navbar & Main Sidebar Container -->
-  <?php include_once('../includes/sidebar.php') ?>
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>News Management</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-              <li class="breadcrumb-item"><a href="../news">News Management</a></li>
-              <li class="breadcrumb-item active">Edit News</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-<?php 
-      include_once('../../connect.php');
-      
-      $new_id=$_GET['new_id'];
-      $sql="SELECT * FROM news Where new_id=$new_id"; 
-      $ress=mysqli_query($conn,$sql);
-      $rows=mysqli_fetch_assoc($ress);
-    $product_type_id=$rows['product_type_id'];
-?>
-
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title d-inline-block">Edit News</h3>
-        </div>
-        <!-- /.card-header -->
-        <form role="form" action="insert.php" method="post"enctype="multipart/form-data"id="formRegister">
-          <div class="card-body">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                  <label for="mem_fname">Add Image News</label>
-                    <div class="custom-file">
-
-                        <input type="file" class="custom-file-input" name="file" id="customFile" disabled>
-                        <label class="custom-file-label" for="customFile" disabled>Choose file</label>
-                    </div><br>
-                        <figure class="figure text-center mt-2">
-                            <img  src="../../../image/news/<?php echo $rows['new_image']?>" id="imgUpload" class="figure-img img-fluid rounded" style="max-width:50%">
-                        </figure>
-                    </div>
-            <table>
-              <div class="form-group col-md-2">
-                  <label for="store_name">Title</label>
-                  <input type="text" class="form-control" id="store_name" name="store_name" value="<?php echo $rows['new_title']?>"disabled>
-              </div>
-              <div class="form-group col-md-2">
-                  <label for="store_date">Date</label>
-                  <input type="date" class="form-control" id="store_date" name="store_date" value="<?php echo $rows['new_date']?>"disabled>
-              </div>
-              
-              <div class="form-group col-md-4">
-                  <label for="submit" style="opacity: 0;">Product Type</label><br>
-              </div>
-              <div class="form-group col-md-12">
-              <div class="card-footer">
-          <a href="form-edit2.php?new_id=<?php echo $rows['new_id']?>"class="btn btn-warning float-right">แก้ไขข้อมูล</a>
-          </div>
-          </div>
-            </table>
+  <!-- Site wrapper -->
+  <div class="wrapper">
+    <!-- Navbar & Main Sidebar Container -->
+    <?php include_once('../includes/sidebar.php') ?>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>แก้ไขข้อมูลข่าวสาร</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item"><a href="../news">การจัดการข่าวสาร</a></li>
+                <li class="breadcrumb-item active">แก้ไขข้อมูลข่าวสาร</li>
+              </ol>
             </div>
           </div>
-        </form>
+        </div><!-- /.container-fluid -->
+      </section>
 
-        <div class="card-body">
+      <!-- Main content -->
+      <section class="content">
+        <?php
+        include_once('../../connect.php');
+
+        $new_id = $_GET['new_id'];
+        $sql = "SELECT * FROM news Where new_id=$new_id";
+        $ress = mysqli_query($conn, $sql);
+        $rows = mysqli_fetch_assoc($ress);
+        ?>
+
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title d-inline-block">แก้ไขข้อมูลข่าวสาร</h3>
+          </div>
+          <!-- /.card-header -->
+          <form role="form" action="insert.php" method="post" enctype="multipart/form-data" id="formRegister">
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="mem_fname">เพิ่มรูปภาพข่าวสาร</label>
+                  <div class="custom-file">
+
+                    <input type="file" class="custom-file-input" name="file" id="customFile" disabled>
+                    <label class="custom-file-label" for="customFile" disabled>เลือกไฟล์</label>
+                  </div><br>
+                  <figure class="figure text-center mt-2">
+                    <img src="../../../image/news/<?php echo $rows['new_image'] ?>" id="imgUpload"
+                      class="figure-img img-fluid rounded" style="max-width:50%">
+                  </figure>
+                </div>
+                <table>
+                  <div class="form-group col-md-2">
+                    <label for="store_name">หัวข้อ</label>
+                    <input type="text" class="form-control" id="store_name" name="store_name"
+                      value="<?php echo $rows['new_title'] ?>" disabled>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="store_date">วันที่</label>
+                    <input type="date" class="form-control" id="store_date" name="store_date"
+                      value="<?php echo $rows['new_date'] ?>" disabled>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <div class="card-footer">
+                      <a href="form-edit2.php?new_id=<?php echo $rows['new_id'] ?>"
+                        class="btn btn-warning float-right">แก้ไขข้อมูล</a>
+                    </div>
+                  </div>
+                </table>
+              </div>
+            </div>
+          </form>
+
+          <div class="card-body">
+          </div>
+
+
+          <!-- /.card-body -->
         </div>
+        <!-- /.card -->
 
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
+    <!-- footer -->
+    <?php include_once('../includes/footer.php') ?>
 
-    </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+  <!-- ./wrapper -->
 
-  <!-- footer -->
-  <?php include_once('../includes/footer.php') ?>
-  
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- SlimScroll -->
-<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../../plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
-<!-- DataTables -->
-<script src="../../../../node_modules/jquery-datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="../../plugins/responsive/dataTables.responsive.min.js"></script> <!-- responsive-->
-<script src="../../../../node_modules/jquery-validation/dist/jquery.validate.min.js"></script><!--เรียกjquery.validate -->
+  <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- SlimScroll -->
+  <script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+  <!-- FastClick -->
+  <script src="../../plugins/fastclick/fastclick.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="../../dist/js/demo.js"></script>
+  <!-- DataTables -->
+  <script src="../../../../node_modules/jquery-datatables/jquery.dataTables.min.js"></script>
+  <script src="../../plugins/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="../../plugins/responsive/dataTables.responsive.min.js"></script> <!-- responsive-->
+  <script src="../../../../node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+  <!--เรียกjquery.validate -->
 
 </body>
+
 </html>
 <script>
- $('.custom-file-input').on('change', function(){
+  $('.custom-file-input').on('change', function () {
     var fileName = $(this).val().split('\\').pop()
     $(this).siblings('.custom-file-label').html(fileName)
     if (this.files[0]) {
-        var reader = new FileReader()
-        $('.figure').addClass('d-block')
-        reader.onload = function (e) {
-            $('#imgUpload').attr('src', e.target.result)
-        }
-        reader.readAsDataURL(this.files[0])
+      var reader = new FileReader()
+      $('.figure').addClass('d-block')
+      reader.onload = function (e) {
+        $('#imgUpload').attr('src', e.target.result)
+      }
+      reader.readAsDataURL(this.files[0])
     }
   })
   //formRegister
-  
+
 </script>

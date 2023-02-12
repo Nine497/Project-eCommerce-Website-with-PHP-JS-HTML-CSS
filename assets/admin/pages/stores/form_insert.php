@@ -7,7 +7,7 @@ include('../../connect.php');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Stores Management</title>
+  <title>การจัดการสินค้า</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -55,13 +55,13 @@ include('../../connect.php');
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Stores Management</h1>
+              <h1>การจัดการสินค้า</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="../stores">Stores Management</a></li>
-                <li class="breadcrumb-item active">Add Product</li>
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item"><a href="../stores">การจัดการสินค้า</a></li>
+                <li class="breadcrumb-item active">เพิ่มสินค้า</li>
               </ol>
             </div>
           </div>
@@ -74,17 +74,17 @@ include('../../connect.php');
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title d-inline-block">Add Product</h3>
+            <h3 class="card-title d-inline-block">เพิ่มสินค้า</h3>
           </div>
           <!-- /.card-header -->
           <form role="form" action="insert.php" method="post" enctype="multipart/form-data" id="formRegister">
             <div class="card-body">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="mem_fname">Add Image Product</label>
+                  <label for="mem_fname">เพิ่มรูปภาพสินค้า</label>
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="file" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <input type="file" class="custom-file-input" name="file" id="customFile" required>
+                    <label class="custom-file-label" for="customFile">เลือกไฟล์</label>
                   </div><br>
                   <figure class="figure text-center d-none mt-2">
                     <img id="imgUpload" class="figure-img img-fluid rounded" style="max-width:50%">
@@ -92,27 +92,27 @@ include('../../connect.php');
                 </div>
                 <table>
                   <div class="form-group col-md-6">
-                    <label for="product_name">Product Name</label>
-                    <input type="text" class="form-control" id="product_name" name="product_name">
+                    <label for="product_name">ชื่อสินค้า</label>
+                    <input type="text" class="form-control" id="product_name" name="product_name" required>
                   </div>
                   <div class="form-group col-md-12">
-                    <label for="product_detail">Product Detail</label><br>
+                    <label for="product_detail">รายละเอียดสินค้า</label><br>
                     <textarea name="product_detail" id="product_detail" rows="5" class="form-control"></textarea>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_price">Product Price</label>
+                    <label for="product_price">ราคา</label>
                     <div class="input-group-prepend">
                       <input type="text" class="form-control" id="product_price" name="product_price"
-                        class="form-control">
-                      <div class="input-group-text">bath</div>
+                        class="form-control" required>
+                      <div class="input-group-text">บาท</div>
                     </div>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_code">Product Code</label>
-                    <input type="text" class="form-control" id="product_code" name="product_code">
+                    <label for="product_code">รหัส</label>
+                    <input type="text" class="form-control" id="product_code" name="product_code" required>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_tag">Product Tag</label>
+                    <label for="product_tag">ยี่ห้อ</label>
                     <select class="form-control" name="product_tag">
                       <?php $sql2 = "SELECT * FROM product_tag";
                       $res = mysqli_query($conn, $sql2);
@@ -124,16 +124,16 @@ include('../../connect.php');
                     </select>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_date">Date</label>
-                    <input type="date" class="form-control" id="product_date" name="product_date">
+                    <label for="product_date">วันที่</label>
+                    <input type="date" class="form-control" id="product_date" name="product_date" required>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_count">Count</label>
-                    <input type="text" class="form-control" id="product_count" name="product_count">
+                    <label for="product_count">จำนวนสินค้า</label>
+                    <input type="text" class="form-control" id="product_count" name="product_count" required>
                   </div>
-                  <div class="form-group col-md-2">
-                    <label for="submit" style="opacity: 0;">Product Type</label><br>
-                    <input type="submit" class="btn btn-success" name="submit">
+                  <div class="card-footer col-md-12">
+                    <a href="index.php" class="btn btn-warning float-left">ย้อนกลับ</a>
+                    <input type="submit" name="submit" class="btn btn-primary float-right" value="เพิ่มสินค้า">
                   </div>
                 </table>
               </div>

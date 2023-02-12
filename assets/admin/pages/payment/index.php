@@ -47,7 +47,7 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Payment Management</title>
+  <title>การจัดการการชำระเงิน</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -125,12 +125,12 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Payment Management</h1>
+              <h1>การจัดการการชำระเงิน</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">Payment Management</li>
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item active">การจัดการการชำระเงิน</li>
               </ol>
             </div>
           </div>
@@ -143,24 +143,24 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title d-inline-block">Payment List</h3>
+            <h3 class="card-title d-inline-block">รายการชำระเงิน</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <table id="dataTable" class="table table-bordered table-striped w-100 ">
               <thead>
                 <tr>
-                  <th>ID.</th>
-                  <th>NAME</th>
-                  <th>ORDER ID</th>
-                  <th>PRICE</th>
-                  <th>BANK NAME</th>
-                  <th>TRANSFER DATE</th>
-                  <th>TRANSFER TIME</th>
-                  <th>ADDRESS</th>
-                  <th>TELEPHONE</th>
-                  <th>PAYMENT STATUS</th>
-                  <th>MORE</th>
+                  <th>ลำดับ</th>
+                  <th>ชื่อผู้ทำรายการ</th>
+                  <th>รหัสคำสั่งซื้อ</th>
+                  <th>ราคา</th>
+                  <th>ธนาคาร</th>
+                  <th>วันที่โอน</th>
+                  <th>เวลาที่โอน</th>
+                  <th>ที่อยู่</th>
+                  <th>เบอร์</th>
+                  <th>สถานะการชำระเงิน</th>
+                  <th>จัดการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -199,11 +199,11 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                     <td>
                       <a href="#payment<?php echo $row['payment_id']; ?>" data-toggle="modal">
                         <button name="" type="button" class="btn btn-sm btn-warning text-white"><i class='fas fa-edit'>
-                          </i>Checking</button>
+                          </i>อัพเดทสถานะ</button>
                       </a>
                       <a class="btn btn-sm btn-danger text-white"
                         onclick="deletePayment(<?php echo $row['payment_id'] ?>)">
-                        <i class="fas fa-trash-alt"></i> Delete</a>
+                        <i class="fas fa-trash-alt"></i> ลบ</a>
                     </td>
                   </tr>
 
@@ -212,7 +212,7 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Update Payment</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">อัพเดทสถานะการชำระเงิน</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -241,9 +241,9 @@ if (isset($_REQUEST['admin']) && $_REQUEST['admin'] == 'update') {
                             </div>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                           <?php if ($show3['payment_status'] != "ชำระเรียบร้อย"): ?>
-                            <button id="confirm-payment" class="btn btn-primary">Save changes</button>
+                            <button id="confirm-payment" class="btn btn-primary">บันทึก</button>
                           <?php endif; ?>
                         </div>
                         </form>

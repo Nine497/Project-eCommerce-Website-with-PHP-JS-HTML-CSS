@@ -7,7 +7,7 @@ include('../../../../includes/function.php');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Stores Management</title>
+  <title>การจัดการสินค้า</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -52,13 +52,13 @@ include('../../../../includes/function.php');
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Product Management</h1>
+              <h1>การจัดการสินค้า</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="../stores">Product Management</a></li>
-                <li class="breadcrumb-item active">Edit Product</li>
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item"><a href="../stores">การจัดการสินค้า</a></li>
+                <li class="breadcrumb-item active">แก้ไขข้อมูลสินค้า</li>
               </ol>
             </div>
           </div>
@@ -79,18 +79,18 @@ include('../../../../includes/function.php');
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title d-inline-block">Edit Product</h3>
+            <h3 class="card-title d-inline-block">แก้ไขข้อมูลสินค้า</h3>
           </div>
           <!-- /.card-header -->
           <form role="form" action="insert.php" method="post" enctype="multipart/form-data" id="formRegister">
             <div class="card-body">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="mem_fname">Add Image Product</label>
+                  <label for="mem_fname">เพิ่มรูปภาพสินค้า</label>
                   <div class="custom-file">
 
                     <input type="file" class="custom-file-input" name="file" id="customFile" disabled>
-                    <label class="custom-file-label" for="customFile" disabled>Choose file</label>
+                    <label class="custom-file-label" for="customFile" disabled>เลือกไฟล์</label>
                   </div><br>
                   <figure class="figure text-center mt-2">
                     <img src="../../../image/store/<?php echo $rows['product_image'] ?>" id="imgUpload"
@@ -99,46 +99,43 @@ include('../../../../includes/function.php');
                 </div>
                 <table>
                   <div class="form-group col-md-6">
-                    <label for="product_name">Product Name </label>
+                    <label for="product_name">ชื่อสินค้า</label>
                     <input type="text" class="form-control" id="product_name" name="product_name"
                       value="<?php echo $rows['product_name'] ?>" disabled>
 
                   </div>
                   <div class="form-group col-md-12">
-                    <label for="product_detail">Product Detail </label><br>
+                    <label for="product_detail">รายละเอียดสินค้า</label><br>
                     <textarea name="product_detail" id="product_detail" rows="5" class="form-control"
                       disabled><?php echo $rows['product_detail'] ?></textarea>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_price">Product Price</label>
+                    <label for="product_price">ราคา</label>
                     <div class="input-group-prepend">
                       <input type="text" class="form-control" id="product_price" name="product_price"
                         class="form-control" value="<?php echo $rows['product_price'] ?>" disabled>
-                      <div class="input-group-text">bath</div>
+                      <div class="input-group-text">บาท</div>
                     </div>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_code">Product Code</label>
+                    <label for="product_code">รหัส</label>
                     <input type="text" class="form-control" id="product_code" name="product_code"
                       value="<?php echo $rows['product_code'] ?>" disabled>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_tag">Product Tag</label>
+                    <label for="product_tag">ยี่ห้อ</label>
                     <input type="text" class="form-control" id="product_tag" name="product_tag"
                       value="<?php echo $rows['product_tag'] ?>" disabled>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_date">Date</label>
+                    <label for="product_date">วันที่</label>
                     <input type="date" class="form-control" id="product_date" name="product_date"
                       value="<?php echo $rows['product_date'] ?>" disabled>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="product_count">Count</label>
+                    <label for="product_count">จำนวนสินค้า</label>
                     <input type="text" class="form-control" id="product_count" name="product_count"
                       value="<?php echo $rows['product_count'] ?>" disabled>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="submit" style="opacity: 0;">Product Type</label><br>
                   </div>
                   <div class="form-group col-md-12">
                     <div class="card-footer">

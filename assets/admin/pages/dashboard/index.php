@@ -6,7 +6,7 @@ include_once('../../connect.php'); ?>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Dashboard</title>
+  <title>แดชบอร์ด</title>
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="../../dist/img/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../../dist/img/favicons/favicon-32x32.png">
@@ -92,11 +92,11 @@ include_once('../../connect.php'); ?>
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Dashboard</h1>
+              <h1 class="m-0 text-dark">แดชบอร์ด</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item active">แดชบอร์ด</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -123,7 +123,7 @@ include_once('../../connect.php'); ?>
                         ?>
                         <?php echo $row['summember'] ?>
                       </h3>
-                      <p>All Members</p>
+                      <p>สมาชิกทั้งหมด</p>
                     </div>
                     <div class="icon">
                       <i class="ion ion-pie-graph"></i>
@@ -140,7 +140,7 @@ include_once('../../connect.php'); ?>
                       <h3>
                         <?php echo $row1['sumnews'] ?>
                       </h3>
-                      <p>All News</p>
+                      <p>ข่าวสารทั้งหมด</p>
                     </div>
                     <div class="icon">
                       <i class="fas fa-newspaper"></i>
@@ -157,7 +157,7 @@ include_once('../../connect.php'); ?>
                       <h3>
                         <?php echo $row2['sumstore'] ?>
                       </h3>
-                      <p>All Product</p>
+                      <p>สินค้าทั้งหมด</p>
                     </div>
                     <div class="icon">
                       <i class="fa fa-shopping-cart"></i>
@@ -180,7 +180,7 @@ include_once('../../connect.php'); ?>
                       <h3>
                         <?php echo number_format($total_payment, 0, '', ','); ?> ฿
                       </h3>
-                      <p>Total income</p>
+                      <p>รายได้ทั้งหมด</p>
                     </div>
                     <div class="icon">
                       <i class="ion ion-cash"></i>
@@ -203,7 +203,7 @@ include_once('../../connect.php'); ?>
                     echo $result_Product_sold;
                     ?>
                   </h3>
-                  <p>All Product sold</p>
+                  <p>สินค้าที่ขายไปแล้วทั้งหมด</p>
                 </div>
                 <div class="icon">
                   <i class="far fa-credit-card"></i>
@@ -214,21 +214,21 @@ include_once('../../connect.php'); ?>
                   <form action="print_report.php" method="post">
                     <div class="form-group d-flex" style="width: 400px;">
                       <div style="margin-right: 20px;">
-                        <label for="startDate">Start Date:</label>
+                        <label for="startDate">เริ่มวันที่ :</label>
                         <input type="date" class="form-control" id="startDate" name="startDate">
                       </div>
                       <div>
-                        <label for="endDate">End Date:</label>
+                        <label for="endDate">สิ้นสุดวันที่ :</label>
                         <input type="date" class="form-control" id="endDate" name="endDate">
                       </div>
                     </div>
                     <button id="printBtn" class="btn btn-warning"
                       style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75); width: 150px; transition: all 0.3s;">
-                      Print Report <i class="fas fa-print"></i>
+                      พิมพ์รายงาน <i class="fas fa-print"></i>
                     </button>
                   </form>
                   <br>
-                  <h4 id="totalPrice">Select a date range to display Report</h4>
+                  <h4 id="totalPrice">เลือกช่วงวันที่เพื่อแสดงรายงาน</h4>
                 </div>
                 <div class="icon">
                   <i class="fa fa-calendar-check"></i>
@@ -245,7 +245,7 @@ include_once('../../connect.php'); ?>
                   <h3>
                     <?php echo $row3['sumpayment'] ?>
                   </h3>
-                  <p>All Payment</p>
+                  <p>รายการชำระเงินทั้งหมด</p>
                 </div>
                 <div class="icon">
                   <i class="far fa-credit-card"></i></i>

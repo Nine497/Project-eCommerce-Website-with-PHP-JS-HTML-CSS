@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Admin Management</title>
+  <title>แบบฟอร์มแก้ไขข้อมูลสมาชิก</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -54,14 +54,13 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Admin Management</h1>
+              <h1>แบบฟอร์มแก้ไขข้อมูลสมาชิก</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="../dashboard">Home</a></li>
-                <li class="breadcrumb-item"><a href="/index.php">Admin Management</a></li>
-                <li class="breadcrumb-item"><a href="form-edit.php">Form Edit Data</a></li>
-                <li class="breadcrumb-item active">Edit Data</li>
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item"><a href="/index.php">การจัดการสมาชิก</a></li>
+                <li class="breadcrumb-item active">แก้ไขข้อมูลสมาชิก</li>
               </ol>
             </div>
           </div>
@@ -78,7 +77,7 @@
       <section class="content">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Edit Data</h3>
+            <h3 class="card-title">แก้ไขข้อมูล</h3>
           </div>
 
           <form role="form" action="update.php" method="post">
@@ -89,33 +88,33 @@
                     value="<?php echo $row1['mem_id'] = $mem_id ?>" hidden>
                   <input type="text" class="form-control" id="mem_username" name="mem_username"
                     value="<?php echo $row1['mem_username'] ?>" hidden>
-                  <label for="mem_username">Username</label>
+                  <label for="mem_username">ชื่อผู้ใช้</label>
                   <input type="text" class="form-control" id="mem_username" name="mem_username"
                     value="<?php echo $row1['mem_username'] ?>" disabled>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="mem_fname">FirstName</label>
+                  <label for="mem_fname">ชื่อจริง</label>
                   <input type="text" class="form-control" id="mem_fname" name="mem_fname"
                     value="<?php echo $row1['mem_fname'] ?>">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="mem_lname">LastName</label>
+                  <label for="mem_lname">นามสกุล</label>
                   <input type="text" class="form-control" id="mem_lname" name="mem_lname"
                     value="<?php echo $row1['mem_lname'] ?>">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="mem_email">Email</label>
+                  <label for="mem_email">อีเมล</label>
                   <input type="email" class="form-control" id="mem_email" name="mem_email"
                     value="<?php echo $row1['mem_email'] ?>">
                 </div>
 
                 <div class="form-group col-md-4">
-                  <label for="mem_tel">Phone</label>
+                  <label for="mem_tel">เบอร์</label>
                   <input type="text" class="form-control" id="mem_tel" name="mem_tel"
                     value="<?php echo $row1['mem_tel'] ?>">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="mem_status">Status</label>
+                  <label for="mem_status">ตำแหน่ง</label>
                   <select name="mem_status" id="mem_status" class="form-control">
                     <?php
                     $sqldata = "Select * from members where mem_id=$mem_id";
@@ -138,7 +137,7 @@
               </div>
 
               <div class="form-group">
-                <label for="mem_address">Address</label>
+                <label for="mem_address">ที่อยู่</label>
                 <textarea class="form-control" id="mem_address" name="mem_address"
                   rows="5"> <?php echo $row1['mem_address'] ?></textarea>
               </div>

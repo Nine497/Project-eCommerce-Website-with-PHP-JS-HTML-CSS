@@ -31,7 +31,7 @@ $res = mysqli_query($conn, $sql);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Orders Management</title>
+  <title>การจัดการคำสั่งซื้อ</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -56,6 +56,8 @@ $res = mysqli_query($conn, $sql);
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/responsive/responsive.bootstrap4.min.css"><!-- responsive-->
+  <script src="../../../../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="../../../../node_modules/sweetalert2/dist/sweetalert2.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
   <style>
     body {
@@ -77,12 +79,12 @@ $res = mysqli_query($conn, $sql);
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Orders Management</h1>
+              <h1>การจัดการคำสั่งซื้อ</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">Orders Management</li>
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item active">การจัดการคำสั่งซื้อ</li>
               </ol>
             </div>
           </div>
@@ -95,23 +97,23 @@ $res = mysqli_query($conn, $sql);
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title d-inline-block">Orders List</h3>
+            <h3 class="card-title d-inline-block">รายการคำสั่งซื้อ</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <table id="dataTable" class="table table-bordered table-striped w-100 ">
               <thead>
                 <tr>
-                  <th>ID.</th>
-                  <th>MEM ID</th>
-                  <th>PRODUCT NUMBER</th>
-                  <th>ADDRESS</th>
-                  <th>NUMBER OF PRODUCT</th>
-                  <th>SHIPPING</th>
-                  <th>PRICE TOTAL</th>
-                  <th>STATUS</th>
-                  <th>DATE</th>
-                  <th>MORE</th>
+                  <th>รหัสคำสั่งซื้อ</th>
+                  <th>รหัสสมาชิก</th>
+                  <th>หมายเลขคำสั่งซื้อ</th>
+                  <th>ที่อยู่</th>
+                  <th>จำนวนสินค้าที่สั่งซื้อ</th>
+                  <th>ค่าจัดส่ง</th>
+                  <th>รวมราคาสินค้า</th>
+                  <th>สถานะคำสั่งซื้อ</th>
+                  <th>วันที่</th>
+                  <th>ลบ</th>
                 </tr>
               </thead>
               <tbody>
@@ -162,9 +164,8 @@ $res = mysqli_query($conn, $sql);
                       <?php echo $row['order_date']; ?>
                     </td>
                     <td>
-                      <a href="delete.php?order_id=<?php echo $row['order_id'] ?>"
-                        onClick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่');" class="btn btn-sm btn-danger">
-                        <i class="fas fa-trash-alt"></i> Delete</a>
+                      <a class="btn btn-sm btn-danger" onclick="DeleteOrder(<?php echo $row['order_id'] ?>)">
+                        <i class="fas fa-trash-alt"></i> ลบ</a>
                     </td>
                   </tr>
                 <?php } ?>
@@ -215,18 +216,25 @@ $res = mysqli_query($conn, $sql);
         "responsive": true
       });
     });
-
-    function deleteItem(mem_id) {
-      if (confirm('คุณต้องการลบข้อมูลนี้หรือไม่') == true) {
-        window.location = `delete.php?mem_id=${mem_id}`;
-        // window.location='delete.php?id='+id;
-      } else {
-
-      }
-    };
-
   </script>
-
+  <script>
+    function DeleteOrder(order_id) {
+      Swal.fire({
+        title: 'ลบคำสั่งซื้อ !',
+        text: "คุณแน่ใจหรือไม่ว่าต้องการลบคำสั่งซื้อนี้ ?",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'ใช่ ฉันแน่ใจ!',
+        cancelButtonText: 'ยกเลิก'
+      }).then((result) => {
+        if (result.value) {
+          window.location.href = "delete.php?order_id=" + order_id;
+        }
+      })
+    }
+  </script>
 </body>
 
 </html>

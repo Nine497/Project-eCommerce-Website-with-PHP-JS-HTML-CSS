@@ -11,7 +11,6 @@
 </style>
 
 <?php
-session_start();
 if (!isset($_SESSION["mem_id"])) {
   header("location: login.php");
   exit;
@@ -50,7 +49,7 @@ $row9 = mysqli_fetch_array($res9);
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="#" class="brand-link">
-    <span class="brand-text font-weight-light text-center d-block">Stores Management</span>
+    <span class="brand-text font-weight-light text-center d-block">ระบบจัดการร้านค้า</span>
   </a>
 
   <!-- Sidebar -->
@@ -61,14 +60,14 @@ $row9 = mysqli_fetch_array($res9);
           <?php echo $_SESSION['mem_fname'] ?>
           <?php echo $_SESSION['mem_lname'] ?>
         </a>
-        <p class="d-block h6 mb-0 text-white" style="display:inline-block;">Role:
+        <p class="d-block h6 mb-0 text-white" style="display:inline-block;">ตำแหน่ง :
           <?php if ($_SESSION['mem_status'] == "admin") {
             echo "Administrator";
           }
           ?>
         </p>
-        <p class="d-block h6 mb-1 text-white" style="display:inline-block;">Status: <i
-            class="fas fa-circle text-success"></i> Online</p>
+        <p class="d-block h6 mb-1 text-white" style="display:inline-block;">สถานะ : <i
+            class="fas fa-circle text-success"></i> ออนไลน์</p>
       </div>
     </div>
 
@@ -80,36 +79,36 @@ $row9 = mysqli_fetch_array($res9);
         <li class="nav-item">
           <a href="../dashboard" class="nav-link <?php echo $name == 'dashboard' ? 'active' : '' ?>">
             <i class="fas fa-tachometer-alt nav-icon"></i>
-            <p>Dashboard</p>
+            <p>แดชบอร์ด</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="../members" class="nav-link <?php echo $name == 'members' ? 'active' : '' ?>">
             <i class="fas fa-users-cog nav-icon"></i>
-            <p>Members</p>
+            <p>จัดการสมาชิก</p>
           </a>
         <li class="nav-item">
-          <a href="../stores" class="nav-link <?php echo $name == 'store' ? 'active' : '' ?>">
+          <a href="../stores" class="nav-link <?php echo $name == 'stores' ? 'active' : '' ?>">
             <i class="fas fa-store nav-icon"></i>
-            <p>Stores</p>
+            <p>จัดการสินค้า</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="../news" class="nav-link <?php echo $name == 'news' ? 'active' : '' ?>">
             <i class="fa fa-newspaper nav-icon"></i>
-            <p>News</p>
+            <p>จัดการข่าวสาร</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="../payment" class="nav-link <?php echo $name == 'payment' ? 'active' : '' ?>">
             <i class="far fa-credit-card"></i>
-            <p> Payment</p>
+            <p>จัดการการชำระเงิน</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="../product_tag" class="nav-link">
+          <a href="../product_tag" class="nav-link <?php echo $name == 'product_tag' ? 'active' : '' ?>">
             <i class="fa fa-shopping-cart"></i>
-            <p>Product Tag</p>
+            <p>จัดการยี่ห้อสินค้า</p>
           </a>
         </li>
         <!-- <li class="nav-item">
@@ -123,7 +122,7 @@ $row9 = mysqli_fetch_array($res9);
           <a href="#" class="nav-link">
             <i class="fas fa-cog fa-lg"></i>
             <p>
-              Order Menu
+              เมนูคำสั่งซื้อ
               <i class="right fa fa-angle-left"></i>
             </p>
           </a>
@@ -131,29 +130,29 @@ $row9 = mysqli_fetch_array($res9);
             <li class="nav-item">
               <a href="../orders" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>Order</p>
+                <p>คำสั่งซื้อ</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="../order_detail" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>Order Detail</p>
+                <p>รายละเอียดคำสั่งซื้อ</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="../delivery" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>Order delivery</p>
+                <p>การจัดส่งคำสั่งซื้อ</p>
               </a>
             </li>
           </ul>
         </li>
         <!-- dropdown -->
-        <li class="nav-header dropdown">Account Settings</li>
+        <li class="nav-header dropdown">การตั้งค่าบัญชี</li>
         <li class="nav-item">
           <a href="../dashboard/logout.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
-            <p>Logout</p>
+            <p>ออกจากระบบ</p>
           </a>
         </li>
       </ul>

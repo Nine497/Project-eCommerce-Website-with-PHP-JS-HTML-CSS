@@ -31,7 +31,7 @@ $res = mysqli_query($conn, $sql);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Stores Management</title>
+  <title>การจัดการข่าวสาร</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -138,12 +138,12 @@ $res = mysqli_query($conn, $sql);
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>News Management</h1>
+              <h1>การจัดการข่าวสาร</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">News Management</li>
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item active">การจัดการข่าวสาร</li>
               </ol>
             </div>
           </div>
@@ -156,18 +156,18 @@ $res = mysqli_query($conn, $sql);
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title d-inline-block">News List</h3>
+            <h3 class="card-title d-inline-block">รายชื่อข่าวสาร</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <table id="dataTable" class="table table-bordered table-striped w-100 ">
               <thead>
                 <tr>
-                  <th>ID.</th>
-                  <th>Images</th>
-                  <th>Title</th>
-                  <th>Date</th>
-                  <th><a href="form_insert.php" class="btn btn-info"><i class="fas fa-plus-square"></i> Add News</a>
+                  <th>รหัส</th>
+                  <th>รูปภาพ</th>
+                  <th>หัวข้อ</th>
+                  <th>วันที่</th>
+                  <th><a href="form_insert.php" class="btn btn-info"><i class="fas fa-plus-square"></i> เพิ่มข่าวสาร</a>
                   </th>
                 </tr>
               </thead>
@@ -188,10 +188,10 @@ $res = mysqli_query($conn, $sql);
                     <td>
                       <a href="form-edit.php?new_id=<?php echo $row['new_id']; ?>"
                         class="btn btn-sm btn-warning text-white">
-                        <i class="fas fa-edit"></i> edit
+                        <i class="fas fa-edit"></i> แก้ไข
                       </a>
                       <a class="btn btn-sm btn-danger text-white" onclick="deleteNews(<?php echo $row['new_id'] ?>)">
-                        <i class="fas fa-trash-alt"></i> Delete
+                        <i class="fas fa-trash-alt"></i> ลบ
                       </a>
                     </td>
                   </tr>
@@ -249,14 +249,14 @@ $res = mysqli_query($conn, $sql);
   <script>
     function deleteNews(new_id) {
       Swal.fire({
-        title: 'Delete News',
-        text: "Are you sure you want to delete this News?",
+        title: 'ลบข่าวสาร !',
+        text: "คุณแน่ใจหรือไม่ว่าต้องการลบข่าวสารนี้ !",
         type: 'question',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, I am sure!',
-        cancelButtonText: 'No, I am not sure'
+        confirmButtonText: 'ใช่ ฉันแน่ใจ!',
+        cancelButtonText: 'ยกเลิก'
       }).then((result) => {
         if (result.value) {
           window.location.href = "delete.php?new_id=" + new_id;

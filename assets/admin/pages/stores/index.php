@@ -31,7 +31,7 @@ $res = mysqli_query($conn, $sql);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Stores Management</title>
+  <title>การจัดการสินค้า</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
@@ -140,12 +140,12 @@ $res = mysqli_query($conn, $sql);
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Stores Management</h1>
+              <h1>การจัดการสินค้า</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">Stores Management</li>
+                <li class="breadcrumb-item"><a href="../dashboard">แดชบอร์ด</a></li>
+                <li class="breadcrumb-item active">การจัดการสินค้า</li>
               </ol>
             </div>
           </div>
@@ -158,22 +158,21 @@ $res = mysqli_query($conn, $sql);
         <!-- Default box -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title d-inline-block">Stores List</h3>
+            <h3 class="card-title d-inline-block">รายชื่อสินค้า</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <table id="dataTable" class="table table-bordered table-striped w-100 ">
               <thead>
                 <tr>
-                  <th>ID.</th>
-                  <th>Images</th>
-                  <th>ProductTag</th>
-                  <th>ProductNames</th>
-                  <th>Product Code</th>
-                  <th>Product Count</th>
-                  <th>Prices</th>
-                  <th>Date</th>
-                  <th><a href="form_insert.php" class="btn btn-info"><i class="fas fa-plus-square"></i> Add Product</a>
+                  <th>รหัสสินค้า</th>
+                  <th>รูปภาพ</th>
+                  <th>ยี่ห้อ</th>
+                  <th>ชื่อสินค้า</th>
+                  <th>จำนวนสินค้าที่เหลือ</th>
+                  <th>ราคา</th>
+                  <th>วันที่</th>
+                  <th><a href="form_insert.php" class="btn btn-info"><i class="fas fa-plus-square"></i> เพิ่มสินค้า</a>
                   </th>
                 </tr>
               </thead>
@@ -193,9 +192,6 @@ $res = mysqli_query($conn, $sql);
                       <?php echo $row['product_name']; ?>
                     </td>
                     <td>
-                      <?php echo $row['product_code']; ?>
-                    </td>
-                    <td>
                       <?php echo $row['product_count']; ?>
                     </td>
                     <td>
@@ -207,11 +203,11 @@ $res = mysqli_query($conn, $sql);
                     <td>
                       <a href="form-edit.php?product_id=<?php echo $row['product_id']; ?>"
                         class="btn btn-sm btn-warning text-white">
-                        <i class="fas fa-edit"></i> edit
+                        <i class="fas fa-edit"></i> แก้ไข
                       </a>
                       <a class="btn btn-sm btn-danger text-white"
                         onclick="deleteProducts(<?php echo $row['product_id'] ?>)">
-                        <i class="fas fa-trash-alt"></i> Delete
+                        <i class="fas fa-trash-alt"></i> ลบ
                       </a>
                     </td>
                   </tr>
@@ -269,14 +265,14 @@ $res = mysqli_query($conn, $sql);
   <script>
     function deleteProducts(product_id) {
       Swal.fire({
-        title: 'Delete Product',
-        text: "Are you sure you want to delete this product?",
+        title: 'ลบสินค้า !',
+        text: "คุณแน่ใจหรือไม่ว่าต้องการลบสินค้านี้ ?",
         type: 'question',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, I am sure!',
-        cancelButtonText: 'No, I am not sure'
+        confirmButtonText: 'ใช่ ฉันแน่ใจ!',
+        cancelButtonText: 'ยกเลิก'
       }).then((result) => {
         if (result.value) {
           window.location.href = "delete.php?product_id=" + product_id;
