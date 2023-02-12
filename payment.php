@@ -89,50 +89,51 @@ if ($_REQUEST['data'] == 'payment') {
       </center>
     </h3><br>
 
-    <form name="form1" id="form1" action="?data=payment" method="post" enctype="multipart/form-data"
-      onsubmit="return chk_error()">
-      <div class=" form-row">
+    <form name="form1" id="form1" action="?data=payment" method="post" enctype="multipart/form-data">
+      <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="order_number">เลขที่สั่งซื้อ</label>
-          <input type="hidden" class="form-control" id="order_id" name="order_id" readonly placeholder="order_id"
-            value="<?php echo $show['order_id'] ?>">
-          <input type="text" class="form-control" id="order_number" readonly placeholder="order_number"
-            value="<?php echo $show['order_number'] ?>">
+          <label for="order_number">เลขที่คำสั่งซื้อ</label>
+          <input type="hidden" class="form-control" id="order_id" name="order_id"
+            value="<?php echo $show['order_id'] ?>" readonly>
+          <input type="text" class="form-control" id="order_number" value="<?php echo $show['order_number'] ?>"
+            readonly>
         </div>
         <div class="form-group col-md-6">
-          <label for="fullname">ชื่อ-นามสกุล</label>
-          <input type="text" class="form-control" id="fullname" placeholder="fullname"
-            value="<?php echo $_SESSION['mem_fname'] . " " . $_SESSION['mem_lname'] ?>">
+          <label for="fullname">ชื่อ - นามสกุล</label>
+          <input type="text" class="form-control" id="fullname"
+            value="<?php echo $_SESSION['mem_fname'] . " " . $_SESSION['mem_lname'] ?>" readonly>
         </div>
         <div class="form-group col-md-6">
           <label for="pricetotal">จำนวนเงินที่ต้องชำระ</label>
-          <input type="text" class="form-control" id="pricetotal" name="pricetotal" placeholder="pricetotal" <?php
+          <?php
           $totalshipping = $show['order_shipping'];
           $totalsum = $totalshipping + $show['price_total'];
           $_SESSION['totalsum'] = $totalsum;
-          ?> value="<?php echo number_format($totalsum, 2); ?>" readonly>
+          ?>
+          <input type="text" class="form-control" id="pricetotal" name="pricetotal"
+            value="<?php echo number_format($totalsum, 2); ?>" readonly>
         </div>
         <div class="form-group col-md-6">
           <label for="payment_price">จำนวนเงินที่โอน</label>
-          <input type="text" class="form-control" id="payment_price" name="payment_price" placeholder="จำนวนเงินที่โอน"
-            OnChange="JavaScript:chkNum(this)" required>
+          <input type="text" class="form-control" id="payment_price" name="payment_price" onchange="formatPrice(this)"
+            value="0.00" required>
         </div>
         <div class="form-group col-md-6">
           <label for="payment_bank">โอนเข้าธนาคาร</label>
           <select class="form-control" id="payment_bank" name="payment_bank">
-            <option value="ไทยพาณิชย์">ไทยพาณิชย์ (xxx)</option>
-            <option value="กรุงเทพ">กรุงเทพ (xxx)</option>
-            <option value="กสิกร">กสิกร (xxx)</option>
-            <option value="กรุงไทย">กรุงไทย (xxx)</option>
+            <option value="Thai Bank">ธนาคารไทยพาณิชย์ (xxx)</option>
+            <option value="Bangkok Bank">ธนาคารกรุงเทพ (xxx)</option>
+            <option value="Krungsri Bank">ธนาคารกสิกร (xxx)</option>
+            <option value="Krungthai Bank">ธนาคารกรุงไทย (xxx)</option>
           </select>
         </div>
         <div class="form-group col-md-6">
           <label for="file">หลักฐานการโอน</label>
-          <input name="file" type="file" class="file form-control" required>
+          <input type="file" class="form-control" id="file" name="file" required>
         </div>
         <div class="form-group col-md-6">
-          <label for="payment_date">วันที๋โอน</label>
-          <input name="payment_date" type="date" class="form-control" required>
+          <label for="payment_date">วันที่โอน</label>
+          <input type="date" class="form-control" id="payment_date" name="payment_date" required>
         </div>
         <div class="form-group col-md-6">
           <label for="payment_time">เวลาที่โอน</label>
@@ -162,60 +163,81 @@ if ($_REQUEST['data'] == 'payment') {
 
 </html>
 <script>
-  async function chk_pic() {
-    const file = document.form1.file.value;
-    const patt = /(.jpg|.png)/;
-    const result = patt.test(file);
-    if (!result) {
+  async function validateForm() {
+    const form = document.getElementById("form1");
+    const file = form.elements.file.value;
+    const fileExtension = /\.(jpg|png)$/i;
+
+    if (!fileExtension.test(file)) {
       await Swal.fire({
-        title: 'ข้อผิดพลาด!',
-        text: 'กรุณาอัพโหลดเฉพาะไฟล์ jpg,png เท่านั้น !',
-        type: 'error',
-        confirmButtonText: 'ตกลง'
-      });
-      return false;
-    } else if (document.form1.pricetotal.value !== document.form1.payment_price.value) {
-      await Swal.fire({
-        title: 'ข้อผิดพลาด!',
-        text: 'จำนวนเงินที่ชำระไม่ถูกต้อง!',
-        type: 'error',
-        confirmButtonText: 'ตกลง'
+        title: "Error!",
+        text: "Please upload only .jpg or .png files!",
+        type: "error",
+        confirmButtonText: "OK"
       });
       return false;
     }
-    return true;
+
+    const paymentPrice = parseFloat(form.elements.payment_price.value.replace(/,/g, ''));
+    const totalPrice = parseFloat(form.elements.pricetotal.value.replace(/,/g, ''));
+
+    if (isNaN(paymentPrice) || paymentPrice <= 0) {
+      await Swal.fire({
+        title: "Error!",
+        text: "The amount paid is not valid!",
+        type: "error",
+        confirmButtonText: "OK"
+      });
+      return false;
+    }
+
+    if (paymentPrice !== totalPrice) {
+      await Swal.fire({
+        title: "Error!",
+        text: "The amount paid is not correct!",
+        type: "error",
+        confirmButtonText: "OK"
+      });
+      return false;
+    }
+
+    let error = false;
+
+    for (const element of form.elements) {
+      if (!element.value && element.name !== "payment_Detail") {
+        error = true;
+        break;
+      }
+    }
+
+    if (error) {
+      await Swal.fire({
+        title: "Error!",
+        text: "Please fill in all fields before confirming the payment!",
+        type: "error",
+        confirmButtonText: "OK"
+      });
+      return false;
+    }
+
+    const result = await Swal.fire({
+      title: "Confirm Payment?",
+      text: "Are you sure you want to confirm this payment?",
+      type: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No"
+    });
+
+    if (result.isConfirmed) {
+      form.submit();
+    }
   }
 
-  async function chk_error() {
-    const payment_price = parseFloat(document.form1.payment_price.value.replace(/,/g, ''));
-    const pricetotal = parseFloat(document.form1.pricetotal.value.replace(/,/g, ''));
-    if (payment_price <= 1) {
-      alert("จำนวนเงินที่โอนต้องมากกว่า 1 บาท");
-      document.form1.payment_price.focus();
-      return false;
-    }
-    if (isNaN(payment_price) || payment_price <= 0) {
-      await Swal.fire({
-        title: 'ข้อผิดพลาด!',
-        icon: 'error',
-        text: 'จำนวนเงินที่ชำระไม่ถูกต้อง!',
-        type: 'error',
-        confirmButtonText: 'ตกลง'
-      });
-      return true;
-    } else if (pricetotal !== payment_price) {
-      await Swal.fire({
-        title: 'ข้อผิดพลาด!',
-        icon: 'error',
-        text: 'จำนวนเงินที่ชำระไม่ถูกต้อง!',
-        type: 'error',
-        confirmButtonText: 'ตกลง'
-      });
-      return true;
-    } else {
-      return chk_pic();
-    }
-  }
+  document.getElementById("confirm_payment").addEventListener("click", event => {
+    event.preventDefault();
+    validateForm();
+  });
 
   function addCommas(nStr) {
     nStr += '';
@@ -229,47 +251,8 @@ if ($_REQUEST['data'] == 'payment') {
     return x1 + x2;
   }
 
-  function chkNum(ele) {
-    const num = parseFloat(ele.value);
-    ele.value = addCommas(num.toFixed(2));
+  function formatPrice(element) {
+    const num = parseFloat(element.value);
+    element.value = addCommas(num.toFixed(2));
   }
-</script>
-
-<script>
-  document.getElementById("confirm_payment").addEventListener("click", async function (event) {
-    let formData = new FormData(document.getElementById("form1"));
-    let error = false;
-
-    for (const [key, value] of formData.entries()) {
-      if (!value && key !== "payment_Detail") {
-        error = true;
-        break;
-      }
-    }
-
-    if (error) {
-      Swal.fire({
-        title: "ข้อผิดพลาด !",
-        text: "ต้องกรอกทุกช่อง กรุณากรอกข้อมูลให้ครบทุกช่องก่อนยืนยันการชำระเงิน !",
-        icon: "error",
-        confirmButtonText: "ตกลง"
-      });
-      return;
-    }
-
-    const result = await Swal.fire({
-      title: "ยืนยันการชำระเงิน?",
-      icon: "question",
-      text: "คุณแน่ใจหรือไม่ว่าต้องการยืนยันการชำระเงินนี้",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "ใช่, ฉันแน่ใจ!",
-      cancelButtonText: "ไม่, ยกเลิก!"
-    });
-    if (result.isConfirmed) {
-      document.getElementById("form1").submit();
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-    }
-  });
-
 </script>
