@@ -112,21 +112,21 @@ if ($_REQUEST['data'] == 'delete') {
                 $sql = $conn->query("select * from orders where Mem_ID = '$_SESSION[mem_id]'");
                 $i = 1;
                 while ($show = $sql->fetch_assoc()) {
-
+                    
                     if ($show['order_status'] == 0) {
                         $status = '<span class=text-wrning>รอชำระเงิน</span>';
                     } else if ($show['order_status'] == 1) {
-                        $status = '<span class=text-success>ตรวจสอบชำระเงิน</span>';
+                        $status = '<span class=text-warning>ตรวจสอบชำระเงิน</span>';
                     } else if ($show['order_status'] == 2) {
-                        $status = '<span class=text-info>ชำระเงินเรียบร้อย</span>';
+                        $status = '<span class=text-success>ชำระเงินเรียบร้อย</span>';
                     } else if ($show['order_status'] == 3) {
                         $status = '<span class=text-primary>จัดส่งเรียบร้อย</span>';
                     } else if ($show['order_status'] == 4) {
                         $status = '<span class=text-danger>ยกเลิกรายการ</span>';
-                    } else if ($row['order_status'] == 5) {
-                        $status = 'อยู่ระหว่างการส่งสินค้า';
-                    } else if ($row['order_status'] == 6) {
-                        $status = 'หลักฐานการโอนเงินผิด';
+                    } else if ($show['order_status'] == 5) {
+                        $status = '<span class=text-info>อยู่ระหว่างการส่งสินค้า</span>';
+                    } else if ($show['order_status'] == 6) {
+                        $status = '<span class=text-danger>หลักฐานการโอนเงินผิด</span>';
                       }
                     ?>
                     <tr>
