@@ -90,8 +90,8 @@ if ($_REQUEST['data'] == 'payment') {
     </h3><br>
 
     <form name="form1" id="form1" action="?data=payment" method="post" enctype="multipart/form-data"
-      onsubmit="return chk_pic() ">
-      <div class="form-row">
+      onsubmit="return chk_error()">
+      <div class=" form-row">
         <div class="form-group col-md-6">
           <label for="order_number">เลขที่สั่งซื้อ</label>
           <input type="hidden" class="form-control" id="order_id" name="order_id" readonly placeholder="order_id"
@@ -162,78 +162,67 @@ if ($_REQUEST['data'] == 'payment') {
 
 </html>
 <script>
-  function chk_pic() {
-    var file = document.form1.file.value;
-    var patt = /(.jpg|.png)/;
-    var result = patt.test(file);
+  async function chk_pic() {
+    const file = document.form1.file.value;
+    const patt = /(.jpg|.png)/;
+    const result = patt.test(file);
     if (!result) {
-      Swal.fire({
-        title: 'Error!',
-        text: '  กรุณาอัพโหลดเฉพาะไฟล์ jpg,png เท่านั้น！',
+      await Swal.fire({
+        title: 'ข้อผิดพลาด!',
+        text: 'กรุณาอัพโหลดเฉพาะไฟล์ jpg,png เท่านั้น !',
         type: 'error',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'ตกลง'
       });
       return false;
-    } else if (document.form1.pricetotal.value != document.form1.payment_price.value) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'ยอดเงินชำระไม่ถูกต้อง!',
+    } else if (document.form1.pricetotal.value !== document.form1.payment_price.value) {
+      await Swal.fire({
+        title: 'ข้อผิดพลาด!',
+        text: 'จำนวนเงินที่ชำระไม่ถูกต้อง!',
         type: 'error',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'ตกลง'
       });
       return false;
     }
     return true;
   }
-  // function chk_pic(){
-  // 	var file=document.form1.payment_file.value;
-  // 	var patt=/(.jpg|.png)/;
-  // 	var result=patt.test(file);
-  //         if(!result){
-  //           alert('กรุณาอัพโหลดเฉพาะไฟล์ jpg,png เท่านั้น！');
-  //         }else{
-  //           chk_error();
-  //         }
-  //     return result;
-  // }  
 
-  function chk_error() {
-    var payment_price = parseFloat(document.form1.payment_price.value.replace(/,/g, ''));
-    var pricetotal = parseFloat(document.form1.pricetotal.value.replace(/,/g, ''));
+  async function chk_error() {
+    const payment_price = parseFloat(document.form1.payment_price.value.replace(/,/g, ''));
+    const pricetotal = parseFloat(document.form1.pricetotal.value.replace(/,/g, ''));
     if (payment_price <= 1) {
       alert("จำนวนเงินที่โอนต้องมากกว่า 1 บาท");
       document.form1.payment_price.focus();
       return false;
     }
     if (isNaN(payment_price) || payment_price <= 0) {
-      Swal.fire({
-        title: 'Error!',
+      await Swal.fire({
+        title: 'ข้อผิดพลาด!',
         icon: 'error',
-        text: 'จำนวนเงินชำระไม่ถูกต้อง!',
+        text: 'จำนวนเงินที่ชำระไม่ถูกต้อง!',
         type: 'error',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'ตกลง'
       });
       return true;
     } else if (pricetotal !== payment_price) {
-      Swal.fire({
-        title: 'Error!',
+      await Swal.fire({
+        title: 'ข้อผิดพลาด!',
         icon: 'error',
-        text: 'ยอดเงินชำระไม่ถูกต้อง!',
+        text: 'จำนวนเงินที่ชำระไม่ถูกต้อง!',
         type: 'error',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'ตกลง'
       });
       return true;
     } else {
-      chk_pic();
+      return chk_pic();
     }
   }
 
   function addCommas(nStr) {
     nStr += '';
-    x = nStr.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
+    const x = nStr.split('.');
+    let x1 = x[0];
+    const x2 = x.length > 1 ? '.' + x[1] : '';
+    const rgx = /(\d+)(\d{3})/;
     while (rgx.test(x1)) {
       x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
@@ -241,29 +230,46 @@ if ($_REQUEST['data'] == 'payment') {
   }
 
   function chkNum(ele) {
-    var num = parseFloat(ele.value);
+    const num = parseFloat(ele.value);
     ele.value = addCommas(num.toFixed(2));
   }
 </script>
 
 <script>
   document.getElementById("confirm_payment").addEventListener("click", async function (event) {
-    event.preventDefault();
-    // Open the Sweet Alert
+    let formData = new FormData(document.getElementById("form1"));
+    let error = false;
+
+    for (const [key, value] of formData.entries()) {
+      if (!value && key !== "payment_Detail") {
+        error = true;
+        break;
+      }
+    }
+
+    if (error) {
+      Swal.fire({
+        title: "ข้อผิดพลาด !",
+        text: "ต้องกรอกทุกช่อง กรุณากรอกข้อมูลให้ครบทุกช่องก่อนยืนยันการชำระเงิน !",
+        icon: "error",
+        confirmButtonText: "ตกลง"
+      });
+      return;
+    }
+
     const result = await Swal.fire({
       title: "ยืนยันการชำระเงิน?",
-      text: "คุณแน่ใจหรือไม่ว่าต้องการยืนยันยืนยันการชำระเงินนี้",
+      icon: "question",
+      text: "คุณแน่ใจหรือไม่ว่าต้องการยืนยันการชำระเงินนี้",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "ใช่, ฉันแน่ใจ!",
       cancelButtonText: "ไม่, ยกเลิก!"
     });
     if (result.isConfirmed) {
-      // The user clicked the "Confirm" button
       document.getElementById("form1").submit();
     } else if (result.dismiss === Swal.DismissReason.cancel) {
-      // The user clicked the "Cancel" button
-      // Do nothing
     }
   });
+
 </script>
