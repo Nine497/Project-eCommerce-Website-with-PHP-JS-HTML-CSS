@@ -85,25 +85,25 @@ $row = mysqli_fetch_array($res);
             <div class="card-body">
               <div class="form-row">
                 <table>
-
                   <div class="form-group col-md-4">
-                    <label for="product_tag_id">รหัสยี่ห้อ</label>
+                    <label for="product_tag_id">Product Tag ID</label>
                     <input type="hidden" class="form-control" id="product_tag_id" name="product_tag_id"
                       value="<?php echo $row['product_tag_id'] ?>">
+                    <input type="hidden" class="form-control" id="product_tag_old" name="product_tag_old"
+                      value="<?php echo $row['product_tag_name'] ?>">
                     <input type="number" class="form-control" id="product_tag_id" name="product_tag_id"
                       value="<?php echo $row['product_tag_id'] ?>" disabled>
                   </div>
                   <div class="form-group col-md-4">
-                    <label for="product_tag_name">ชื่อยี่ห้อ</label>
+                    <label for="product_tag_name">Product Tag Name</label>
                     <input type="text" class="form-control" id="product_tag_name" name="product_tag_name"
                       value="<?php echo $row['product_tag_name'] ?>">
                   </div>
                   <div class="card-footer col-md-12">
                     <a href="form-edit.php?product_tag_id=<?php echo $row['product_tag_id'] ?>"
-                      class="btn btn-warning float-left">ย้อนกลับ</a>
-                    <input type="submit" name="submit" class="btn btn-primary float-right" value="บันทึกข้อมูล">
+                      class="btn btn-warning float-left">Back</a>
+                    <input type="submit" name="submit" class="btn btn-primary float-right" value="Save">
                   </div>
-
                 </table>
               </div>
             </div>

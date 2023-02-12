@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
 
-    <title>Print Report</title>
+    <title>สรุปยอดขายสินค้า</title>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
         $endDate = new DateTime();
         $endDate = $endDate->format('Y-m-d H:i:s');
     }
-    if ($startDate >= $endDate) {
+    if ($startDate > $endDate) {
         echo '<script>';
         echo "window.location='index.php?do=startdate-end-date_failed';";
         echo '</script>';
@@ -54,7 +54,7 @@ WHERE p.payment_status = 'ชำระเรียบร้อย' AND p.payment
     <html>
 
     <head>
-        <title>Report</title>
+        <title>สรุปยอดขายสินค้า</title>
         <style>
             table {
                 width: 100%;
@@ -85,8 +85,8 @@ WHERE p.payment_status = 'ชำระเรียบร้อย' AND p.payment
 
     <body>
         <h2 class="text-center my-3">WanThetDee Shop</h2>
-        <h3 class="text-center my-3"> Report </h3>
-        <p class="text-center">Report between <strong>วันที่
+        <h3 class="text-center my-3"> สรุปยอดขายสินค้า </h3>
+        <p class="text-center">รายงานสรุปยอดขายสินค้าระหว่าง <strong>วันที่
                 <?php
                 $startDate1 = new DateTime($startDate);
                 $endDate1 = new DateTime($endDate);
@@ -106,12 +106,12 @@ WHERE p.payment_status = 'ชำระเรียบร้อย' AND p.payment
                 <thead class="table-primary">
                     <tr>
                         <th>ลำดับ</th>
-                        <th>Order ID</th>
-                        <th>Member ID</th>
-                        <th>Payment Bank</th>
-                        <th>Payment Date</th>
-                        <th>Order Count</th>
-                        <th>Payment Price</th>
+                        <th>หมายเลขคำสั่งซื้อ</th>
+                        <th>รหัสสมาชิก</th>
+                        <th>ธนาคาร</th>
+                        <th>วันที่โอนเงิน</th>
+                        <th>ยอดขายสินค้า</th>
+                        <th>ยอดรวม</th>
                     </tr>
                 </thead>
                 <tbody>
