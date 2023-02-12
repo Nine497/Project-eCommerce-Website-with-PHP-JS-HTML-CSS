@@ -165,70 +165,75 @@ if ($_REQUEST['data'] == 'payment') {
 <script>
   async function validateForm() {
     const form = document.getElementById("form1");
+    const formElements = Array.from(form.elements);
+
+    // Validate the file extension
     const file = form.elements.file.value;
     const fileExtension = /\.(jpg|png)$/i;
-
     if (!fileExtension.test(file)) {
       await Swal.fire({
-        title: "Error!",
-        text: "Please upload only .jpg or .png files!",
+        title: "เกิดข้อผิดพลาด !",
+        icon: "error",
+        text: "กรุณาอัพโหลดไฟล์ .jpg หรือ .png เท่านั้น!",
         type: "error",
         confirmButtonText: "OK"
       });
       return false;
     }
-
+    // Validate the payment price
     const paymentPrice = parseFloat(form.elements.payment_price.value.replace(/,/g, ''));
     const totalPrice = parseFloat(form.elements.pricetotal.value.replace(/,/g, ''));
-
     if (isNaN(paymentPrice) || paymentPrice <= 0) {
       await Swal.fire({
-        title: "Error!",
-        text: "The amount paid is not valid!",
+        title: "เกิดข้อผิดพลาด !",
+        icon: "error",
+        text: "จำนวนเงินที่โอนไม่ถูกต้อง !",
         type: "error",
-        confirmButtonText: "OK"
+        confirmButtonText: "ตกลง"
       });
       return false;
     }
-
     if (paymentPrice !== totalPrice) {
       await Swal.fire({
-        title: "Error!",
-        text: "The amount paid is not correct!",
+        title: "เกิดข้อผิดพลาด !",
+        icon: "error",
+        text: "จำนวนเงินที่โอนไม่ถูกต้อง !",
         type: "error",
-        confirmButtonText: "OK"
+        confirmButtonText: "ตกลง"
       });
       return false;
     }
 
-    let error = false;
-
-    for (const element of form.elements) {
-      if (!element.value && element.name !== "payment_Detail") {
-        error = true;
-        break;
+    // Check for empty fields
+    const requiredFields = ['payment_price', 'file', 'payment_date', 'payment_time'];
+    const emptyFields = formElements.some(element => {
+      if (requiredFields.includes(element.name) && !element.value) {
+        return true;
       }
-    }
-
-    if (error) {
-      await Swal.fire({
-        title: "Error!",
-        text: "Please fill in all fields before confirming the payment!",
-        type: "error",
-        confirmButtonText: "OK"
-      });
       return false;
-    }
-
-    const result = await Swal.fire({
-      title: "Confirm Payment?",
-      text: "Are you sure you want to confirm this payment?",
-      type: "question",
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No"
     });
 
+    if (emptyFields) {
+      await Swal.fire({
+        title: "เกิดข้อผิดพลาด !",
+        icon: "error",
+        text: "กรุณากรอกข้อมูลให้ครบถ้วนก่อนยืนยันการชำระเงิน !",
+        type: "error",
+        confirmButtonText: "ตกลง"
+      });
+      return false;
+    }
+
+    // Confirm the payment
+    const result = await Swal.fire({
+      title: "ยืนยันการชำระเงิน?",
+      icon: "question",
+      text: "คุณแน่ใจหรือไม่ว่าต้องการยืนยันการชำระเงินนี้ ?",
+      type: "question",
+      showCancelButton: true,
+      confirmButtonText: "ยืนยัน",
+      cancelButtonText: "ยกเลิก"
+    });
     if (result.isConfirmed) {
       form.submit();
     }
