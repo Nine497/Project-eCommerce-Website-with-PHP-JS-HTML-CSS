@@ -63,7 +63,7 @@ $details = mysqli_fetch_array($res);
     <!-- The Modal -->
     <br><br><br><br><br>
     <div class="container">
-        <h2 class="text-center">Product Details</h2>
+        <h2 class="text-center">รายละเอียดสินค้า</h2>
         <br><br>
         <div class="row">
             <div class="col-md-5">
@@ -92,7 +92,7 @@ $details = mysqli_fetch_array($res);
                             required max="<?php echo abs($cart_countresult); ?>" min="1">
                     </div>
                     <?php if ($details['product_count'] != 0) {
-                        echo '<button type="submit" class="btn btn-primary">Add to Cart</button>';
+                        echo '<button type="submit" class="btn btn-primary">เพิ่มไปยังรถเข็น</button>';
                     } else {
                         echo '<button type="submit" class="btn btn-primary" disabled>สินค้าหมด</button>';
                     }

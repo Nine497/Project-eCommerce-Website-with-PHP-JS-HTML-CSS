@@ -88,7 +88,7 @@ if ($_REQUEST['data'] == 'payment') {
     <br>
     <h3>
       <center>
-        <?php echo "PAYMENT" ?>
+        <?php echo "การชำระเงิน" ?>
       </center>
     </h3><br>
 

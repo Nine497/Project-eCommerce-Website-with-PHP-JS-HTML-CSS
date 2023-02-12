@@ -100,11 +100,11 @@ if ($_REQUEST['data'] == 'delete') {
             <table class="table table-striped table-bordered table-hover" id="table_example">
                 <tr>
                     <th>#</th>
-                    <th>ORDER NUMBER</th>
-                    <th>NAME</th>
-                    <th>DATE</th>
-                    <th>STATUS</th>
-                    <th>View Order</th>
+                    <th>หมายเลขออเดอร์</th>
+                    <th>ชื่อ</th>
+                    <th>วันที่สั่งซื้อ</th>
+                    <th>สถานะ</th>
+                    <th>คำสั่งซื้อสินค้า</th>
                     <th>แจ้งชำระเงิน</th>
                     <th>ยกเลิก</th>
                 </tr>
@@ -158,7 +158,7 @@ if ($_REQUEST['data'] == 'delete') {
                         <td style="padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;">
                             <div align="center"><a
                                     href="print_payment.php?order_number=<?php echo $show['order_number']; ?>"
-                                    target="_blank" class="btn btn-primary">View Order</a></div>
+                                    target="_blank" class="btn btn-primary">คำสั่งซื้อสินค้า</a></div>
                         </td>
                         <td style="padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;">
                             <div align="center">
