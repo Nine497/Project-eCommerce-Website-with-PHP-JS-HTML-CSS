@@ -7,14 +7,14 @@ include('includes/function.php') ?>
 <?php
 
 if ($_REQUEST['data'] == 'payment') {
-  $payment_price = $_SESSION['price_totals'];
+  $payment_price = $_SESSION['totalsum'];
   $file = strrchr($_FILES['file']['name'], "."); //ตัดนามสกุลไฟล์เก็บไว้
   $filename = (Date("dmy_His") . $file); //ตั้งเป็น วันที่_เวลา.นามสกุล
   $folder = "assets/image/payments/"; // path folder
   $width = 0; // ความกว้างของภาพ
   $height = 0; // ความยาวของภาพ
   Upload_File($filename, $folder, $width, $height);
-  $sql1 = $conn->query("INSERT INTO `payment` set `payment_id`= '', `order_id`='$_REQUEST[order_id]', `mem_id`= '$_SESSION[mem_id]', `payment_file`='$filename', `payment_price`='$payment_price', `payment_bank`='$_REQUEST[payment_bank]', `payment_Detail`='$_REQUEST[payment_Detail]', `payment_date`='$_REQUEST[payment_date]', `payment_time`='$_REQUEST[payment_time]'");
+  $sql1 = $conn->query("INSERT INTO `payment` set `payment_id`= '', `order_id`='$_REQUEST[order_id]', `mem_id`= '$_SESSION[mem_id]', `payment_file`='$filename', `payment_price`='$payment_price', `payment_bank`='$_REQUEST[payment_bank]', `payment_Detail`='$_REQUEST[payment_Detail]', `payment_date`='$_REQUEST[payment_date]', `payment_time`='$_REQUEST[payment_time]', `payment_status`='ตรวจสอบ'");
   Chk_Insert($sql1, 'รอตรวจสอบชำระเงิน', 'orderhistory.php');
 
   $sql = $conn->query("update orders set order_status = '1' where order_id = '$_REQUEST[order_id]'");
@@ -29,9 +29,6 @@ if ($_REQUEST['data'] == 'payment') {
     echo '</script>';
   }
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,8 +109,8 @@ if ($_REQUEST['data'] == 'payment') {
           <input type="text" class="form-control" id="pricetotal" name="pricetotal" placeholder="pricetotal" <?php
           $totalshipping = $show['order_shipping'];
           $totalsum = $totalshipping + $show['price_total'];
-          ?>
-            value="<?php echo number_format($totalsum, 2); ?>" readonly>
+          $_SESSION['totalsum'] = $totalsum;
+          ?> value="<?php echo number_format($totalsum, 2); ?>" readonly>
         </div>
         <div class="form-group col-md-6">
           <label for="payment_price">จำนวนเงินที่โอน</label>

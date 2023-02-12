@@ -145,7 +145,7 @@ $_SESSION['carttotal'] = $rowcount['carttotal'];
 
           </li>
           <li class="nav-item active">
-            <a class="nav-link " href="php/logout.php"><i class="fas fa-sign-out-alt"></i>
+            <a class="nav-link " href="#" onclick="confirmLogout(); return false;"><i class="fas fa-sign-out-alt"></i>
               <?php echo $signout ?> <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -201,3 +201,24 @@ $_SESSION['carttotal'] = $rowcount['carttotal'];
 <?php include('login.php');
 include('php/changepassword.php');
 include('register.php'); ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+<script>
+  function confirmLogout() {
+    Swal.fire({
+      title: 'ออกจากระบบ ?',
+      icon: 'question',
+      text: 'คุณต้องการที่จะออกจากระบบ ?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ใช่ ออกจากระบบ !',
+      cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+      if (result.value) {
+        window.location = "php/logout.php";
+      }
+    });
+  }
+</script>

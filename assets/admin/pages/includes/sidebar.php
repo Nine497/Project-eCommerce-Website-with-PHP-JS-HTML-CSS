@@ -150,8 +150,8 @@ $row9 = mysqli_fetch_array($res9);
         <!-- dropdown -->
         <li class="nav-header dropdown">การตั้งค่าบัญชี</li>
         <li class="nav-item">
-          <a href="../dashboard/logout.php" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i>
+          <a href="#" class="nav-link" onclick="confirmLogout()">
+            <i class=" fas fa-sign-out-alt"></i>
             <p>ออกจากระบบ</p>
           </a>
         </li>
@@ -160,4 +160,25 @@ $row9 = mysqli_fetch_array($res9);
     <!-- /.sidebar-menu -->
   </div>
   <!-- /.sidebar -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </aside>
+
+<script>
+  function confirmLogout() {
+    Swal.fire({
+      title: 'ออกจากระบบ ?',
+      icon: 'question',
+      text: 'คุณต้องการที่จะออกจากระบบ ?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ใช่ ออกจากระบบ !',
+      cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+      if (result.value) {
+        window.location = "../dashboard/logout.php";
+      }
+    });
+  }
+</script>
