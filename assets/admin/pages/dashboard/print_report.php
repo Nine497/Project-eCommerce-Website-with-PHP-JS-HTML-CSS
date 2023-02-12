@@ -26,6 +26,7 @@
     }
     if (!$endDate) {
         $endDate = new DateTime();
+        $endDate = $endDate->format('Y-m-d H:i:s');
     }
     if ($startDate >= $endDate) {
         echo '<script>';
@@ -93,10 +94,10 @@ WHERE p.payment_status = 'ชำระเรียบร้อย' AND p.payment
                 $startMonth = intval($startDate1->format('m'));
                 echo $startDate1->format('d') . " " . $thai_month_arr[$startMonth] . " " . $startDate1->format('Y');
                 ?>
-            </strong> ถึง  <strong> วันที่ 
+            </strong> ถึง <strong> วันที่
                 <?php
                 $endMonth = intval($endDate1->format('m'));
-                echo $endDate1->format('d') . " " . $thai_month_arr[$endMonth]. " " . $endDate1->format('Y');
+                echo $endDate1->format('d') . " " . $thai_month_arr[$endMonth] . " " . $endDate1->format('Y');
                 ?>
             </strong></p>
 
