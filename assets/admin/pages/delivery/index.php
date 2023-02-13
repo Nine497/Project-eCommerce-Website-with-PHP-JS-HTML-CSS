@@ -211,6 +211,10 @@ $res = mysqli_query($conn, $sql);
                         <button name="" type="button" class="btn btn-sm btn-warning text-white"><i class='fas fa-edit'>
                           </i>อัพเดทการจัดส่ง</button>
                       </a>
+                      <a data-toggle="modal" onclick="PrintAddress(<?php echo $row['order_id']; ?>)">
+                        <button name="" type="button" class="btn btn-sm btn-info text-white"><i class='fas fa-edit'>
+                          </i>พิมพ์ที่อยู่</button>
+                      </a>
                       <a class="btn btn-sm btn-danger text-white" onclick="deletePayment(<?php echo $row['order_id'] ?>)">
                         <i class="fas fa-trash-alt"></i> ลบ</a>
                     </td>
@@ -416,7 +420,42 @@ $res = mysqli_query($conn, $sql);
       }
     });
   </script>
+  <script>
+    function deletePayment(order_id) {
+      Swal.fire({
+        title: 'ลบการคำสั่งซื้อนี้',
+        text: "คุณแน่ใจหรือไม่ว่าต้องการลบคำสั่งซื้อนี้ ?",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'ใช่ ฉันแน่ใจ!',
+        cancelButtonText: 'ไม่ ฉันไม่แน่ใจ'
+      }).then((result) => {
+        if (result.value) {
+          window.location.href = "delete.php?order_id=" + order_id;
+        }
+      })
+    }
+  </script>
 
+  <script>
+    function PrintAddress(order_id) {
+      Swal.fire({
+        title: 'ต้องการปริ้นคำสั่งซื้อนี้',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'ใช่ !',
+        cancelButtonText: 'ยกเลิก'
+      }).then((result) => {
+        if (result.value) {
+          window.location.href = "print_parcel_label.php?order_id=" + order_id;
+        }
+      })
+    }
+  </script>
 </body>
 
 </html>

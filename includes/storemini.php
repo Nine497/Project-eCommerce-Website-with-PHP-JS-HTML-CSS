@@ -98,6 +98,7 @@ $res = mysqli_query($conn, $sql);
       <?php while ($row = mysqli_fetch_array($res)) { ?>
         <div class="col-sm-4 mt-3">
           <div class="card shadow-sm" style="width: 330px; height:480px;">
+            <span class="shopping-mall-tagn">ใหม่ !</span>
             <img src="assets/image/store/<?php echo $row["product_image"] ?>" class="card-img-top" alt="Product image"
               style="height:280px; width:330px">
             <div class="card-body" style="  position: relative;">
@@ -109,7 +110,7 @@ $res = mysqli_query($conn, $sql);
               </p>
 
               <p class="card-text text-success">
-                <?php echo number_format($row['product_price'], 2) ?>บาท
+                <?php echo number_format($row['product_price']) ?> บาท
               </p>
               <div class="d-flex justify-content-between align-items-center">
                 <form action="details_product.php" method="post" style="  position: absolute;bottom: 10px;right: 10px;">
