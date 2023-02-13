@@ -123,7 +123,13 @@ $_SESSION['carttotal'] = $rowcount['carttotal'];
                           <?php echo intval($row['order_count']) . " " . "ชิ้น"; ?>
                         </td>
                         <td style="font-size:14px;width:40px;color:black">
-                          <?php echo number_format($row['product_price'], 2) * intval($row['order_count']) . " " . $baht; ?>
+                          
+                          <?php if (is_numeric($row['product_price']) && is_numeric($row['order_count'])) {
+                            echo number_format($row['product_price'] * intval($row['order_count']), 2) . " บาท";
+                          } else {
+                            echo "Error: non-numeric value encountered.";
+                          }
+                          ?>
                         </td>
                         <td align=center width="20px">
                           <a href="includes/delcart.php?cart_id=<?php echo $row['cart_id'] ?>" class="delcart"

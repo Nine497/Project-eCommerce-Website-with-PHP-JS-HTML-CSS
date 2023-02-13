@@ -114,7 +114,7 @@ if ($_REQUEST['data'] == 'payment') {
             value="<?php echo number_format($totalsum, 2); ?>" readonly>
         </div>
         <div class="form-group col-md-6">
-          <label for="payment_price">จำนวนเงินที่โอน</label>
+          <label for="payment_price">จำนวนเงินที่โอน (จำเป็นต้องใส่)</label>
           <input type="text" class="form-control" id="payment_price" name="payment_price" onchange="formatPrice(this)"
             value="0.00" required>
         </div>
@@ -128,19 +128,19 @@ if ($_REQUEST['data'] == 'payment') {
           </select>
         </div>
         <div class="form-group col-md-6">
-          <label for="file">หลักฐานการโอน</label>
+          <label for="file">หลักฐานการโอน (จำเป็นต้องใส่)</label>
           <input type="file" class="form-control" id="file" name="file" required>
         </div>
         <div class="form-group col-md-6">
-          <label for="payment_date">วันที่โอน</label>
+          <label for="payment_date">วันที่โอน (จำเป็นต้องใส่)</label>
           <input type="date" class="form-control" id="payment_date" name="payment_date" required>
         </div>
         <div class="form-group col-md-6">
-          <label for="payment_time">เวลาที่โอน</label>
+          <label for="payment_time">เวลาที่โอน (จำเป็นต้องใส่)</label>
           <input name="payment_time" type="time" class="form-control" required>
         </div>
         <div class="form-group col-md-12">
-          <label for="payment_Detail">ข้อมูลเพิ่มเติม</label>
+          <label for="payment_Detail">ข้อมูลเพิ่มเติม (ใส่หรือไม่ใส่ก็ได้)</label>
           <textarea name="payment_Detail" class="form-control" rows="5"></textarea>
         </div>
 
