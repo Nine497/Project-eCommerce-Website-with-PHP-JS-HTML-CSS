@@ -147,7 +147,7 @@ $row9 = mysqli_fetch_array($res9);
             <li class="nav-item">
               <a href="../delivery" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>การจัดส่งคำสั่งซื้อ</p>
+                <p>การจัดส่งสินค้า</p>
               </a>
             </li>
           </ul>
