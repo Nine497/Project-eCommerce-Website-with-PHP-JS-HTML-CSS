@@ -64,7 +64,7 @@
   <!-- Footer Text -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3 bg-light text-dark font-weight-bold">© 2020 Copyright:
+  <div class="footer-copyright text-center py-3 bg-light text-dark font-weight-bold">© 2023 Copyright:
     <a class="text-dark"> Sumat & Ratapumin</a>
   </div>
   <!-- Copyright -->
