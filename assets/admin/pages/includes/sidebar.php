@@ -15,7 +15,7 @@ if (!isset($_SESSION["mem_id"])) {
   header("location: login.php");
   exit;
 }
-if ($_SESSION["mem_status"] != "admin") {
+if ($_SESSION["mem_status"] == "user") {
   header("location: login.php");
   exit;
 }
@@ -60,9 +60,11 @@ $row9 = mysqli_fetch_array($res9);
           <?php echo $_SESSION['mem_fname'] ?>
           <?php echo $_SESSION['mem_lname'] ?>
         </a>
-        <p class="d-block h6 mb-0 text-white" style="display:inline-block;">ตำแหน่ง :
+        <p class="d-block h6 mb-0 text-white" style="display:inline-block;padding-bottom:5px;">ตำแหน่ง :
           <?php if ($_SESSION['mem_status'] == "admin") {
             echo "Administrator";
+          } else {
+            echo "Employee";
           }
           ?>
         </p>
@@ -76,17 +78,20 @@ $row9 = mysqli_fetch_array($res9);
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item">
-          <a href="../dashboard" class="nav-link <?php echo $name == 'dashboard' ? 'active' : '' ?>">
-            <i class="fas fa-tachometer-alt nav-icon"></i>
-            <p>แดชบอร์ด</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="../members" class="nav-link <?php echo $name == 'members' ? 'active' : '' ?>">
-            <i class="fas fa-users-cog nav-icon"></i>
-            <p>จัดการสมาชิก</p>
-          </a>
+        <?php if ($_SESSION["mem_status"] == 'admin') { ?>
+          <li class="nav-item">
+            <a href="../dashboard" class="nav-link <?php echo $name == 'dashboard' ? 'active' : '' ?>">
+              <i class="fas fa-tachometer-alt nav-icon"></i>
+              <p>แดชบอร์ด</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../members" class="nav-link <?php echo $name == 'members' ? 'active' : '' ?>">
+              <i class="fas fa-users-cog nav-icon"></i>
+              <p>จัดการสมาชิก</p>
+            </a>
+          </li>
+        <?php } ?>
         <li class="nav-item">
           <a href="../stores" class="nav-link <?php echo $name == 'stores' ? 'active' : '' ?>">
             <i class="fas fa-store nav-icon"></i>

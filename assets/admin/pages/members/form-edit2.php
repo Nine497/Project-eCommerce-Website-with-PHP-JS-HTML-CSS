@@ -122,13 +122,17 @@
                     $row2 = mysqli_fetch_assoc($rese2);
                     $admin = "";
                     $user = "";
+                    $employee = "";
                     if ($row2['mem_status'] == "admin") {
                       $admin = "selected";
-                    } else {
+                    } else if ($row2['mem_status'] == "user") {
                       $user = "selected";
+                    } else {
+                      $employee = "selected";
                     }
                     ?>
                     <option value="user" <?php echo $user ?>>User</option>
+                    <option value="employee" <?php echo $employee ?>>Employee</option>
                     <option value="admin" <?php echo $admin ?>>Admin</option>
                   </select>
                   <?php

@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) { //เช็คการกดSubmit
 			$_SESSION["mem_status"] = $row["mem_status"];
 			$_SESSION['mem_address'] = $row["mem_address"];
 
-			if ($_SESSION["mem_status"] == "admin") {
+			if ($_SESSION["mem_status"] == 'admin' || $_SESSION["mem_status"] == 'employee') {
 				header("location:../assets/admin/pages/index.php");
 			} else {
 				echo '<script>';

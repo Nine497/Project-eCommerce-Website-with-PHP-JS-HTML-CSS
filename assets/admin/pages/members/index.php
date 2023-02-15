@@ -70,17 +70,25 @@ $res = mysqli_query($conn, $sql);
   <?php
   if (isset($_GET['do'])) {
     if ($_GET['do'] == 'success') {
-      echo '<script type="text/javascript">
-        Swal.fire({
-            title: "แก้ไขข้อมูลผู้ใช้เสร็จสิ้น",
-            icon: "success",
-            text: "การแก้ไขข้อมูลผู้ใช้สำเร็จ",
-            type: "success"
-        })        
-        setTimeout(function(){
-          window.history.pushState({}, "", window.location.href.split("?")[0]);
-      }, 1000);
-        </script>';
+      $sql1 = "SELECT mem_status FROM members WHERE mem_id = {$_SESSION['mem_id']}";
+      $res1 = mysqli_query($conn, $sql1);
+      $row5 = mysqli_fetch_assoc($res1);
+      if ($row5['mem_status'] == 'admin') {
+        echo '<script type="text/javascript">
+          Swal.fire({
+              title: "แก้ไขข้อมูลผู้ใช้เสร็จสิ้น",
+              icon: "success",
+              text: "การแก้ไขข้อมูลผู้ใช้สำเร็จ",
+              type: "success"
+          })        
+          setTimeout(function(){
+            window.history.pushState({}, "", window.location.href.split("?")[0]);
+          }, 1000);
+          </script>';
+      } else {
+        session_destroy();
+        header('location:../../../../index.php');
+      }
     } else if ($_GET['do'] == 'failed') {
       echo '<script type="text/javascript">
         Swal.fire({
@@ -190,11 +198,16 @@ $res = mysqli_query($conn, $sql);
                     </td>
                     <td>
                       <h5><label class="<?php if ($row['mem_status'] == "admin") {
+                        echo "badge badge-Danger";
+                      } else if ($row['mem_status'] == "employee") {
+                        echo "badge badge-info";
+                      } else if ($row['mem_status'] == "user") {
                         echo "badge badge-success";
                       } else {
-                        echo "badge badge-info";
+                        echo "badge badge-secondary";
                       } ?>">
                           <?php echo $row['mem_status']; ?> </label></h5>
+
                     </td>
                     <td>
                       <a href="form-edit.php?mem_id=<?php echo $row['mem_id']; ?>"

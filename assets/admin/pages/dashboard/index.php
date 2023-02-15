@@ -117,7 +117,7 @@ include_once('../../connect.php'); ?>
                   <div class="small-box bg-info">
                     <div class="inner">
                       <h3>
-                        <?php $sql = "SELECT COUNT(*) as summember FROM `members` WHERE mem_status = 'user' ";
+                        <?php $sql = "SELECT COUNT(*) as summember FROM `members`";
                         $res = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_array($res);
                         ?>

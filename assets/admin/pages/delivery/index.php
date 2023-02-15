@@ -207,17 +207,26 @@ $res = mysqli_query($conn, $sql);
                       <?php echo $row['order_date']; ?>
                     </td>
                     <td>
-                      <a data-toggle="modal" data-target="#status<?php echo $row['order_id']; ?>">
-                        <button name="" type="button" class="btn btn-sm btn-warning text-white"><i class='fas fa-edit'>
-                          </i>อัพเดทการจัดส่ง</button>
-                      </a>
-                      <a data-toggle="modal" onclick="PrintAddress(<?php echo $row['order_id']; ?>)">
-                        <button name="" type="button" class="btn btn-sm btn-info text-white"><i class='fas fa-edit'>
-                          </i>พิมพ์ที่อยู่</button>
-                      </a>
-                      <a class="btn btn-sm btn-danger text-white" onclick="deletePayment(<?php echo $row['order_id'] ?>)">
-                        <i class="fas fa-trash-alt"></i> ลบ</a>
+                      <div style="display: inline-block; margin: 5px;">
+                        <a data-toggle="modal" data-target="#status<?php echo $row['order_id']; ?>">
+                          <button name="" type="button" class="btn btn-sm btn-warning text-white"><i
+                              class='fas fa-edit'></i>อัพเดทการจัดส่ง</button>
+                        </a>
+                      </div>
+                      <div style="display: inline-block; margin: 5px;">
+                        <a data-toggle="modal" onclick="PrintAddress(<?php echo $row['order_id']; ?>)">
+                          <button name="" type="button" class="btn btn-sm btn-info text-white"><i
+                              class='fas fa-edit'></i>พิมพ์ที่อยู่</button>
+                        </a>
+                      </div>
+                      <div style="display: inline-block; margin: 5px;">
+                        <a class="btn btn-sm btn-danger text-white"
+                          onclick="deletePayment(<?php echo $row['order_id'] ?>)">
+                          <i class="fas fa-trash-alt"></i> ลบ
+                        </a>
+                      </div>
                     </td>
+
                   </tr>
 
                   <div class="modal fade" id="status<?php echo $row['order_id']; ?>" tabindex="-1" role="dialog"
